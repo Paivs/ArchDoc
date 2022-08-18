@@ -8,5 +8,9 @@ public class DocManager {
         
         connect connect = new connect();
         Connection conexao = connect.connectionMySql();
+
+        System.out.println("é viado");
+        System.out.println("teu cu");
+
     }
 }
