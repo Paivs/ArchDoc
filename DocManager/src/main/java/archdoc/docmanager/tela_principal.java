@@ -31,112 +31,118 @@ public class tela_principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
-        jLabel1 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        pane_telaprincipal = new javax.swing.JDesktopPane();
+        logo = new javax.swing.JLabel();
+        menu = new javax.swing.JMenuBar();
+        menu_usuario = new javax.swing.JMenu();
+        menuitem_login = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        menu_opcoes = new javax.swing.JMenu();
+        menuitem_sobre = new javax.swing.JMenuItem();
+        menuitem_ajuda = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\super\\Downloads\\Group 4 (2).png")); // NOI18N
-        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        logo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        logo.setIcon(new javax.swing.ImageIcon("C:\\Users\\super\\Downloads\\Group 4 (2).png")); // NOI18N
+        logo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pane_telaprincipal.setLayer(logo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pane_telaprincipalLayout = new javax.swing.GroupLayout(pane_telaprincipal);
+        pane_telaprincipal.setLayout(pane_telaprincipalLayout);
+        pane_telaprincipalLayout.setHorizontalGroup(
+            pane_telaprincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pane_telaprincipalLayout.createSequentialGroup()
                 .addContainerGap(200, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(200, 200, 200))
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+        pane_telaprincipalLayout.setVerticalGroup(
+            pane_telaprincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pane_telaprincipalLayout.createSequentialGroup()
                 .addContainerGap(200, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(200, 200, 200))
         );
 
-        jMenuBar1.setBackground(new java.awt.Color(0, 0, 0));
+        menu.setBackground(new java.awt.Color(0, 0, 0));
 
-        jMenu1.setText("Usuário");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+        menu_usuario.setText("Usuário");
+        menu_usuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menu_usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
+                menu_usuarioActionPerformed(evt);
             }
         });
 
-        jMenuItem3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem3.setText("Login");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        menuitem_login.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuitem_login.setText("Login");
+        menuitem_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                menuitem_loginActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        menu_usuario.add(menuitem_login);
 
-        jMenuBar1.add(jMenu1);
+        menu.add(menu_usuario);
 
-        jMenu2.setText("Opções");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenu1.setText("|");
+        jMenu1.setEnabled(false);
+        jMenu1.setFocusable(false);
+        menu.add(jMenu1);
 
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem1.setText("Sobre");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        menu_opcoes.setText("Opções");
+        menu_opcoes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        menuitem_sobre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuitem_sobre.setText("Sobre");
+        menuitem_sobre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menuitem_sobreActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem1);
+        menu_opcoes.add(menuitem_sobre);
 
-        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem2.setText("Ajuda");
-        jMenu2.add(jMenuItem2);
+        menuitem_ajuda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuitem_ajuda.setText("Ajuda");
+        menu_opcoes.add(menuitem_ajuda);
 
-        jMenuBar1.add(jMenu2);
+        menu.add(menu_opcoes);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(pane_telaprincipal)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(pane_telaprincipal)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void menuitem_sobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitem_sobreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_menuitem_sobreActionPerformed
 
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+    private void menu_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_usuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu1ActionPerformed
+    }//GEN-LAST:event_menu_usuarioActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void menuitem_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitem_loginActionPerformed
         // TODO add your handling code here:
-        telaCadUser = new tela_login(jDesktopPane1, jMenuBar1, jMenuItem1);
-        jDesktopPane1.add(telaCadUser);
+        telaCadUser = new tela_login(pane_telaprincipal, menu, menuitem_sobre);
+        pane_telaprincipal.add(telaCadUser);
         telaCadUser.setVisible(true);
         
         
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_menuitem_loginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,13 +181,14 @@ public class tela_principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JLabel logo;
+    private javax.swing.JMenuBar menu;
+    private javax.swing.JMenu menu_opcoes;
+    private javax.swing.JMenu menu_usuario;
+    private javax.swing.JMenuItem menuitem_ajuda;
+    private javax.swing.JMenuItem menuitem_login;
+    private javax.swing.JMenuItem menuitem_sobre;
+    private javax.swing.JDesktopPane pane_telaprincipal;
     // End of variables declaration//GEN-END:variables
 }
