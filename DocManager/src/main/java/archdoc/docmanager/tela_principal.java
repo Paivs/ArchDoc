@@ -16,6 +16,8 @@ public class tela_principal extends javax.swing.JFrame {
      * Creates new form tela_inicial
      */
     tela_login telaCadUser;
+    javax.swing.JFrame frame;
+    
     
     public tela_principal() {
         initComponents();
@@ -33,11 +35,11 @@ public class tela_principal extends javax.swing.JFrame {
 
         pane_telaprincipal = new javax.swing.JDesktopPane();
         logo = new javax.swing.JLabel();
-        menu = new javax.swing.JMenuBar();
-        menu_usuario = new javax.swing.JMenu();
+        menu_telaprincipal = new javax.swing.JMenuBar();
+        menuprincipal_usuario = new javax.swing.JMenu();
         menuitem_login = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        menu_opcoes = new javax.swing.JMenu();
+        menuprincipal_opcoes = new javax.swing.JMenu();
         menuitem_sobre = new javax.swing.JMenuItem();
         menuitem_ajuda = new javax.swing.JMenuItem();
 
@@ -66,13 +68,13 @@ public class tela_principal extends javax.swing.JFrame {
                 .addGap(200, 200, 200))
         );
 
-        menu.setBackground(new java.awt.Color(0, 0, 0));
+        menu_telaprincipal.setBackground(new java.awt.Color(0, 0, 0));
 
-        menu_usuario.setText("Usuário");
-        menu_usuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        menu_usuario.addActionListener(new java.awt.event.ActionListener() {
+        menuprincipal_usuario.setText("Usuário");
+        menuprincipal_usuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuprincipal_usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_usuarioActionPerformed(evt);
+                menuprincipal_usuarioActionPerformed(evt);
             }
         });
 
@@ -83,17 +85,17 @@ public class tela_principal extends javax.swing.JFrame {
                 menuitem_loginActionPerformed(evt);
             }
         });
-        menu_usuario.add(menuitem_login);
+        menuprincipal_usuario.add(menuitem_login);
 
-        menu.add(menu_usuario);
+        menu_telaprincipal.add(menuprincipal_usuario);
 
         jMenu1.setText("|");
         jMenu1.setEnabled(false);
         jMenu1.setFocusable(false);
-        menu.add(jMenu1);
+        menu_telaprincipal.add(jMenu1);
 
-        menu_opcoes.setText("Opções");
-        menu_opcoes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuprincipal_opcoes.setText("Opções");
+        menuprincipal_opcoes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         menuitem_sobre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         menuitem_sobre.setText("Sobre");
@@ -102,15 +104,15 @@ public class tela_principal extends javax.swing.JFrame {
                 menuitem_sobreActionPerformed(evt);
             }
         });
-        menu_opcoes.add(menuitem_sobre);
+        menuprincipal_opcoes.add(menuitem_sobre);
 
         menuitem_ajuda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         menuitem_ajuda.setText("Ajuda");
-        menu_opcoes.add(menuitem_ajuda);
+        menuprincipal_opcoes.add(menuitem_ajuda);
 
-        menu.add(menu_opcoes);
+        menu_telaprincipal.add(menuprincipal_opcoes);
 
-        setJMenuBar(menu);
+        setJMenuBar(menu_telaprincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,19 +133,18 @@ public class tela_principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menuitem_sobreActionPerformed
 
-    private void menu_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_usuarioActionPerformed
+    private void menuprincipal_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuprincipal_usuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_menu_usuarioActionPerformed
+    }//GEN-LAST:event_menuprincipal_usuarioActionPerformed
 
     private void menuitem_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitem_loginActionPerformed
         // TODO add your handling code here:
-        telaCadUser = new tela_login(pane_telaprincipal, menu, menuitem_sobre);
+        telaCadUser = new tela_login(pane_telaprincipal);
         pane_telaprincipal.add(telaCadUser);
         telaCadUser.setVisible(true);
-        
-        
     }//GEN-LAST:event_menuitem_loginActionPerformed
 
+    
     /**
      * @param args the command line arguments
      */
@@ -153,6 +154,7 @@ public class tela_principal extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -178,17 +180,19 @@ public class tela_principal extends javax.swing.JFrame {
                 new tela_principal().setVisible(true);
             }
         });
+        
+ 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JLabel logo;
-    private javax.swing.JMenuBar menu;
-    private javax.swing.JMenu menu_opcoes;
-    private javax.swing.JMenu menu_usuario;
+    private javax.swing.JMenuBar menu_telaprincipal;
     private javax.swing.JMenuItem menuitem_ajuda;
     private javax.swing.JMenuItem menuitem_login;
     private javax.swing.JMenuItem menuitem_sobre;
+    private javax.swing.JMenu menuprincipal_opcoes;
+    private javax.swing.JMenu menuprincipal_usuario;
     private javax.swing.JDesktopPane pane_telaprincipal;
     // End of variables declaration//GEN-END:variables
 }

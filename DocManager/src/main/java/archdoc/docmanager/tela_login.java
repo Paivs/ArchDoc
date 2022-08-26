@@ -3,30 +3,31 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package archdoc.docmanager;
+import java.awt.Frame;
 import java.awt.event.ComponentListener;
 import javax.swing.JDesktopPane;
 import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
-
+import javax.swing.JFrame;
 /**
  *
  * @author super
  */
 public class tela_login extends javax.swing.JInternalFrame {
 
+        
     /**
      * Creates new form tela_login
      */
     JDesktopPane telaPrincipal;
-    JMenuBar menuBar;
-    JMenuItem item1;
+    boolean fezLogin = false;
     
-    public tela_login(JDesktopPane telaPrincipal, JMenuBar menuBar, JMenuItem item1) {
+    
+    public tela_login(JDesktopPane telaPrincipal) {
         initComponents();
         
         this.telaPrincipal = telaPrincipal;
-        this.menuBar = menuBar;
-        this.item1 = item1;
+      
         
         int lDesk = telaPrincipal.getWidth();  
 	int aDesk = telaPrincipal.getHeight();  
@@ -133,9 +134,25 @@ public class tela_login extends javax.swing.JInternalFrame {
 
     private void botao_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_entrarActionPerformed
         // TODO add your handling code here
+            tela_trabalho trab = new tela_trabalho();
             dispose();
-     
+            trab.setVisible(true);
+            this.fezLogin = true;
+            
+            for(Frame v : tela_principal.getFrames()){
+                   if(v.getName().equals("frame0")) v.dispose();
+            }
     }//GEN-LAST:event_botao_entrarActionPerformed
+
+    public boolean isFezLogin() {
+        return fezLogin;
+    }
+
+    public void setFezLogin(boolean fezLogin) {
+        this.fezLogin = fezLogin;
+    }
+
+    
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
