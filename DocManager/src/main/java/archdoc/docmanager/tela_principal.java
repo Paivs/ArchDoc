@@ -4,6 +4,7 @@
  */
 package archdoc.docmanager;
 
+import java.sql.Connection;
 import javax.swing.JDesktopPane;
 
 /**
@@ -17,11 +18,14 @@ public class tela_principal extends javax.swing.JFrame {
      */
     tela_login telaCadUser;
     javax.swing.JFrame frame;
-    
+    connect connect = new connect();
+    Connection conexao;
     
     public tela_principal() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
+        conexao = connect.connectionMySql();
+
     }
 
     /**
@@ -139,7 +143,7 @@ public class tela_principal extends javax.swing.JFrame {
 
     private void menuitem_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitem_loginActionPerformed
         // TODO add your handling code here:
-        telaCadUser = new tela_login(pane_telaprincipal);
+        telaCadUser = new tela_login(pane_telaprincipal, conexao);
         pane_telaprincipal.add(telaCadUser);
         telaCadUser.setVisible(true);
     }//GEN-LAST:event_menuitem_loginActionPerformed

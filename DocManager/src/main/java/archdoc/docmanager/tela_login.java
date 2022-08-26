@@ -5,6 +5,7 @@
 package archdoc.docmanager;
 import java.awt.Frame;
 import java.awt.event.ComponentListener;
+import java.sql.Connection;
 import javax.swing.JDesktopPane;
 import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
@@ -21,13 +22,16 @@ public class tela_login extends javax.swing.JInternalFrame {
      */
     JDesktopPane telaPrincipal;
     boolean fezLogin = false;
+    Connection conexao;
+    connect criaBD;
     
     
-    public tela_login(JDesktopPane telaPrincipal) {
+    public tela_login(JDesktopPane telaPrincipal, Connection conexao) {
         initComponents();
         
         this.telaPrincipal = telaPrincipal;
-      
+        this.conexao = conexao;
+        criaBD = new connect();
         
         int lDesk = telaPrincipal.getWidth();  
 	int aDesk = telaPrincipal.getHeight();  
@@ -57,6 +61,12 @@ public class tela_login extends javax.swing.JInternalFrame {
         campo_senha = new javax.swing.JPasswordField();
 
         pane_telalogin.setBackground(new java.awt.Color(153, 153, 153));
+
+        campo_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campo_usuarioActionPerformed(evt);
+            }
+        });
 
         label_usuario.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         label_usuario.setText("Usuário");
@@ -134,15 +144,27 @@ public class tela_login extends javax.swing.JInternalFrame {
 
     private void botao_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_entrarActionPerformed
         // TODO add your handling code here
-            tela_trabalho trab = new tela_trabalho();
+        
+        char[] password = campo_senha.getPassword();
+        
+        criaBD.insertData(conexao, campo_usuario.getText(), String.valueOf(password));
+        
+        /*
+        tela_trabalho trab = new tela_trabalho();
             dispose();
             trab.setVisible(true);
+
             this.fezLogin = true;
             
             for(Frame v : tela_principal.getFrames()){
                    if(v.getName().equals("frame0")) v.dispose();
             }
+            */
     }//GEN-LAST:event_botao_entrarActionPerformed
+
+    private void campo_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_usuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campo_usuarioActionPerformed
 
     public boolean isFezLogin() {
         return fezLogin;

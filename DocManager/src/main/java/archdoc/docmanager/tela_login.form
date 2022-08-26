@@ -85,6 +85,9 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JTextField" name="campo_usuario">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_usuarioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="label_usuario">
           <Properties>
