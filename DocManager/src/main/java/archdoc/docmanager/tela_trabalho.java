@@ -4,8 +4,6 @@
  */
 package archdoc.docmanager;
 
-import javax.swing.JDesktopPane;
-
 /**
  *
  * @author super
@@ -20,6 +18,10 @@ public class tela_trabalho extends javax.swing.JFrame {
     public tela_trabalho() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
+	
+	tiposArquivos popup_tiposArquivos = new tiposArquivos(pane_telaprincipal);
+	pane_telaprincipal.add(popup_tiposArquivos);
+	popup_tiposArquivos.setVisible(true);
     }
 
     /**

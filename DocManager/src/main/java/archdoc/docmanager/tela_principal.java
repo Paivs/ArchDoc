@@ -143,9 +143,17 @@ public class tela_principal extends javax.swing.JFrame {
 
     private void menuitem_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitem_loginActionPerformed
         // TODO add your handling code here:
-        telaCadUser = new tela_login(pane_telaprincipal, conexao);
-        pane_telaprincipal.add(telaCadUser);
-        telaCadUser.setVisible(true);
+	try{
+	    if(!telaCadUser.isVisible()){
+		telaCadUser = new tela_login(pane_telaprincipal, conexao);
+		pane_telaprincipal.add(telaCadUser);
+		telaCadUser.setVisible(true);
+	    }
+	} catch(Exception e) { 
+	    telaCadUser = new tela_login(pane_telaprincipal, conexao);
+	    pane_telaprincipal.add(telaCadUser);
+	    telaCadUser.setVisible(true);
+	}
     }//GEN-LAST:event_menuitem_loginActionPerformed
 
     

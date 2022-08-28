@@ -147,10 +147,8 @@ public class tela_login extends javax.swing.JInternalFrame {
         
         char[] password = campo_senha.getPassword();
         
-        criaBD.insertData(conexao, campo_usuario.getText(), String.valueOf(password));
-        
-        /*
-        tela_trabalho trab = new tela_trabalho();
+        if(criaBD.checkUser(conexao, campo_usuario.getText(), String.valueOf(password))){
+	    tela_trabalho trab = new tela_trabalho();
             dispose();
             trab.setVisible(true);
 
@@ -159,7 +157,7 @@ public class tela_login extends javax.swing.JInternalFrame {
             for(Frame v : tela_principal.getFrames()){
                    if(v.getName().equals("frame0")) v.dispose();
             }
-            */
+	}
     }//GEN-LAST:event_botao_entrarActionPerformed
 
     private void campo_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_usuarioActionPerformed

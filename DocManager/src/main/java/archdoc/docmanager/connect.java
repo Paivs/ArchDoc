@@ -1,6 +1,9 @@
 package archdoc.docmanager;
 import java.sql.*;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
+
+
 public class connect {
     private static Connection conexao_MySql = null;
     private static String localBD = "localhost";
@@ -23,21 +26,35 @@ public class connect {
     }
     
     //Função para inserção de login no BD
-    public void insertData(Connection con, String name, String password){
+    public boolean checkUser(Connection con, String name, String password){
         boolean login = false;
         ResultSet rs = null;
+	String resultado = "";
         try{
             pst = con.prepareStatement("select name, password from user where name = \"" + name + "\" and password = \"" + password + "\";");
             rs = pst.executeQuery();
             
-            while(rs.next()){
-                System.out.println("User: " + rs.getString(1) + " Senha: " + rs.getString(2));
-            }
-           
-
-        }catch(Exception e){
-            System.out.println(e);
-        }
+            while(rs.next()) resultado = "User: " + rs.getString(1) + " Senha: " + rs.getString(2);
+        }catch(Exception e) { 
+	    resultado = "Erro";
+	}
+	
+	switch(resultado){
+	    case "":
+		JOptionPane.showMessageDialog(null, "Erro ao validar suas credenciais");
+		login = false;
+	    break;
+	    
+	    case "Erro":
+		JOptionPane.showMessageDialog(null, "Erro no Banco de Dados");
+		login = false;
+	    break;
+	    
+	    default:
+		login = true;
+	}
+	
+	return login;
         
                     
     } 
