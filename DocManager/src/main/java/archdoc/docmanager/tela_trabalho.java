@@ -13,15 +13,18 @@ public class tela_trabalho extends javax.swing.JFrame {
     /**
      * Creates new form tela_inicial
      */
-    tela_login telaCadUser;
     
     public tela_trabalho() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
 	
-	tiposArquivos popup_tiposArquivos = new tiposArquivos(pane_telaprincipal);
-	pane_telaprincipal.add(popup_tiposArquivos);
-	popup_tiposArquivos.setVisible(true);
+	tela_trabalho1 trabalhoNovo = new tela_trabalho1();
+	pane_telaprincipal.add(trabalhoNovo);
+	trabalhoNovo.setVisible(true);
+	
+	tela_trabalho2 trabalhoAtual = new tela_trabalho2();
+	pane_telaprincipal.add(trabalhoAtual);
+	trabalhoAtual.setVisible(true);
     }
 
     /**
@@ -46,6 +49,9 @@ public class tela_trabalho extends javax.swing.JFrame {
         menutrabalho_workpath = new javax.swing.JMenu();
         menutrabalho_separador5 = new javax.swing.JMenu();
         menutrabalho_opcoes = new javax.swing.JMenu();
+        menuItem_Tipos = new javax.swing.JMenuItem();
+        menuitem_sobre = new javax.swing.JMenuItem();
+        menuitem_ajuda = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,7 +66,6 @@ public class tela_trabalho extends javax.swing.JFrame {
             .addGap(0, 603, Short.MAX_VALUE)
         );
 
-        menutrabalho_logo.setIcon(new javax.swing.ImageIcon("C:\\Users\\super\\Downloads\\logo (1).png")); // NOI18N
         menutrabalho_logo.setText("AD.LMTD");
         menutrabalho_logo.setFocusable(false);
         menutrabalho_logo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -109,6 +114,34 @@ public class tela_trabalho extends javax.swing.JFrame {
 
         menutrabalho_opcoes.setText("Opções");
         menutrabalho_opcoes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        menuItem_Tipos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuItem_Tipos.setText("Configurar tipos");
+        menuItem_Tipos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuItem_TiposMouseClicked(evt);
+            }
+        });
+        menuItem_Tipos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItem_TiposActionPerformed(evt);
+            }
+        });
+        menutrabalho_opcoes.add(menuItem_Tipos);
+
+        menuitem_sobre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuitem_sobre.setText("Sobre");
+        menuitem_sobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuitem_sobreActionPerformed(evt);
+            }
+        });
+        menutrabalho_opcoes.add(menuitem_sobre);
+
+        menuitem_ajuda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuitem_ajuda.setText("Ajuda");
+        menutrabalho_opcoes.add(menuitem_ajuda);
+
         menu_telatrabalho.add(menutrabalho_opcoes);
 
         setJMenuBar(menu_telatrabalho);
@@ -127,6 +160,21 @@ public class tela_trabalho extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void menuitem_sobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitem_sobreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuitem_sobreActionPerformed
+
+    private void menuItem_TiposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuItem_TiposMouseClicked
+        // TODO add your handling code here
+    }//GEN-LAST:event_menuItem_TiposMouseClicked
+
+    private void menuItem_TiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_TiposActionPerformed
+        // TODO add your handling code here:
+	tiposArquivos popup_tiposArquivos = new tiposArquivos(pane_telaprincipal);
+	pane_telaprincipal.add(popup_tiposArquivos);
+	popup_tiposArquivos.setVisible(true);
+    }//GEN-LAST:event_menuItem_TiposActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,7 +215,10 @@ public class tela_trabalho extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem menuItem_Tipos;
     private javax.swing.JMenuBar menu_telatrabalho;
+    private javax.swing.JMenuItem menuitem_ajuda;
+    private javax.swing.JMenuItem menuitem_sobre;
     private javax.swing.JMenu menutrabalho_exportar;
     private javax.swing.JMenu menutrabalho_logo;
     private javax.swing.JMenu menutrabalho_novoarquivo;
