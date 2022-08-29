@@ -4,6 +4,9 @@
  */
 package archdoc.docmanager;
 
+import java.awt.Desktop;
+import java.io.File;
+
 /**
  *
  * @author super
@@ -13,6 +16,10 @@ public class tela_trabalho extends javax.swing.JFrame {
     /**
      * Creates new form tela_inicial
      */
+    
+    private String htmlSobre = System.getProperty("user.dir") + "\\HTML\\Sobre\\index.html";
+    private String htmlAjuda = System.getProperty("user.dir") + "\\HTML\\Ajuda\\index.html";
+    private tiposArquivos popup_tiposArquivos;
     
     public tela_trabalho() {
         initComponents();
@@ -140,6 +147,11 @@ public class tela_trabalho extends javax.swing.JFrame {
 
         menuitem_ajuda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         menuitem_ajuda.setText("Ajuda");
+        menuitem_ajuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuitem_ajudaActionPerformed(evt);
+            }
+        });
         menutrabalho_opcoes.add(menuitem_ajuda);
 
         menu_telatrabalho.add(menutrabalho_opcoes);
@@ -163,6 +175,13 @@ public class tela_trabalho extends javax.swing.JFrame {
 
     private void menuitem_sobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitem_sobreActionPerformed
         // TODO add your handling code here:
+	try{
+        Desktop desktop = Desktop.getDesktop();
+	File htmlSobre_file = new File(htmlSobre);
+        desktop.open(htmlSobre_file);
+	}catch(Exception erro){
+            System.out.println(erro);
+        }
     }//GEN-LAST:event_menuitem_sobreActionPerformed
 
     private void menuItem_TiposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuItem_TiposMouseClicked
@@ -171,10 +190,31 @@ public class tela_trabalho extends javax.swing.JFrame {
 
     private void menuItem_TiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_TiposActionPerformed
         // TODO add your handling code here:
-	tiposArquivos popup_tiposArquivos = new tiposArquivos(pane_telaprincipal);
-	pane_telaprincipal.add(popup_tiposArquivos);
-	popup_tiposArquivos.setVisible(true);
+	try{
+	    if(!popup_tiposArquivos.isVisible()){
+		popup_tiposArquivos = new tiposArquivos(pane_telaprincipal);
+		pane_telaprincipal.add(popup_tiposArquivos);
+		popup_tiposArquivos.setVisible(true);
+		popup_tiposArquivos.moveToFront();
+	    }
+	}catch(Exception e){
+	    popup_tiposArquivos = new tiposArquivos(pane_telaprincipal);
+	    pane_telaprincipal.add(popup_tiposArquivos);
+	    popup_tiposArquivos.setVisible(true);
+	    popup_tiposArquivos.moveToFront();
+	}
     }//GEN-LAST:event_menuItem_TiposActionPerformed
+
+    private void menuitem_ajudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitem_ajudaActionPerformed
+        // TODO add your handling code here:
+	try{
+        Desktop desktop = Desktop.getDesktop();
+	File htmlAjuda_file = new File(htmlAjuda);
+        desktop.open(htmlAjuda_file);
+	}catch(Exception erro){
+            System.out.println(erro);
+        }
+    }//GEN-LAST:event_menuitem_ajudaActionPerformed
 
     /**
      * @param args the command line arguments
