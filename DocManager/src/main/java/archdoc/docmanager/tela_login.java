@@ -60,6 +60,8 @@ public class tela_login extends javax.swing.JInternalFrame {
         label_notas = new javax.swing.JLabel();
         campo_senha = new javax.swing.JPasswordField();
 
+        setClosable(true);
+
         pane_telalogin.setBackground(new java.awt.Color(153, 153, 153));
 
         campo_usuario.addActionListener(new java.awt.event.ActionListener() {
