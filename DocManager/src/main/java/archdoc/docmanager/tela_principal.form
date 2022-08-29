@@ -66,6 +66,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Ajuda"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuitem_ajudaActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

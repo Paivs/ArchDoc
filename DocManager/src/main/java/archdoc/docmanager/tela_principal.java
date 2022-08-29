@@ -4,6 +4,9 @@
  */
 package archdoc.docmanager;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.net.URI;
 import java.sql.Connection;
 import javax.swing.JDesktopPane;
 
@@ -11,15 +14,19 @@ import javax.swing.JDesktopPane;
  *
  * @author super
  */
+
 public class tela_principal extends javax.swing.JFrame {
 
     /**
      * Creates new form tela_inicial
      */
-    tela_login telaCadUser;
-    javax.swing.JFrame frame;
-    connect connect = new connect();
-    Connection conexao;
+    private tela_login telaCadUser;
+    private javax.swing.JFrame frame;
+    private connect connect = new connect();
+    private Connection conexao;
+    
+    private String htmlSobre = System.getProperty("user.dir") + "\\HTML\\Sobre\\index.html";
+    private String htmlAjuda = System.getProperty("user.dir") + "\\HTML\\Ajuda\\index.html";
     
     public tela_principal() {
         initComponents();
@@ -50,7 +57,6 @@ public class tela_principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         logo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        logo.setIcon(new javax.swing.ImageIcon("C:\\Users\\super\\Downloads\\Group 4 (2).png")); // NOI18N
         logo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         pane_telaprincipal.setLayer(logo, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -112,6 +118,11 @@ public class tela_principal extends javax.swing.JFrame {
 
         menuitem_ajuda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         menuitem_ajuda.setText("Ajuda");
+        menuitem_ajuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuitem_ajudaActionPerformed(evt);
+            }
+        });
         menuprincipal_opcoes.add(menuitem_ajuda);
 
         menu_telaprincipal.add(menuprincipal_opcoes);
@@ -135,6 +146,13 @@ public class tela_principal extends javax.swing.JFrame {
 
     private void menuitem_sobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitem_sobreActionPerformed
         // TODO add your handling code here:
+	try{
+        Desktop desktop = Desktop.getDesktop();
+	File htmlSobre_file = new File(htmlSobre);
+        desktop.open(htmlSobre_file);
+	}catch(Exception erro){
+            System.out.println(erro);
+        }
     }//GEN-LAST:event_menuitem_sobreActionPerformed
 
     private void menuprincipal_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuprincipal_usuarioActionPerformed
@@ -155,6 +173,17 @@ public class tela_principal extends javax.swing.JFrame {
 	    telaCadUser.setVisible(true);
 	}
     }//GEN-LAST:event_menuitem_loginActionPerformed
+
+    private void menuitem_ajudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitem_ajudaActionPerformed
+        // TODO add your handling code here:
+	try{
+	    Desktop desktop = Desktop.getDesktop();
+	    File htmlAjuda_file = new File(htmlAjuda);
+	    desktop.open(htmlAjuda_file);
+	}catch(Exception erro){
+            System.out.println(erro);
+        }
+    }//GEN-LAST:event_menuitem_ajudaActionPerformed
 
     
     /**

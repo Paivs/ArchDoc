@@ -66,6 +66,7 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
         separar5 = new javax.swing.JMenu();
         menuDesabilita = new javax.swing.JMenu();
 
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximumSize(new java.awt.Dimension(600, 600));
         setMinimumSize(new java.awt.Dimension(600, 600));
         setVisible(true);

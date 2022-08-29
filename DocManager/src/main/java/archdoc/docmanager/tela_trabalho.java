@@ -16,19 +16,18 @@ public class tela_trabalho extends javax.swing.JFrame {
     /**
      * Creates new form tela_inicial
      */
-    
     private String htmlSobre = System.getProperty("user.dir") + "\\HTML\\Sobre\\index.html";
     private String htmlAjuda = System.getProperty("user.dir") + "\\HTML\\Ajuda\\index.html";
     private tiposArquivos popup_tiposArquivos;
-    
+
     public tela_trabalho() {
-        initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
-	
+	initComponents();
+	setExtendedState(MAXIMIZED_BOTH);
+
 	tela_trabalho1 trabalhoNovo = new tela_trabalho1();
 	pane_telaprincipal.add(trabalhoNovo);
 	trabalhoNovo.setVisible(true);
-	
+
 	tela_trabalho2 trabalhoAtual = new tela_trabalho2();
 	pane_telaprincipal.add(trabalhoAtual);
 	trabalhoAtual.setVisible(true);
@@ -174,30 +173,30 @@ public class tela_trabalho extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuitem_sobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitem_sobreActionPerformed
-        // TODO add your handling code here:
-	try{
-        Desktop desktop = Desktop.getDesktop();
-	File htmlSobre_file = new File(htmlSobre);
-        desktop.open(htmlSobre_file);
-	}catch(Exception erro){
-            System.out.println(erro);
-        }
+	// TODO add your handling code here:
+	try {
+	    Desktop desktop = Desktop.getDesktop();
+	    File htmlSobre_file = new File(htmlSobre);
+	    desktop.open(htmlSobre_file);
+	} catch (Exception erro) {
+	    System.out.println(erro);
+	}
     }//GEN-LAST:event_menuitem_sobreActionPerformed
 
     private void menuItem_TiposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuItem_TiposMouseClicked
-        // TODO add your handling code here
+	// TODO add your handling code here
     }//GEN-LAST:event_menuItem_TiposMouseClicked
 
     private void menuItem_TiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_TiposActionPerformed
-        // TODO add your handling code here:
-	try{
-	    if(!popup_tiposArquivos.isVisible()){
+	// TODO add your handling code here:
+	try {
+	    if (!popup_tiposArquivos.isVisible()) {
 		popup_tiposArquivos = new tiposArquivos(pane_telaprincipal);
 		pane_telaprincipal.add(popup_tiposArquivos);
 		popup_tiposArquivos.setVisible(true);
 		popup_tiposArquivos.moveToFront();
 	    }
-	}catch(Exception e){
+	} catch (Exception e) {
 	    popup_tiposArquivos = new tiposArquivos(pane_telaprincipal);
 	    pane_telaprincipal.add(popup_tiposArquivos);
 	    popup_tiposArquivos.setVisible(true);
@@ -206,52 +205,52 @@ public class tela_trabalho extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItem_TiposActionPerformed
 
     private void menuitem_ajudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitem_ajudaActionPerformed
-        // TODO add your handling code here:
-	try{
-        Desktop desktop = Desktop.getDesktop();
-	File htmlAjuda_file = new File(htmlAjuda);
-        desktop.open(htmlAjuda_file);
-	}catch(Exception erro){
-            System.out.println(erro);
-        }
+	// TODO add your handling code here:
+	try {
+	    Desktop desktop = Desktop.getDesktop();
+	    File htmlAjuda_file = new File(htmlAjuda);
+	    desktop.open(htmlAjuda_file);
+	} catch (Exception erro) {
+	    System.out.println(erro);
+	}
     }//GEN-LAST:event_menuitem_ajudaActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+	/* Set the Nimbus look and feel */
+	//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+	/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tela_trabalho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tela_trabalho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tela_trabalho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tela_trabalho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+	 */
+	try {
+	    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+		if ("Nimbus".equals(info.getName())) {
+		    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+		    break;
+		}
+	    }
+	} catch (ClassNotFoundException ex) {
+	    java.util.logging.Logger.getLogger(tela_trabalho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	} catch (InstantiationException ex) {
+	    java.util.logging.Logger.getLogger(tela_trabalho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	} catch (IllegalAccessException ex) {
+	    java.util.logging.Logger.getLogger(tela_trabalho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+	    java.util.logging.Logger.getLogger(tela_trabalho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+	}
+	//</editor-fold>
+	//</editor-fold>
+	//</editor-fold>
+	//</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new tela_trabalho().setVisible(true);
-            }
-        });
+	/* Create and display the form */
+	java.awt.EventQueue.invokeLater(new Runnable() {
+	    public void run() {
+		new tela_trabalho().setVisible(true);
+	    }
+	});
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
