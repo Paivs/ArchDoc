@@ -37,7 +37,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menutrabalho_exportar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Exportar Hist&#xf3;rico"/>
+            <Property name="text" type="java.lang.String" value="Exportar"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
             </Property>

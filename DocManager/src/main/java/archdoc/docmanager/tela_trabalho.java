@@ -4,7 +4,10 @@
  */
 package archdoc.docmanager;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
 import java.awt.Desktop;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 
 /**
@@ -23,6 +26,10 @@ public class tela_trabalho extends javax.swing.JFrame {
     public tela_trabalho() {
 	initComponents();
 	setExtendedState(MAXIMIZED_BOTH);
+        
+     
+        Image    iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "\\imgs\\icon.jpeg");
+        setIconImage(iconeTitulo);
 
 	tela_trabalho1 trabalhoNovo = new tela_trabalho1();
 	pane_telaprincipal.add(trabalhoNovo);
@@ -91,7 +98,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         menutrabalho_separador2.setFocusable(false);
         menu_telatrabalho.add(menutrabalho_separador2);
 
-        menutrabalho_exportar.setText("Exportar Histórico");
+        menutrabalho_exportar.setText("Exportar");
         menutrabalho_exportar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         menu_telatrabalho.add(menutrabalho_exportar);
 
@@ -195,7 +202,9 @@ public class tela_trabalho extends javax.swing.JFrame {
 		pane_telaprincipal.add(popup_tiposArquivos);
 		popup_tiposArquivos.setVisible(true);
 		popup_tiposArquivos.moveToFront();
-	    }
+	    }else{
+                popup_tiposArquivos.moveToFront();
+            }
 	} catch (Exception e) {
 	    popup_tiposArquivos = new tiposArquivos(pane_telaprincipal);
 	    pane_telaprincipal.add(popup_tiposArquivos);
@@ -225,21 +234,10 @@ public class tela_trabalho extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
 	 */
 	try {
-	    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-		if ("Nimbus".equals(info.getName())) {
-		    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-		    break;
-		}
-	    }
-	} catch (ClassNotFoundException ex) {
-	    java.util.logging.Logger.getLogger(tela_trabalho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	} catch (InstantiationException ex) {
-	    java.util.logging.Logger.getLogger(tela_trabalho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	} catch (IllegalAccessException ex) {
-	    java.util.logging.Logger.getLogger(tela_trabalho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	    java.util.logging.Logger.getLogger(tela_trabalho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	}
+            javax.swing.UIManager.setLookAndFeel( new FlatDarculaLaf() );
+        } catch( Exception ex ) {
+            System.err.println( "Failed to initialize LaF" );
+        }
 	//</editor-fold>
 	//</editor-fold>
 	//</editor-fold>

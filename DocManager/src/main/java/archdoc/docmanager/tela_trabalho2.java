@@ -50,7 +50,7 @@ public class tela_trabalho2 extends javax.swing.JInternalFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        setBounds(683, 0, 683, 673);
     }// </editor-fold>//GEN-END:initComponents
 
 

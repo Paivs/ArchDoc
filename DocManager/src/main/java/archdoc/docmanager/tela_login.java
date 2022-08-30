@@ -4,8 +4,11 @@
  */
 package archdoc.docmanager;
 import java.awt.Frame;
+import java.awt.Toolkit;
 import java.awt.event.ComponentListener;
 import java.sql.Connection;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
@@ -39,6 +42,7 @@ public class tela_login extends javax.swing.JInternalFrame {
 	int aIFrame = this.getHeight();  
 
 	this.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+ 
     }
 
     /**
@@ -50,106 +54,73 @@ public class tela_login extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pane_telalogin = new javax.swing.JPanel();
-        campo_usuario = new javax.swing.JTextField();
-        label_usuario = new javax.swing.JLabel();
-        label_senha = new javax.swing.JLabel();
-        botao_entrar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        notas = new javax.swing.JTextPane();
-        label_notas = new javax.swing.JLabel();
-        campo_senha = new javax.swing.JPasswordField();
+        campo_usuario1 = new javax.swing.JTextField();
+        label_usuario1 = new javax.swing.JLabel();
+        label_senha1 = new javax.swing.JLabel();
+        botao_entrar1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        notas1 = new javax.swing.JTextPane();
+        label_notas1 = new javax.swing.JLabel();
+        campo_senha1 = new javax.swing.JPasswordField();
+        jSeparator2 = new javax.swing.JSeparator();
 
         setClosable(true);
+        setMaximumSize(new java.awt.Dimension(751, 444));
+        setMinimumSize(new java.awt.Dimension(751, 444));
+        setPreferredSize(new java.awt.Dimension(751, 444));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        pane_telalogin.setBackground(new java.awt.Color(153, 153, 153));
-
-        campo_usuario.addActionListener(new java.awt.event.ActionListener() {
+        campo_usuario1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campo_usuarioActionPerformed(evt);
+                campo_usuario1ActionPerformed(evt);
             }
         });
+        getContentPane().add(campo_usuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 113, 250, 40));
 
-        label_usuario.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        label_usuario.setText("Usuário");
+        label_usuario1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        label_usuario1.setText("Usuário");
+        getContentPane().add(label_usuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, -1, -1));
 
-        label_senha.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        label_senha.setText("Senha");
+        label_senha1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        label_senha1.setText("Senha");
+        getContentPane().add(label_senha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 171, -1, -1));
 
-        botao_entrar.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        botao_entrar.setText("ENTRAR");
-        botao_entrar.addActionListener(new java.awt.event.ActionListener() {
+        botao_entrar1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        botao_entrar1.setText("ENTRAR");
+        botao_entrar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botao_entrarActionPerformed(evt);
+                botao_entrar1ActionPerformed(evt);
             }
         });
+        getContentPane().add(botao_entrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 288, 250, 40));
 
-        notas.setEditable(false);
-        notas.setFocusable(false);
-        jScrollPane1.setViewportView(notas);
+        notas1.setEditable(false);
+        notas1.setText("Patch da versão 2.01.5.12 \nNota-se versão beta em vigor\nEm caso de dúvida acessar \"Ajuda\" em opções\nUsuários apenas cadastrados pelo administrador");
+        notas1.setFocusable(false);
+        jScrollPane2.setViewportView(notas1);
 
-        label_notas.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        label_notas.setText("Notas");
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 103, 250, 230));
 
-        javax.swing.GroupLayout pane_telaloginLayout = new javax.swing.GroupLayout(pane_telalogin);
-        pane_telalogin.setLayout(pane_telaloginLayout);
-        pane_telaloginLayout.setHorizontalGroup(
-            pane_telaloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pane_telaloginLayout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addGroup(pane_telaloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(botao_entrar, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                    .addComponent(label_senha)
-                    .addComponent(campo_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                    .addComponent(label_usuario)
-                    .addComponent(campo_senha))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                .addGroup(pane_telaloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_notas))
-                .addGap(80, 80, 80))
-        );
-        pane_telaloginLayout.setVerticalGroup(
-            pane_telaloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pane_telaloginLayout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addGroup(pane_telaloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_usuario)
-                    .addComponent(label_notas))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pane_telaloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pane_telaloginLayout.createSequentialGroup()
-                        .addComponent(campo_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(label_senha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campo_senha, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(botao_entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
-                .addContainerGap(80, Short.MAX_VALUE))
-        );
+        label_notas1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        label_notas1.setText("Notas");
+        getContentPane().add(label_notas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, -1, -1));
+        getContentPane().add(campo_senha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 204, 250, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pane_telalogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pane_telalogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, 10, 220));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botao_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_entrarActionPerformed
-        // TODO add your handling code here
+    private void campo_usuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_usuario1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campo_usuario1ActionPerformed
+
+    private void botao_entrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_entrar1ActionPerformed
+        // TODO add your handling code here:
+        char[] password = campo_senha1.getPassword();
         
-        char[] password = campo_senha.getPassword();
-        
-        if(criaBD.checkUser(conexao, campo_usuario.getText(), String.valueOf(password))){
+        if(criaBD.checkUser(conexao, campo_usuario1.getText(), String.valueOf(password))){
 	    tela_trabalho trab = new tela_trabalho();
             dispose();
             trab.setVisible(true);
@@ -160,11 +131,7 @@ public class tela_login extends javax.swing.JInternalFrame {
                    if(v.getName().equals("frame0")) v.dispose();
             }
 	}
-    }//GEN-LAST:event_botao_entrarActionPerformed
-
-    private void campo_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_usuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campo_usuarioActionPerformed
+    }//GEN-LAST:event_botao_entrar1ActionPerformed
 
     public boolean isFezLogin() {
         return fezLogin;
@@ -178,14 +145,14 @@ public class tela_login extends javax.swing.JInternalFrame {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botao_entrar;
-    private javax.swing.JPasswordField campo_senha;
-    private javax.swing.JTextField campo_usuario;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel label_notas;
-    private javax.swing.JLabel label_senha;
-    private javax.swing.JLabel label_usuario;
-    private javax.swing.JTextPane notas;
-    private javax.swing.JPanel pane_telalogin;
+    private javax.swing.JButton botao_entrar1;
+    private javax.swing.JPasswordField campo_senha1;
+    private javax.swing.JTextField campo_usuario1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel label_notas1;
+    private javax.swing.JLabel label_senha1;
+    private javax.swing.JLabel label_usuario1;
+    private javax.swing.JTextPane notas1;
     // End of variables declaration//GEN-END:variables
 }
