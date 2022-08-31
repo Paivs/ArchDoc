@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -37,6 +38,9 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
     
     public tiposArquivos(JDesktopPane tela) {
 	initComponents();
+        
+        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\icons\\tipos.png"));
+        
 	this.tela = tela;
 	try{ atualizaTabela();
 	}catch(Exception e) { ; }

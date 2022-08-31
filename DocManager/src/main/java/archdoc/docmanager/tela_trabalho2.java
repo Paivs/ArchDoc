@@ -4,6 +4,9 @@
  */
 package archdoc.docmanager;
 
+import java.awt.Point;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author super
@@ -13,8 +16,20 @@ public class tela_trabalho2 extends javax.swing.JInternalFrame {
     /**
      * Creates new form tela_trabalho2
      */
+    
+    Point local;
+
+    public Point getLocal() {
+        return local;
+    }
+
+    public void setLocal(Point local) {
+        this.local = local;
+    }
+    
     public tela_trabalho2() {
         initComponents();
+        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\icons\\trab2.png"));
     }
 
     /**
@@ -27,6 +42,12 @@ public class tela_trabalho2 extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentMoved(java.awt.event.ComponentEvent evt) {
+                mudouLocal(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -52,6 +73,11 @@ public class tela_trabalho2 extends javax.swing.JInternalFrame {
 
         setBounds(683, 0, 683, 673);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mudouLocal(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_mudouLocal
+        // TODO add your handling code here:
+        this.setLocation(this.local);
+    }//GEN-LAST:event_mudouLocal
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -8,11 +8,11 @@ import java.awt.Desktop;
 import java.io.File;
 import java.net.URI;
 import java.sql.Connection;
-import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Image;
 import java.awt.Toolkit;
-import javax.swing.JDesktopPane;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -29,6 +29,8 @@ public class tela_principal extends javax.swing.JFrame {
     private connect connect = new connect();
     private Connection conexao;
     
+    static boolean darkMode = true;
+    
     private String htmlSobre = System.getProperty("user.dir") + "\\HTML\\Sobre\\index.html";
     private String htmlAjuda = System.getProperty("user.dir") + "\\HTML\\Ajuda\\index.html";
     
@@ -38,7 +40,7 @@ public class tela_principal extends javax.swing.JFrame {
         try{ conexao = connect.connectionMySql();
         }catch(Exception e) { ; }
         
-        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "\\imgs\\icon.jpeg");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "\\imgs\\icons\\principal.png");
         setIconImage(iconeTitulo);
 
     }
@@ -61,6 +63,7 @@ public class tela_principal extends javax.swing.JFrame {
         menuprincipal_opcoes = new javax.swing.JMenu();
         menuitem_sobre = new javax.swing.JMenuItem();
         menuitem_ajuda = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,6 +136,15 @@ public class tela_principal extends javax.swing.JFrame {
         });
         menuprincipal_opcoes.add(menuitem_ajuda);
 
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem1.setText("Mudar Tema");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuprincipal_opcoes.add(jMenuItem1);
+
         menu_telaprincipal.add(menuprincipal_opcoes);
 
         setJMenuBar(menu_telaprincipal);
@@ -171,12 +183,12 @@ public class tela_principal extends javax.swing.JFrame {
         // TODO add your handling code here:
 	try{
 	    if(!telaCadUser.isVisible()){
-		telaCadUser = new tela_login(pane_telaprincipal, conexao);
+		telaCadUser = new tela_login(pane_telaprincipal, conexao, darkMode);
 		pane_telaprincipal.add(telaCadUser);
 		telaCadUser.setVisible(true);
 	    }
 	} catch(Exception e) { 
-	    telaCadUser = new tela_login(pane_telaprincipal, conexao);
+	    telaCadUser = new tela_login(pane_telaprincipal, conexao, darkMode);
 	    pane_telaprincipal.add(telaCadUser);
 	    telaCadUser.setVisible(true);
 	}
@@ -193,6 +205,28 @@ public class tela_principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuitem_ajudaActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        try {
+        if(javax.swing.UIManager.getLookAndFeel().getName() == "FlatLaf Darcula"){
+            FlatLightLaf lookAndFeel1 = new FlatLightLaf();
+            javax.swing.UIManager.setLookAndFeel(lookAndFeel1);
+            darkMode = false;
+        } else{
+            FlatDarculaLaf lookAndFeel2 = new FlatDarculaLaf();
+            javax.swing.UIManager.setLookAndFeel(lookAndFeel2);
+            darkMode = true;
+        }
+        
+            
+            for(java.awt.Frame f : java.awt.Frame.getFrames()) {
+                javax.swing.SwingUtilities.updateComponentTreeUI(f);
+            }
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -205,7 +239,8 @@ public class tela_principal extends javax.swing.JFrame {
          */
         
         try {
-            javax.swing.UIManager.setLookAndFeel( new FlatDarculaLaf() );
+            if(darkMode) javax.swing.UIManager.setLookAndFeel( new FlatDarculaLaf() );
+            else javax.swing.UIManager.setLookAndFeel( new FlatLightLaf() );
         } catch( Exception ex ) {
             System.err.println( "Failed to initialize LaF" );
         }
@@ -224,6 +259,7 @@ public class tela_principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel logo;
     private javax.swing.JMenuBar menu_telaprincipal;
     private javax.swing.JMenuItem menuitem_ajuda;

@@ -27,13 +27,17 @@ public class tela_login extends javax.swing.JInternalFrame {
     boolean fezLogin = false;
     Connection conexao;
     connect criaBD;
+    boolean darkMode;
     
     
-    public tela_login(JDesktopPane telaPrincipal, Connection conexao) {
+    public tela_login(JDesktopPane telaPrincipal, Connection conexao, boolean darkMode) {
         initComponents();
+        
+        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\icons\\login.png"));
         
         this.telaPrincipal = telaPrincipal;
         this.conexao = conexao;
+        this.darkMode = darkMode;
         criaBD = new connect();
         
         int lDesk = telaPrincipal.getWidth();  
@@ -123,12 +127,15 @@ public class tela_login extends javax.swing.JInternalFrame {
         if(criaBD.checkUser(conexao, campo_usuario1.getText(), String.valueOf(password))){
 	    tela_trabalho trab = new tela_trabalho();
             dispose();
+            trab.setDarkMode(darkMode);
             trab.setVisible(true);
 
             this.fezLogin = true;
             
             for(Frame v : tela_principal.getFrames()){
-                   if(v.getName().equals("frame0")) v.dispose();
+                   if(v.getName().equals("frame0")) {
+                       v.dispose();
+                   }
             }
 	}
     }//GEN-LAST:event_botao_entrar1ActionPerformed

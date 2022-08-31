@@ -5,10 +5,16 @@
 package archdoc.docmanager;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -22,22 +28,48 @@ public class tela_trabalho extends javax.swing.JFrame {
     private String htmlSobre = System.getProperty("user.dir") + "\\HTML\\Sobre\\index.html";
     private String htmlAjuda = System.getProperty("user.dir") + "\\HTML\\Ajuda\\index.html";
     private tiposArquivos popup_tiposArquivos;
+    tela_trabalho2 trabalhoAtual;
+    tela_trabalho1 trabalhoNovo;
+    boolean darkMode = false;
+
+    public boolean isDarkMode() {
+        return darkMode;
+    }
+
+    public void setDarkMode(boolean darkMode) {
+        this.darkMode = darkMode;
+    }
 
     public tela_trabalho() {
 	initComponents();
 	setExtendedState(MAXIMIZED_BOTH);
         
-     
-        Image    iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "\\imgs\\icon.jpeg");
+        
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "\\imgs\\icons\\principal.png");
         setIconImage(iconeTitulo);
 
-	tela_trabalho1 trabalhoNovo = new tela_trabalho1();
+	trabalhoNovo = new tela_trabalho1();
 	pane_telaprincipal.add(trabalhoNovo);
-	trabalhoNovo.setVisible(true);
+	
 
-	tela_trabalho2 trabalhoAtual = new tela_trabalho2();
+	trabalhoAtual = new tela_trabalho2();
 	pane_telaprincipal.add(trabalhoAtual);
+        
 	trabalhoAtual.setVisible(true);
+        trabalhoNovo.setVisible(true);
+        
+        Dimension actualSize =  getContentPane().getSize();
+        pane_telaprincipal.setSize(actualSize.width, actualSize.height);
+        
+        trabalhoAtual.setSize(pane_telaprincipal.getWidth()/2, pane_telaprincipal.getHeight());
+        trabalhoNovo.setSize(pane_telaprincipal.getWidth()/2, pane_telaprincipal.getHeight());
+        
+        trabalhoNovo.setLocation(0, 0);
+        trabalhoAtual.setLocation(trabalhoNovo.getWidth(), 0);
+        
+        trabalhoNovo.setLocal(trabalhoNovo.getLocation());
+        trabalhoAtual.setLocal(trabalhoAtual.getLocation());
+        
     }
 
     /**
@@ -65,21 +97,23 @@ public class tela_trabalho extends javax.swing.JFrame {
         menuItem_Tipos = new javax.swing.JMenuItem();
         menuitem_sobre = new javax.swing.JMenuItem();
         menuitem_ajuda = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImages(null);
 
         javax.swing.GroupLayout pane_telaprincipalLayout = new javax.swing.GroupLayout(pane_telaprincipal);
         pane_telaprincipal.setLayout(pane_telaprincipalLayout);
         pane_telaprincipalLayout.setHorizontalGroup(
             pane_telaprincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 868, Short.MAX_VALUE)
+            .addGap(0, 1536, Short.MAX_VALUE)
         );
         pane_telaprincipalLayout.setVerticalGroup(
             pane_telaprincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 603, Short.MAX_VALUE)
+            .addGap(0, 791, Short.MAX_VALUE)
         );
 
-        menutrabalho_logo.setText("AD.LMTD");
+        menutrabalho_logo.setText("AD LTDA");
         menutrabalho_logo.setFocusable(false);
         menutrabalho_logo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         menu_telatrabalho.add(menutrabalho_logo);
@@ -91,6 +125,16 @@ public class tela_trabalho extends javax.swing.JFrame {
 
         menutrabalho_salvar.setText("Salvar");
         menutrabalho_salvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menutrabalho_salvar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menutrabalho_salvarMouseClicked(evt);
+            }
+        });
+        menutrabalho_salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menutrabalho_salvarActionPerformed(evt);
+            }
+        });
         menu_telatrabalho.add(menutrabalho_salvar);
 
         menutrabalho_separador2.setText("|");
@@ -160,6 +204,15 @@ public class tela_trabalho extends javax.swing.JFrame {
         });
         menutrabalho_opcoes.add(menuitem_ajuda);
 
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem1.setText("Mudar Tema");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menutrabalho_opcoes.add(jMenuItem1);
+
         menu_telatrabalho.add(menutrabalho_opcoes);
 
         setJMenuBar(menu_telatrabalho);
@@ -178,6 +231,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
 
     private void menuitem_sobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitem_sobreActionPerformed
 	// TODO add your handling code here:
@@ -224,6 +278,35 @@ public class tela_trabalho extends javax.swing.JFrame {
 	}
     }//GEN-LAST:event_menuitem_ajudaActionPerformed
 
+    private void menutrabalho_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menutrabalho_salvarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menutrabalho_salvarActionPerformed
+
+    private void menutrabalho_salvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menutrabalho_salvarMouseClicked
+        System.out.println(trabalhoAtual.getSize());
+        System.out.println(trabalhoNovo.getSize());
+    }//GEN-LAST:event_menutrabalho_salvarMouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        try {
+        if(javax.swing.UIManager.getLookAndFeel().getName() == "FlatLaf Darcula"){
+            FlatLightLaf lookAndFeel1 = new FlatLightLaf();
+            javax.swing.UIManager.setLookAndFeel(lookAndFeel1);
+        } else{
+            FlatDarculaLaf lookAndFeel2 = new FlatDarculaLaf();
+            javax.swing.UIManager.setLookAndFeel(lookAndFeel2);
+        }
+        
+            
+            for(java.awt.Frame f : java.awt.Frame.getFrames()) {
+                javax.swing.SwingUtilities.updateComponentTreeUI(f);
+            }
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -252,6 +335,7 @@ public class tela_trabalho extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem menuItem_Tipos;
     private javax.swing.JMenuBar menu_telatrabalho;
     private javax.swing.JMenuItem menuitem_ajuda;
