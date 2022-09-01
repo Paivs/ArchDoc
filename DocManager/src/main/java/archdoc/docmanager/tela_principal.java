@@ -37,6 +37,12 @@ public class tela_principal extends javax.swing.JFrame {
     public tela_principal() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
+        
+        Toolkit tk = Toolkit.getDefaultToolkit();  
+        int xSize = ((int) tk.getScreenSize().getWidth());  
+        int ySize = ((int) tk.getScreenSize().getHeight());  
+        setSize(xSize,ySize);
+        
         try{ conexao = connect.connectionMySql();
         }catch(Exception e) { ; }
         
@@ -57,6 +63,8 @@ public class tela_principal extends javax.swing.JFrame {
         pane_telaprincipal = new javax.swing.JDesktopPane();
         logo = new javax.swing.JLabel();
         menu_telaprincipal = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
         menuprincipal_usuario = new javax.swing.JMenu();
         menuitem_login = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
@@ -90,6 +98,21 @@ public class tela_principal extends javax.swing.JFrame {
         );
 
         menu_telaprincipal.setBackground(new java.awt.Color(0, 0, 0));
+        menu_telaprincipal.setToolTipText("");
+
+        jMenu2.setText("archDoc");
+        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
+        menu_telaprincipal.add(jMenu2);
+
+        jMenu4.setText("|");
+        jMenu4.setEnabled(false);
+        jMenu4.setFocusable(false);
+        menu_telaprincipal.add(jMenu4);
 
         menuprincipal_usuario.setText("Usuário");
         menuprincipal_usuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -227,6 +250,13 @@ public class tela_principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        Info telinha = new Info(pane_telaprincipal);
+        pane_telaprincipal.add(telinha);
+        telinha.setVisible(true);
+        telinha.moveToFront();
+    }//GEN-LAST:event_jMenu2MouseClicked
+
     
     /**
      * @param args the command line arguments
@@ -259,6 +289,8 @@ public class tela_principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel logo;
     private javax.swing.JMenuBar menu_telaprincipal;

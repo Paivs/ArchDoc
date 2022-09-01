@@ -11,15 +11,8 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 
-/**
- *
- * @author super
- */
 public class tela_trabalho extends javax.swing.JFrame {
 
     /**
@@ -113,9 +106,14 @@ public class tela_trabalho extends javax.swing.JFrame {
             .addGap(0, 791, Short.MAX_VALUE)
         );
 
-        menutrabalho_logo.setText("AD LTDA");
+        menutrabalho_logo.setText("archDoc");
         menutrabalho_logo.setFocusable(false);
         menutrabalho_logo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menutrabalho_logo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menutrabalho_logoMouseClicked(evt);
+            }
+        });
         menu_telatrabalho.add(menutrabalho_logo);
 
         menutrabalho_separador1.setText("|");
@@ -305,6 +303,14 @@ public class tela_trabalho extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void menutrabalho_logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menutrabalho_logoMouseClicked
+        // TODO add your handling code here:
+        Info telinha = new Info(pane_telaprincipal);
+        pane_telaprincipal.add(telinha);
+        telinha.setVisible(true);
+        telinha.moveToFront();
+    }//GEN-LAST:event_menutrabalho_logoMouseClicked
 
     
     /**
