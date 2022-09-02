@@ -182,6 +182,9 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JDesktopPane" name="pane_telaprincipal">
+      <Events>
+        <EventHandler event="componentResized" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="mudouTamanho"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">

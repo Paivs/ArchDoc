@@ -8,7 +8,10 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.io.File;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -23,6 +26,8 @@ public class tela_trabalho extends javax.swing.JFrame {
     private tiposArquivos popup_tiposArquivos;
     tela_trabalho2 trabalhoAtual;
     tela_trabalho1 trabalhoNovo;
+   
+    
     boolean darkMode = false;
 
     public boolean isDarkMode() {
@@ -32,11 +37,41 @@ public class tela_trabalho extends javax.swing.JFrame {
     public void setDarkMode(boolean darkMode) {
         this.darkMode = darkMode;
     }
+    
+    public static Rectangle getMaximumScreenBounds() {
+    int minx=0, miny=0, maxx=0, maxy=0;
+    GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    for(GraphicsDevice device : environment.getScreenDevices()){
+        Rectangle bounds = device.getDefaultConfiguration().getBounds();
+        minx = Math.min(minx, bounds.x);
+        miny = Math.min(miny, bounds.y);
+        maxx = Math.max(maxx,  bounds.x+bounds.width);
+        maxy = Math.max(maxy, bounds.y+bounds.height);
+    }
+    return new Rectangle(minx, miny, maxx-minx, maxy-miny);
+}
 
     public tela_trabalho() {
 	initComponents();
 	setExtendedState(MAXIMIZED_BOTH);
         
+        
+        this.setContentPane(pane_telaprincipal);
+        Toolkit kit = Toolkit.getDefaultToolkit();  
+        Dimension tamTela = kit.getScreenSize();
+
+        //Pega largura e altura da tela 
+        int larg = tamTela.width;  
+        int alt = tamTela.height;  
+
+        /* larg x 0.7; para ocupar 70% da tela por exemplo  */  
+        /* alt x 0.7;*/  
+
+        //Manda o JFrame utilizar suas dimensões  
+        setSize(larg,alt); 
+        
+        System.out.println(getMaximumScreenBounds().getWidth());
+        System.out.println(getMaximumScreenBounds().getHeight());
         
         Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "\\imgs\\icons\\principal.png");
         setIconImage(iconeTitulo);
@@ -51,8 +86,7 @@ public class tela_trabalho extends javax.swing.JFrame {
 	trabalhoAtual.setVisible(true);
         trabalhoNovo.setVisible(true);
         
-        Dimension actualSize =  getContentPane().getSize();
-        pane_telaprincipal.setSize(actualSize.width, actualSize.height);
+        pane_telaprincipal.setSize(this.getWidth(), this.getHeight());
         
         trabalhoAtual.setSize(pane_telaprincipal.getWidth()/2, pane_telaprincipal.getHeight());
         trabalhoNovo.setSize(pane_telaprincipal.getWidth()/2, pane_telaprincipal.getHeight());
@@ -63,7 +97,12 @@ public class tela_trabalho extends javax.swing.JFrame {
         trabalhoNovo.setLocal(trabalhoNovo.getLocation());
         trabalhoAtual.setLocal(trabalhoAtual.getLocation());
         
+        setExtendedState(MAXIMIZED_BOTH);
+        
+        System.out.println(pane_telaprincipal.getHeight());
+        
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,6 +133,12 @@ public class tela_trabalho extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImages(null);
+
+        pane_telaprincipal.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                mudouTamanho(evt);
+            }
+        });
 
         javax.swing.GroupLayout pane_telaprincipalLayout = new javax.swing.GroupLayout(pane_telaprincipal);
         pane_telaprincipal.setLayout(pane_telaprincipalLayout);
@@ -278,14 +323,16 @@ public class tela_trabalho extends javax.swing.JFrame {
 
     private void menutrabalho_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menutrabalho_salvarActionPerformed
         // TODO add your handling code here:
+        System.out.println(pane_telaprincipal.getHeight());
     }//GEN-LAST:event_menutrabalho_salvarActionPerformed
 
     private void menutrabalho_salvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menutrabalho_salvarMouseClicked
-        System.out.println(trabalhoAtual.getSize());
-        System.out.println(trabalhoNovo.getSize());
+
     }//GEN-LAST:event_menutrabalho_salvarMouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        System.out.println(pane_telaprincipal.getHeight());
+        
         try {
         if(javax.swing.UIManager.getLookAndFeel().getName() == "FlatLaf Darcula"){
             FlatLightLaf lookAndFeel1 = new FlatLightLaf();
@@ -311,6 +358,18 @@ public class tela_trabalho extends javax.swing.JFrame {
         telinha.setVisible(true);
         telinha.moveToFront();
     }//GEN-LAST:event_menutrabalho_logoMouseClicked
+
+    private void mudouTamanho(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_mudouTamanho
+        // TODO add your handling code here:
+        trabalhoAtual.setSize(pane_telaprincipal.getWidth()/2, pane_telaprincipal.getHeight());
+        trabalhoNovo.setSize(pane_telaprincipal.getWidth()/2, pane_telaprincipal.getHeight());
+        
+        trabalhoNovo.setLocation(0, 0);
+        trabalhoAtual.setLocation(trabalhoNovo.getWidth(), 0);
+        
+        trabalhoNovo.setLocal(trabalhoNovo.getLocation());
+        trabalhoAtual.setLocal(trabalhoAtual.getLocation());
+    }//GEN-LAST:event_mudouTamanho
 
     
     /**
