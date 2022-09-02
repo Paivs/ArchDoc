@@ -38,11 +38,6 @@ public class tela_principal extends javax.swing.JFrame {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         
-        Toolkit tk = Toolkit.getDefaultToolkit();  
-        int xSize = ((int) tk.getScreenSize().getWidth());  
-        int ySize = ((int) tk.getScreenSize().getHeight());  
-        setSize(xSize,ySize);
-        
         try{ conexao = connect.connectionMySql();
         }catch(Exception e) { ; }
         
