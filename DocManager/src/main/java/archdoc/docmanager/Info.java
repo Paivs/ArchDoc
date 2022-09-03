@@ -47,7 +47,7 @@ public class Info extends javax.swing.JInternalFrame {
         jLabel1.setText("Informações do sistema");
 
         notas1.setEditable(false);
-        notas1.setText("Feito e distribuido por archDoc© LDTA.\nPatch V. 2.01.5.12 \nVersão beta em vigor.\nPara mais informações consultar página 'Sobre'\ndentro de opções.\n");
+        notas1.setText("Feito e distribuido por archDoc© LDTA.\nPatch V. 2.01.5.12 \nVersão beta em vigor.\nPara mais informações consultar página 'Sobre' dentro de opções.\n");
         notas1.setFocusable(false);
         jScrollPane2.setViewportView(notas1);
 

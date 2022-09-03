@@ -6,8 +6,15 @@ package archdoc.docmanager;
 
 import java.awt.Point;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
 
 /**
  *
@@ -66,19 +73,14 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
 
+        setVisible(true);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentMoved(java.awt.event.ComponentEvent evt) {
                 mudouPosition(evt);
             }
         });
 
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Arquivos novos");
-        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("exemplo.pdf");
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("idem.docx");
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("outro.xlsx");
-        treeNode1.add(treeNode2);
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jScrollPane1.setViewportView(jTree1);
 
@@ -98,10 +100,17 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Arquivos");
 
+        treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        jTree2.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jScrollPane3.setViewportView(jTree2);
 
         jButton1.setText("↺");
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -203,23 +212,113 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        javax.swing.JFileChooser chooser = new javax.swing.JFileChooser(); 
-        chooser.setCurrentDirectory(new java.io.File("."));
+        
+        JFileChooser chooser = new JFileChooser();
         chooser.setDialogTitle("Selecione uma nova pasta para listar os Arquivos");
-        chooser.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
-        //
-        // disable the "All files" option.
-        //
-        chooser.setAcceptAllFileFilterUsed(false);
-        //    
-        if (chooser.showOpenDialog(this) == javax.swing.JFileChooser.APPROVE_OPTION) { 
-            System.out.println(chooser.getCurrentDirectory());
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
+            try {
+                if(isAuto.isSelected()){
+                    DefaultTreeModel model = (DefaultTreeModel) jTree1.getModel();
+                    DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+                    root.removeAllChildren();
+                    model.reload();
+                    scanner(new File(chooser.getCurrentDirectory() + "\\" +chooser.getSelectedFile().getName()), jTree1);
+                }else{
+                    DefaultTreeModel model = (DefaultTreeModel) jTree2.getModel();
+                    DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+                    root.removeAllChildren();
+                    model.reload();
+                    scanner(new File(chooser.getCurrentDirectory() + "\\" +chooser.getSelectedFile().getName()), jTree2);
+                }
+            } catch (InterruptedException ex) { Logger.getLogger(tela_trabalho1.class.getName()).log(Level.SEVERE, null, ex); }
           }
         else {
            JOptionPane.showMessageDialog(null, "Você precisa selecionar uma pasta apra atualizar o diretório!");
-          }                                                
+          }   
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        DefaultTreeModel model = (DefaultTreeModel) jTree2.getModel();
+        jTree2.setModel(jTree1.getModel());        
+        jTree1.setModel(model);        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    
+    
+    public void scanner(File location, JTree lista) throws InterruptedException {
+        // creates a file with the location filename
+
+        // result is the variable name for jtree
+        DefaultTreeModel model = (DefaultTreeModel) lista.getModel();
+        // gets the root of the current model used only once at the starting
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+        // function caled
+        displayDirectoryContents(location, root);
+    }
+    public void displayDirectoryContents(File dir, DefaultMutableTreeNode root2) throws InterruptedException {
+
+    DefaultMutableTreeNode newdir = new DefaultMutableTreeNode();
+
+    File[] files = dir.listFiles();
+
+    for (File file : files) {
+        if (file == null) {
+            System.out.println("NUll directory found ");
+            continue;
+        }
+        if (file.isDirectory()) {
+            // file is a directory that is a folder has been dound
+
+            if (file.listFiles() == null) {
+                // skips null files
+                continue;
+            }
+
+            // gets the current model of the jtree
+            DefaultTreeModel model = (DefaultTreeModel) jTree2.getModel();
+
+            // gets the root
+            DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+
+            // generates a node newdir using filename
+            newdir = new DefaultMutableTreeNode(file.getName());
+
+            // adds a node to the root of the jtree
+            root2.add(newdir);
+
+            // refresh the model to show the changes
+            model.reload();
+
+            // recursively calls the function again to explore the contents
+            // folder
+            displayDirectoryContents(file, newdir);
+        } else {
+            // Else part File is not a directory
+
+            // gets the current model of the tree
+            DefaultTreeModel model = (DefaultTreeModel) jTree2.getModel();
+
+            // selected node is the position where the new node will be
+            // inserted
+            DefaultMutableTreeNode selectednode = root2;
+
+            DefaultMutableTreeNode newfile = new DefaultMutableTreeNode(file.getName());
+
+            // inserts a node newfile under selected node which is the root
+            model.insertNodeInto(newfile, selectednode, selectednode.getChildCount());
+
+            // refresh the model to show the changes
+            model.reload();
+
+        }
+
+    }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton isAuto;

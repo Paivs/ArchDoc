@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package archdoc.docmanager;
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ComponentListener;
@@ -67,6 +68,7 @@ public class tela_login extends javax.swing.JInternalFrame {
         label_notas1 = new javax.swing.JLabel();
         campo_senha1 = new javax.swing.JPasswordField();
         jSeparator2 = new javax.swing.JSeparator();
+        mostrarSenha = new javax.swing.JCheckBox();
 
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(751, 444));
@@ -113,6 +115,14 @@ public class tela_login extends javax.swing.JInternalFrame {
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, 10, 220));
 
+        mostrarSenha.setText("Mostrar Senha");
+        mostrarSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarSenhaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(mostrarSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -140,6 +150,15 @@ public class tela_login extends javax.swing.JInternalFrame {
 	}
     }//GEN-LAST:event_botao_entrar1ActionPerformed
 
+    private void mostrarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarSenhaActionPerformed
+        // TODO add your handling code here:
+        //campo_senha1.setAction(Action);
+        if(mostrarSenha.isSelected())
+            campo_senha1.setEchoChar((char)0);
+        else
+            campo_senha1.setEchoChar('•');
+    }//GEN-LAST:event_mostrarSenhaActionPerformed
+
     public boolean isFezLogin() {
         return fezLogin;
     }
@@ -160,6 +179,7 @@ public class tela_login extends javax.swing.JInternalFrame {
     private javax.swing.JLabel label_notas1;
     private javax.swing.JLabel label_senha1;
     private javax.swing.JLabel label_usuario1;
+    private javax.swing.JCheckBox mostrarSenha;
     private javax.swing.JTextPane notas1;
     // End of variables declaration//GEN-END:variables
 }

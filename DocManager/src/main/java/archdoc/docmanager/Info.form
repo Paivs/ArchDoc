@@ -68,7 +68,7 @@
         <Component class="javax.swing.JTextPane" name="notas1">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
-            <Property name="text" type="java.lang.String" value="Feito e distribuido por archDoc&#xa9; LDTA.&#xa;Patch V. 2.01.5.12 &#xa;Vers&#xe3;o beta em vigor.&#xa;Para mais informa&#xe7;&#xf5;es consultar p&#xe1;gina &apos;Sobre&apos;&#xa;dentro de op&#xe7;&#xf5;es.&#xa;"/>
+            <Property name="text" type="java.lang.String" value="Feito e distribuido por archDoc&#xa9; LDTA.&#xa;Patch V. 2.01.5.12 &#xa;Vers&#xe3;o beta em vigor.&#xa;Para mais informa&#xe7;&#xf5;es consultar p&#xe1;gina &apos;Sobre&apos; dentro de op&#xe7;&#xf5;es.&#xa;"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
         </Component>
