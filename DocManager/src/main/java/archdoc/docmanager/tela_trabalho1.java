@@ -27,6 +27,7 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
      */
     
     Point local;
+    JFileChooser chooser = new JFileChooser();
 
     public Point getLocal() {
         return local;
@@ -212,8 +213,6 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
-        JFileChooser chooser = new JFileChooser();
         chooser.setDialogTitle("Selecione uma nova pasta para listar os Arquivos");
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         

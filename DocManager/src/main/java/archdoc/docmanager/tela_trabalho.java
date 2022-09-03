@@ -361,6 +361,7 @@ public class tela_trabalho extends javax.swing.JFrame {
 
     private void mudouTamanho(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_mudouTamanho
         // TODO add your handling code here:
+        try{
         trabalhoAtual.setSize(pane_telaprincipal.getWidth()/2, pane_telaprincipal.getHeight());
         trabalhoNovo.setSize(pane_telaprincipal.getWidth()/2, pane_telaprincipal.getHeight());
         
@@ -369,6 +370,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         
         trabalhoNovo.setLocal(trabalhoNovo.getLocation());
         trabalhoAtual.setLocal(trabalhoAtual.getLocation());
+        }catch(Exception e){ ; }
     }//GEN-LAST:event_mudouTamanho
 
     

@@ -135,13 +135,11 @@ public class tela_login extends javax.swing.JInternalFrame {
         char[] password = campo_senha1.getPassword();
         
         if(criaBD.checkUser(conexao, campo_usuario1.getText(), String.valueOf(password))){
-	    tela_trabalho trab = new tela_trabalho();
+	    
+            loading Carr = new loading();
+            Carr.setVisible(true);
             dispose();
-            trab.setDarkMode(darkMode);
-            trab.setVisible(true);
-
             this.fezLogin = true;
-            
             for(Frame v : tela_principal.getFrames()){
                    if(v.getName().equals("frame0")) {
                        v.dispose();

@@ -94,7 +94,9 @@ public class tela_trabalho2 extends javax.swing.JInternalFrame {
 
     private void mudouLocal(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_mudouLocal
         // TODO add your handling code here:
-        this.setLocation(this.local);
+        try{
+            this.setLocation(this.local);
+        }catch(Exception e){ ; }
     }//GEN-LAST:event_mudouLocal
 
 
