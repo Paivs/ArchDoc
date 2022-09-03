@@ -32,7 +32,7 @@ public class tela_login_criar extends javax.swing.JInternalFrame {
 
 	this.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
         
-        setBackground(new java.awt.Color(1.0f,1.0f,1.0f,0.0f));
+	campo_usuario1.grabFocus();
  
     }
 
@@ -201,9 +201,11 @@ public class tela_login_criar extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         //campo_senha1.setAction(Action);
         if(mostrarSenha.isSelected())
-        campo_senha1.setEchoChar((char)0);
+	    campo_senha1.setEchoChar((char)0);
         else
-        campo_senha1.setEchoChar('•');
+	    campo_senha1.setEchoChar('•');
+	
+	campo_senha1.grabFocus();
     }//GEN-LAST:event_mostrarSenhaActionPerformed
 
     public boolean isFezLogin() {
