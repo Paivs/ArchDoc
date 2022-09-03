@@ -26,83 +26,80 @@ public class tela_trabalho extends javax.swing.JFrame {
     private tiposArquivos popup_tiposArquivos;
     tela_trabalho2 trabalhoAtual;
     tela_trabalho1 trabalhoNovo;
-   
-    
     boolean darkMode = false;
+    boolean atualizou = false;
+    Info telinha;
+
+    public boolean isAtualizou() {
+	return atualizou;
+    }
+
+    public void setAtualizou(boolean atualizou) {
+	this.atualizou = atualizou;
+    }
 
     public boolean isDarkMode() {
-        return darkMode;
+	return darkMode;
     }
 
     public void setDarkMode(boolean darkMode) {
-        this.darkMode = darkMode;
+	this.darkMode = darkMode;
     }
-    
+
     public static Rectangle getMaximumScreenBounds() {
-    int minx=0, miny=0, maxx=0, maxy=0;
-    GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-    for(GraphicsDevice device : environment.getScreenDevices()){
-        Rectangle bounds = device.getDefaultConfiguration().getBounds();
-        minx = Math.min(minx, bounds.x);
-        miny = Math.min(miny, bounds.y);
-        maxx = Math.max(maxx,  bounds.x+bounds.width);
-        maxy = Math.max(maxy, bounds.y+bounds.height);
+	int minx = 0, miny = 0, maxx = 0, maxy = 0;
+	GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	for (GraphicsDevice device : environment.getScreenDevices()) {
+	    Rectangle bounds = device.getDefaultConfiguration().getBounds();
+	    minx = Math.min(minx, bounds.x);
+	    miny = Math.min(miny, bounds.y);
+	    maxx = Math.max(maxx, bounds.x + bounds.width);
+	    maxy = Math.max(maxy, bounds.y + bounds.height);
+	}
+	return new Rectangle(minx, miny, maxx - minx, maxy - miny);
     }
-    return new Rectangle(minx, miny, maxx-minx, maxy-miny);
-}
 
     public tela_trabalho() {
 	initComponents();
 	setExtendedState(MAXIMIZED_BOTH);
-        
-        
-        this.setContentPane(pane_telaprincipal);
-        Toolkit kit = Toolkit.getDefaultToolkit();  
-        Dimension tamTela = kit.getScreenSize();
 
-        //Pega largura e altura da tela 
-        int larg = tamTela.width;  
-        int alt = tamTela.height;  
+	this.setContentPane(pane_telaprincipal);
+	Toolkit kit = Toolkit.getDefaultToolkit();
+	Dimension tamTela = kit.getScreenSize();
 
-        /* larg x 0.7; para ocupar 70% da tela por exemplo  */  
-        /* alt x 0.7;*/  
+	int larg = tamTela.width;
+	int alt = tamTela.height;
+	setSize(larg, alt);
 
-        //Manda o JFrame utilizar suas dimensões  
-        setSize(larg,alt); 
-        
-        System.out.println(getMaximumScreenBounds().getWidth());
-        System.out.println(getMaximumScreenBounds().getHeight());
-        
-        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "\\imgs\\icons\\principal.png");
-        setIconImage(iconeTitulo);
+	System.out.println(getMaximumScreenBounds().getWidth());
+	System.out.println(getMaximumScreenBounds().getHeight());
 
-	trabalhoNovo = new tela_trabalho1();
+	Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "\\imgs\\icons\\principal.png");
+	setIconImage(iconeTitulo);
+
+	trabalhoNovo = new tela_trabalho1(atualizou);
 	pane_telaprincipal.add(trabalhoNovo);
-	
 
 	trabalhoAtual = new tela_trabalho2();
 	pane_telaprincipal.add(trabalhoAtual);
-        
+
 	trabalhoAtual.setVisible(true);
-        trabalhoNovo.setVisible(true);
-        
-        pane_telaprincipal.setSize(this.getWidth(), this.getHeight());
-        
-        trabalhoAtual.setSize(pane_telaprincipal.getWidth()/2, pane_telaprincipal.getHeight());
-        trabalhoNovo.setSize(pane_telaprincipal.getWidth()/2, pane_telaprincipal.getHeight());
-        
-        trabalhoNovo.setLocation(0, 0);
-        trabalhoAtual.setLocation(trabalhoNovo.getWidth(), 0);
-        
-        trabalhoNovo.setLocal(trabalhoNovo.getLocation());
-        trabalhoAtual.setLocal(trabalhoAtual.getLocation());
-        
-        setExtendedState(MAXIMIZED_BOTH);
-        
-        System.out.println(pane_telaprincipal.getHeight());
-        
+	trabalhoNovo.setVisible(true);
+
+	pane_telaprincipal.setSize(this.getWidth(), this.getHeight());
+
+	trabalhoAtual.setSize(pane_telaprincipal.getWidth() / 2, pane_telaprincipal.getHeight());
+	trabalhoNovo.setSize(pane_telaprincipal.getWidth() / 2, pane_telaprincipal.getHeight());
+
+	trabalhoNovo.setLocation(0, 0);
+	trabalhoAtual.setLocation(trabalhoNovo.getWidth(), 0);
+
+	trabalhoNovo.setLocal(trabalhoNovo.getLocation());
+	trabalhoAtual.setLocal(trabalhoAtual.getLocation());
+
+	setExtendedState(MAXIMIZED_BOTH);
+
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -147,11 +144,11 @@ public class tela_trabalho extends javax.swing.JFrame {
         pane_telaprincipal.setLayout(pane_telaprincipalLayout);
         pane_telaprincipalLayout.setHorizontalGroup(
             pane_telaprincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1536, Short.MAX_VALUE)
+            .addGap(0, 1245, Short.MAX_VALUE)
         );
         pane_telaprincipalLayout.setVerticalGroup(
             pane_telaprincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 791, Short.MAX_VALUE)
+            .addGap(0, 607, Short.MAX_VALUE)
         );
 
         menutrabalho_logo.setText("archDoc");
@@ -267,11 +264,11 @@ public class tela_trabalho extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pane_telaprincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 1536, Short.MAX_VALUE)
+            .addComponent(pane_telaprincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pane_telaprincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
+            .addComponent(pane_telaprincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
         );
 
         pack();
@@ -296,17 +293,23 @@ public class tela_trabalho extends javax.swing.JFrame {
 
     private void menuItem_TiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_TiposActionPerformed
 	// TODO add your handling code here:
+	int lDesk = pane_telaprincipal.getWidth();
+	int aDesk = pane_telaprincipal.getHeight();
+	int lIFrame = this.getWidth();
+	int aIFrame = this.getHeight();
+
 	try {
 	    if (!popup_tiposArquivos.isVisible()) {
-		popup_tiposArquivos = new tiposArquivos(pane_telaprincipal);
+		popup_tiposArquivos = new tiposArquivos(pane_telaprincipal, atualizou);
 		pane_telaprincipal.add(popup_tiposArquivos);
 		popup_tiposArquivos.setVisible(true);
 		popup_tiposArquivos.moveToFront();
-	    }else{
-                popup_tiposArquivos.moveToFront();
-            }
+
+	    } else {
+		popup_tiposArquivos.moveToFront();
+	    }
 	} catch (Exception e) {
-	    popup_tiposArquivos = new tiposArquivos(pane_telaprincipal);
+	    popup_tiposArquivos = new tiposArquivos(pane_telaprincipal, atualizou);
 	    pane_telaprincipal.add(popup_tiposArquivos);
 	    popup_tiposArquivos.setVisible(true);
 	    popup_tiposArquivos.moveToFront();
@@ -325,58 +328,66 @@ public class tela_trabalho extends javax.swing.JFrame {
     }//GEN-LAST:event_menuitem_ajudaActionPerformed
 
     private void menutrabalho_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menutrabalho_salvarActionPerformed
-        // TODO add your handling code here:
-        System.out.println(pane_telaprincipal.getHeight());
+	// TODO add your handling code here:
+	System.out.println(pane_telaprincipal.getHeight());
     }//GEN-LAST:event_menutrabalho_salvarActionPerformed
 
     private void menutrabalho_salvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menutrabalho_salvarMouseClicked
-        System.out.println(getWidth() + " , " + getHeight());
+	System.out.println(getWidth() + " , " + getHeight());
     }//GEN-LAST:event_menutrabalho_salvarMouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        System.out.println(pane_telaprincipal.getHeight());
-        
-        try {
-        if(javax.swing.UIManager.getLookAndFeel().getName() == "FlatLaf Darcula"){
-            FlatLightLaf lookAndFeel1 = new FlatLightLaf();
-            javax.swing.UIManager.setLookAndFeel(lookAndFeel1);
-        } else{
-            FlatDarculaLaf lookAndFeel2 = new FlatDarculaLaf();
-            javax.swing.UIManager.setLookAndFeel(lookAndFeel2);
-        }
-        
-            
-            for(java.awt.Frame f : java.awt.Frame.getFrames()) {
-                javax.swing.SwingUtilities.updateComponentTreeUI(f);
-            }
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
+	System.out.println(pane_telaprincipal.getHeight());
+
+	try {
+	    if (javax.swing.UIManager.getLookAndFeel().getName() == "FlatLaf Darcula") {
+		FlatLightLaf lookAndFeel1 = new FlatLightLaf();
+		javax.swing.UIManager.setLookAndFeel(lookAndFeel1);
+	    } else {
+		FlatDarculaLaf lookAndFeel2 = new FlatDarculaLaf();
+		javax.swing.UIManager.setLookAndFeel(lookAndFeel2);
+	    }
+
+	    for (java.awt.Frame f : java.awt.Frame.getFrames()) {
+		javax.swing.SwingUtilities.updateComponentTreeUI(f);
+	    }
+	} catch (UnsupportedLookAndFeelException e) {
+	    e.printStackTrace();
+	}
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void menutrabalho_logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menutrabalho_logoMouseClicked
-        // TODO add your handling code here:
-        Info telinha = new Info(pane_telaprincipal);
-        pane_telaprincipal.add(telinha);
-        telinha.setVisible(true);
-        telinha.moveToFront();
+	// TODO add your handling code here:
+	try{
+	    if(!telinha.isVisible()){
+		telinha = new Info(pane_telaprincipal);
+		pane_telaprincipal.add(telinha);
+		telinha.setVisible(true);
+		telinha.moveToFront();
+	    }
+	}catch(Exception e) { 
+	    telinha = new Info(pane_telaprincipal);
+	    pane_telaprincipal.add(telinha);
+	    telinha.setVisible(true);
+	    telinha.moveToFront(); 
+	}
     }//GEN-LAST:event_menutrabalho_logoMouseClicked
 
     private void mudouTamanho(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_mudouTamanho
-        // TODO add your handling code here:
-        try{
-        trabalhoAtual.setSize(pane_telaprincipal.getWidth()/2, pane_telaprincipal.getHeight());
-        trabalhoNovo.setSize(pane_telaprincipal.getWidth()/2, pane_telaprincipal.getHeight());
-        
-        trabalhoNovo.setLocation(0, 0);
-        trabalhoAtual.setLocation(trabalhoNovo.getWidth(), 0);
-        
-        trabalhoNovo.setLocal(trabalhoNovo.getLocation());
-        trabalhoAtual.setLocal(trabalhoAtual.getLocation());
-        }catch(Exception e){ ; }
+	// TODO add your handling code here:
+	try {
+	    trabalhoAtual.setSize(pane_telaprincipal.getWidth() / 2, pane_telaprincipal.getHeight());
+	    trabalhoNovo.setSize(pane_telaprincipal.getWidth() / 2, pane_telaprincipal.getHeight());
+
+	    trabalhoNovo.setLocation(0, 0);
+	    trabalhoAtual.setLocation(trabalhoNovo.getWidth(), 0);
+
+	    trabalhoNovo.setLocal(trabalhoNovo.getLocation());
+	    trabalhoAtual.setLocal(trabalhoAtual.getLocation());
+	} catch (Exception e) {;
+	}
     }//GEN-LAST:event_mudouTamanho
 
-    
     /**
      * @param args the command line arguments
      */
@@ -387,10 +398,10 @@ public class tela_trabalho extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
 	 */
 	try {
-            javax.swing.UIManager.setLookAndFeel( new FlatDarculaLaf() );
-        } catch( Exception ex ) {
-            System.err.println( "Failed to initialize LaF" );
-        }
+	    javax.swing.UIManager.setLookAndFeel(new FlatDarculaLaf());
+	} catch (Exception ex) {
+	    System.err.println("Failed to initialize LaF");
+	}
 	//</editor-fold>
 	//</editor-fold>
 	//</editor-fold>

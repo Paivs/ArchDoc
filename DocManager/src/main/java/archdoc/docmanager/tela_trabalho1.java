@@ -5,9 +5,15 @@
 package archdoc.docmanager;
 
 import java.awt.Point;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -19,20 +25,34 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
     
     Point local;
     JFileChooser chooser = new JFileChooser();
+    private String[] lista;
+    private String file = System.getProperty("user.dir") + "\\Parameters\\tiposArquivos.csv";
+    private static boolean atualizou = false;
+
+    public boolean isAtualizou() {
+	return atualizou;
+    }
+
+    public void setAtualizou(boolean atualizou) {
+	this.atualizou = atualizou;
+    }
 
     public Point getLocal() {
         return local;
     }
 
-    public void setLocal(Point local) {
+    public void setLocal(Point local) { 
         this.local = local;
     }
     
-    public tela_trabalho1() {
+    public tela_trabalho1(boolean atualizou) {
         initComponents();
         setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\icons\\trab1.png"));
-        
-        System.out.println(getInsets());
+	
+	this.setAtualizou(atualizou);
+	
+	mudaLista();
+    
     }
 
     /**
@@ -82,6 +102,11 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
             String[] strings = { "PDF", "DOCX", "TXT", "XLXS", "MPP", " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
+        });
+        jList1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                atualizaLista(evt);
+            }
         });
         jScrollPane2.setViewportView(jList1);
 
@@ -141,8 +166,8 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                    .addComponent(jSeparator3)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -245,6 +270,52 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void atualizaLista(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_atualizaLista
+	mudaLista();
+    }//GEN-LAST:event_atualizaLista
+
+    public void mudaLista(){
+	try{
+	List<List<String>> lista_local = new ArrayList<>();
+	List<String> lista_local_limpa = new ArrayList<>();
+	
+	try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+	    String line;
+	    while ((line = br.readLine()) != null) {
+		String[] values = line.split(";");
+		lista_local.add(Arrays.asList(values));
+	    }
+	}
+
+	
+	int linha = 0, coluna = 0;
+	
+	for(List<String> i : lista_local){
+	    for(String w : i){
+		coluna++;
+		if(linha != 0){
+		    if(coluna == 2){
+			lista_local_limpa.add(w);
+		    }
+		}
+	    }
+	    coluna = 0;
+	    linha++;
+	}
+	
+	this.lista = lista_local_limpa.toArray(new String[0]);
+
+	DefaultListModel modo = new DefaultListModel();
+	for (int i = 0; i < lista.length; i++)
+	{
+	    modo.addElement(lista[i]);
+	}
+	jList1.setModel(modo);
+	
+	jList1.setModel(modo);
+	this.atualizou = false;
+    }catch(Exception w){ ; }
+    }
     
     public void scanner(File location, JTree lista) throws InterruptedException {
         // creates a file with the location filename

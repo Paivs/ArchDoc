@@ -27,14 +27,17 @@ public class tela_principal extends javax.swing.JFrame {
      * Creates new form tela_inicial
      */
     private tela_login telaCadUser;
+    private tela_login_criar telaCadCad;
     private javax.swing.JFrame frame;
     private connect connect = new connect();
     private Connection conexao;
     
     static boolean darkMode = true;
     
-    private String htmlSobre = System.getProperty("user.dir") + "\\HTML\\Sobre\\index.html";
-    private String htmlAjuda = System.getProperty("user.dir") + "\\HTML\\Ajuda\\index.html";
+    private String htmlSobre = System.getProperty("user.dir") + "\\HTML\\Sobre\\Página inicial _ Archdoc.html";
+    private String htmlAjuda = System.getProperty("user.dir") + "\\HTML\\Ajuda\\Página inicial _ Archdoc.html";
+    
+    Info telinha;
     
     public tela_principal() {
         initComponents();
@@ -67,6 +70,7 @@ public class tela_principal extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         menuprincipal_usuario = new javax.swing.JMenu();
         menuitem_login = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         menuprincipal_opcoes = new javax.swing.JMenu();
         menuitem_sobre = new javax.swing.JMenuItem();
@@ -123,6 +127,15 @@ public class tela_principal extends javax.swing.JFrame {
             }
         });
         menuprincipal_usuario.add(menuitem_login);
+
+        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem2.setText("Cadastrar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        menuprincipal_usuario.add(jMenuItem2);
 
         menu_telaprincipal.add(menuprincipal_usuario);
 
@@ -207,6 +220,7 @@ public class tela_principal extends javax.swing.JFrame {
 	    telaCadUser = new tela_login(pane_telaprincipal, conexao, darkMode);
 	    pane_telaprincipal.add(telaCadUser);
 	    telaCadUser.setVisible(true);
+	    telaCadUser.moveToFront();
 	}
     }//GEN-LAST:event_menuitem_loginActionPerformed
 
@@ -228,10 +242,14 @@ public class tela_principal extends javax.swing.JFrame {
             FlatLightLaf lookAndFeel1 = new FlatLightLaf();
             javax.swing.UIManager.setLookAndFeel(lookAndFeel1);
             darkMode = false;
+	    logo.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\fundo_alter.png"));
+	    logo.setVisible(true);
         } else{
             FlatDarculaLaf lookAndFeel2 = new FlatDarculaLaf();
             javax.swing.UIManager.setLookAndFeel(lookAndFeel2);
             darkMode = true;
+	    logo.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\fundo.png"));
+	    logo.setVisible(true);
         }
         
             
@@ -244,11 +262,35 @@ public class tela_principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-        Info telinha = new Info(pane_telaprincipal);
-        pane_telaprincipal.add(telinha);
-        telinha.setVisible(true);
-        telinha.moveToFront();
+        try{
+	    if(!telinha.isVisible()){
+		telinha = new Info(pane_telaprincipal);
+		pane_telaprincipal.add(telinha);
+		telinha.setVisible(true);
+		telinha.moveToFront();
+	    }
+	}catch(Exception e) { 
+	    telinha = new Info(pane_telaprincipal);
+	    pane_telaprincipal.add(telinha);
+	    telinha.setVisible(true);
+	    telinha.moveToFront(); 
+	}
     }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        try{
+	    if(!telaCadCad.isVisible()){
+		telaCadCad = new tela_login_criar(pane_telaprincipal, conexao, darkMode);
+		pane_telaprincipal.add(telaCadCad);
+		telaCadCad.setVisible(true);
+	    }
+	} catch(Exception e) { 
+	    telaCadCad = new tela_login_criar(pane_telaprincipal, conexao, darkMode);
+	    pane_telaprincipal.add(telaCadCad);
+	    telaCadCad.setVisible(true);
+	    telaCadCad.moveToFront();
+	}
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     
     /**
@@ -262,8 +304,13 @@ public class tela_principal extends javax.swing.JFrame {
          */
         
         try {
-            if(darkMode) javax.swing.UIManager.setLookAndFeel( new FlatDarculaLaf() );
-            else javax.swing.UIManager.setLookAndFeel( new FlatLightLaf() );
+            if(darkMode){
+		javax.swing.UIManager.setLookAndFeel( new FlatDarculaLaf() );
+	    }
+            else {
+		javax.swing.UIManager.setLookAndFeel( new FlatLightLaf() );
+	    }
+	    
         } catch( Exception ex ) {
             System.err.println( "Failed to initialize LaF" );
         }
@@ -285,6 +332,7 @@ public class tela_principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel logo;
     private javax.swing.JMenuBar menu_telaprincipal;
     private javax.swing.JMenuItem menuitem_ajuda;

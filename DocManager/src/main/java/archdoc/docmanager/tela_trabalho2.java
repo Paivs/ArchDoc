@@ -52,6 +52,8 @@ public class tela_trabalho2 extends javax.swing.JInternalFrame {
             }
         });
 
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jScrollPane1.setViewportView(jTree1);
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
