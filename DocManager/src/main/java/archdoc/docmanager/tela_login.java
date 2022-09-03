@@ -3,27 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package archdoc.docmanager;
-import java.awt.Color;
+
 import java.awt.Frame;
-import java.awt.Toolkit;
-import java.awt.event.ComponentListener;
 import java.sql.Connection;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
-import javax.swing.JMenuItem;
-import javax.swing.JMenuBar;
-import javax.swing.JFrame;
-/**
- *
- * @author super
- */
-public class tela_login extends javax.swing.JInternalFrame {
 
-        
-    /**
-     * Creates new form tela_login
-     */
+
+public class tela_login extends javax.swing.JInternalFrame {
+    
     JDesktopPane telaPrincipal;
     boolean fezLogin = false;
     Connection conexao;
@@ -47,6 +35,8 @@ public class tela_login extends javax.swing.JInternalFrame {
 	int aIFrame = this.getHeight();  
 
 	this.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+        
+        setBackground(new java.awt.Color(1.0f,1.0f,1.0f,0.0f));
  
     }
 
@@ -70,10 +60,12 @@ public class tela_login extends javax.swing.JInternalFrame {
         jSeparator2 = new javax.swing.JSeparator();
         mostrarSenha = new javax.swing.JCheckBox();
 
+        setBackground(new java.awt.Color(28, 28, 39));
         setClosable(true);
         setMaximumSize(new java.awt.Dimension(751, 444));
         setMinimumSize(new java.awt.Dimension(751, 444));
         setPreferredSize(new java.awt.Dimension(751, 444));
+        setVisible(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         campo_usuario1.addActionListener(new java.awt.event.ActionListener() {

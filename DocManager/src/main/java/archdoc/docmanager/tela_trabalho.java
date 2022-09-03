@@ -133,7 +133,10 @@ public class tela_trabalho extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImages(null);
+        setMinimumSize(new java.awt.Dimension(1245, 639));
+        setPreferredSize(new java.awt.Dimension(1245, 639));
 
+        pane_telaprincipal.setPreferredSize(new java.awt.Dimension(1245, 639));
         pane_telaprincipal.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 mudouTamanho(evt);
@@ -264,11 +267,11 @@ public class tela_trabalho extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pane_telaprincipal)
+            .addComponent(pane_telaprincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 1536, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pane_telaprincipal)
+            .addComponent(pane_telaprincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
         );
 
         pack();
@@ -327,7 +330,7 @@ public class tela_trabalho extends javax.swing.JFrame {
     }//GEN-LAST:event_menutrabalho_salvarActionPerformed
 
     private void menutrabalho_salvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menutrabalho_salvarMouseClicked
-
+        System.out.println(getWidth() + " , " + getHeight());
     }//GEN-LAST:event_menutrabalho_salvarMouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

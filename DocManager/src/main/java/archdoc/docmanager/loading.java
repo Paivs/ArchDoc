@@ -58,7 +58,7 @@ public class loading extends javax.swing.JFrame {
             @Override
             public void run() {
                 w.start();
-                int r = 160;
+                int r = 200;
                 jProgressBar1.setMaximum(r);
                 
                 for(int i = 0; i < r; i++){
@@ -70,7 +70,7 @@ public class loading extends javax.swing.JFrame {
                         Logger.getLogger(loading.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
-                    if(i == r-5 && !carregou){
+                    if(i == r-15 && !carregou){
                         r += 50;
                         jProgressBar1.setMaximum(r);
                         
@@ -113,7 +113,7 @@ public class loading extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Carregando sistema");
+        jLabel1.setText("Carregando sistema...");
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Historizador e Organizador por archDoc");

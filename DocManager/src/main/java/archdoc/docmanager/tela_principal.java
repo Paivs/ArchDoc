@@ -13,6 +13,7 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
@@ -44,6 +45,9 @@ public class tela_principal extends javax.swing.JFrame {
         
         Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "\\imgs\\icons\\principal.png");
         setIconImage(iconeTitulo);
+        
+        logo.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\fundo.png"));
+        logo.setVisible(true);
 
     }
 
@@ -71,8 +75,7 @@ public class tela_principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        logo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        logo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         pane_telaprincipal.setLayer(logo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -80,17 +83,11 @@ public class tela_principal extends javax.swing.JFrame {
         pane_telaprincipal.setLayout(pane_telaprincipalLayout);
         pane_telaprincipalLayout.setHorizontalGroup(
             pane_telaprincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pane_telaprincipalLayout.createSequentialGroup()
-                .addContainerGap(200, Short.MAX_VALUE)
-                .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(200, 200, 200))
+            .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         pane_telaprincipalLayout.setVerticalGroup(
             pane_telaprincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pane_telaprincipalLayout.createSequentialGroup()
-                .addContainerGap(200, Short.MAX_VALUE)
-                .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(200, 200, 200))
+            .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
 
         menu_telaprincipal.setBackground(new java.awt.Color(0, 0, 0));
