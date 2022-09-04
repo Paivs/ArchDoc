@@ -16,7 +16,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menutrabalho_logoMouseClicked"/>
           </Events>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="menutrabalho_separador1">
+        <Menu class="javax.swing.JMenu" name="menutrabalho_separador2">
           <Properties>
             <Property name="text" type="java.lang.String" value="|"/>
             <Property name="enabled" type="boolean" value="false"/>
@@ -35,7 +35,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menutrabalho_salvarActionPerformed"/>
           </Events>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="menutrabalho_separador2">
+        <Menu class="javax.swing.JMenu" name="menutrabalho_separador5">
           <Properties>
             <Property name="text" type="java.lang.String" value="|"/>
             <Property name="enabled" type="boolean" value="false"/>
@@ -50,37 +50,7 @@
             </Property>
           </Properties>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="menutrabalho_separador3">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="|"/>
-            <Property name="enabled" type="boolean" value="false"/>
-            <Property name="focusable" type="boolean" value="false"/>
-          </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="menutrabalho_novoarquivo">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Novos Arquivos"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="18" style="0"/>
-            </Property>
-          </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="menutrabalho_separador4">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="|"/>
-            <Property name="enabled" type="boolean" value="false"/>
-            <Property name="focusable" type="boolean" value="false"/>
-          </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="menutrabalho_workpath">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="WorkPath"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="18" style="0"/>
-            </Property>
-          </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="menutrabalho_separador5">
+        <Menu class="javax.swing.JMenu" name="menutrabalho_separador6">
           <Properties>
             <Property name="text" type="java.lang.String" value="|"/>
             <Property name="enabled" type="boolean" value="false"/>
@@ -142,11 +112,40 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="menutrabalho_separador1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="|"/>
+            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="focusable" type="boolean" value="false"/>
+          </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="menutrabalho_usuario">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="0"/>
+            </Property>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Sair"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Plataforma de Opera&#xe7;&#xe3;o"/>
     <Property name="iconImages" type="java.util.List" editor="org.netbeans.modules.form.ComponentChooserEditor">
       <ComponentRef name="null"/>
     </Property>
@@ -179,7 +178,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="pane_telaprincipal" alignment="0" pref="607" max="32767" attributes="0"/>
+          <Component id="pane_telaprincipal" alignment="0" pref="608" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -202,7 +201,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="607" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="608" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>

@@ -34,8 +34,8 @@ public class tela_principal extends javax.swing.JFrame {
     
     static boolean darkMode = true;
     
-    private String htmlSobre = System.getProperty("user.dir") + "\\HTML\\Sobre\\Página inicial _ Archdoc.html";
-    private String htmlAjuda = System.getProperty("user.dir") + "\\HTML\\Ajuda\\Página inicial _ Archdoc.html";
+    private String htmlSobre = System.getProperty("user.dir") + "\\HTML\\Sobre\\index.html";
+    private String htmlAjuda = System.getProperty("user.dir") + "\\HTML\\Ajuda\\index.html";
     
     Info telinha;
     
@@ -77,7 +77,8 @@ public class tela_principal extends javax.swing.JFrame {
         menuitem_ajuda = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Plataforma de Gestão");
 
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -283,6 +284,7 @@ public class tela_principal extends javax.swing.JFrame {
 		telaCadCad = new tela_login_criar(pane_telaprincipal, conexao, darkMode);
 		pane_telaprincipal.add(telaCadCad);
 		telaCadCad.setVisible(true);
+		telaCadCad.moveToFront();
 	    }
 	} catch(Exception e) { 
 	    telaCadCad = new tela_login_criar(pane_telaprincipal, conexao, darkMode);

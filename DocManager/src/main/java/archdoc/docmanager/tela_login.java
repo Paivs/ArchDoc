@@ -35,9 +35,8 @@ public class tela_login extends javax.swing.JInternalFrame {
 	int aIFrame = this.getHeight();  
 
 	this.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-        
-        setBackground(new java.awt.Color(1.0f,1.0f,1.0f,0.0f));
- 
+	
+	campo_usuario1.grabFocus();
     }
 
     /**
@@ -66,22 +65,23 @@ public class tela_login extends javax.swing.JInternalFrame {
         setMinimumSize(new java.awt.Dimension(751, 444));
         setPreferredSize(new java.awt.Dimension(751, 444));
         setVisible(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
 
         campo_usuario1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campo_usuario1ActionPerformed(evt);
             }
         });
-        getContentPane().add(campo_usuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 113, 250, 40));
 
         label_usuario1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         label_usuario1.setText("Usuário");
-        getContentPane().add(label_usuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, -1, -1));
 
         label_senha1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         label_senha1.setText("Senha");
-        getContentPane().add(label_senha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 171, -1, -1));
 
         botao_entrar1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         botao_entrar1.setText("ENTRAR");
@@ -90,22 +90,16 @@ public class tela_login extends javax.swing.JInternalFrame {
                 botao_entrar1ActionPerformed(evt);
             }
         });
-        getContentPane().add(botao_entrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 288, 250, 40));
 
         notas1.setEditable(false);
         notas1.setText("Patch da versão 2.01.5.12 \nNota-se versão beta em vigor\nEm caso de dúvida acessar \"Ajuda\" em opções\nUsuários apenas cadastrados pelo administrador");
         notas1.setFocusable(false);
         jScrollPane2.setViewportView(notas1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 103, 250, 230));
-
         label_notas1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         label_notas1.setText("Notas");
-        getContentPane().add(label_notas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, -1, -1));
-        getContentPane().add(campo_senha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 204, 250, 40));
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, 10, 220));
 
         mostrarSenha.setText("Mostrar Senha");
         mostrarSenha.addActionListener(new java.awt.event.ActionListener() {
@@ -113,7 +107,51 @@ public class tela_login extends javax.swing.JInternalFrame {
                 mostrarSenhaActionPerformed(evt);
             }
         });
-        getContentPane().add(mostrarSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, -1, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label_usuario1)
+                    .addComponent(campo_usuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_senha1)
+                    .addComponent(campo_senha1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mostrarSenha)
+                    .addComponent(botao_entrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label_notas1)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addComponent(label_usuario1)
+                .addGap(6, 6, 6)
+                .addComponent(campo_usuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(label_senha1)
+                .addGap(6, 6, 6)
+                .addComponent(campo_senha1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(mostrarSenha)
+                .addGap(18, 18, 18)
+                .addComponent(botao_entrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(label_notas1)
+                .addGap(6, 6, 6)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -147,7 +185,14 @@ public class tela_login extends javax.swing.JInternalFrame {
             campo_senha1.setEchoChar((char)0);
         else
             campo_senha1.setEchoChar('•');
+	
+	campo_senha1.grabFocus();
     }//GEN-LAST:event_mostrarSenhaActionPerformed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+        campo_usuario1.grabFocus();
+    }//GEN-LAST:event_formFocusGained
 
     public boolean isFezLogin() {
         return fezLogin;

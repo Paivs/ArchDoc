@@ -41,12 +41,14 @@ public class connect {
 	
 	switch(resultado){
 	    case "":
-		JOptionPane.showMessageDialog(null, "Erro ao validar suas credenciais");
-		login = false;
+		JOptionPane.showMessageDialog(null, "Erro ao validar suas credenciais", "Menu do usuário", JOptionPane.ERROR_MESSAGE);
+                
+            login = false;
+            
 	    break;
 	    
 	    case "Erro":
-		JOptionPane.showMessageDialog(null, "Erro no Banco de Dados");
+		JOptionPane.showMessageDialog(null, "Erro no Banco de Dados", "Menu do usuário", JOptionPane.ERROR_MESSAGE);
 		login = false;
 	    break;
 	    

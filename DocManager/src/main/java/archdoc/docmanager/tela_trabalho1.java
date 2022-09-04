@@ -27,6 +27,8 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
     JFileChooser chooser = new JFileChooser();
     private String[] lista;
     private String file = System.getProperty("user.dir") + "\\Parameters\\tiposArquivos.csv";
+    private String arquivoLocal = "";
+    private ArrayList<String> arquivos = new ArrayList<String>();
     private static boolean atualizou = false;
 
     public boolean isAtualizou() {
@@ -148,6 +150,11 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jButton3.setText("Mapear arquivos");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         isAuto.setText("Automático");
 
@@ -247,12 +254,14 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
                     root.removeAllChildren();
                     model.reload();
                     scanner(new File(chooser.getCurrentDirectory() + "\\" +chooser.getSelectedFile().getName()), jTree1);
+                     this.arquivoLocal = chooser.getCurrentDirectory() + "\\" +chooser.getSelectedFile().getName();
                 }else{
                     DefaultTreeModel model = (DefaultTreeModel) jTree2.getModel();
                     DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
                     root.removeAllChildren();
                     model.reload();
                     scanner(new File(chooser.getCurrentDirectory() + "\\" +chooser.getSelectedFile().getName()), jTree2);
+                    this.arquivoLocal = chooser.getCurrentDirectory() + "\\" +chooser.getSelectedFile().getName();
                 }
             } catch (InterruptedException ex) { Logger.getLogger(tela_trabalho1.class.getName()).log(Level.SEVERE, null, ex); }
           }
@@ -274,6 +283,53 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
 	mudaLista();
     }//GEN-LAST:event_atualizaLista
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String suf = this.arquivoLocal;
+        
+        try{  
+            Object root = jTree1.getModel().getRoot();
+
+            int nodes = jTree1.getModel().getChildCount(root);
+
+            for(int i = 0; i < nodes; i++){
+                Object arquivo = jTree1.getModel().getChild(root, i);   
+
+                if(jTree1.getModel().getChildCount(arquivo) > 0) {
+                    System.out.println(i + " \"" + suf + "\\" + arquivo.toString() + "\" é diretório");
+                    listarArquivos(jTree1.getModel(), suf + "\\" + arquivo.toString(), arquivo);
+                }
+                else{
+                    System.out.println(i + " \"" + suf + "\\" + arquivo.toString() + "\" é arquivo");
+                    arquivos.add(suf + "\\" + arquivo.toString());
+                }
+
+            }
+            
+        }catch(Exception e){ System.out.println(e); } 
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void listarArquivos(javax.swing.tree.TreeModel model, String suf, Object root){
+            try{
+
+            int nodes = model.getChildCount(root);
+
+            for(int i = 0; i < nodes; i++){
+                Object arquivo = model.getChild(root, i);   
+
+                if(model.getChildCount(arquivo) > 0) {
+                    System.out.println(i + " \"" + suf + "\\" + arquivo.toString() + "\" é diretório");
+                    listarArquivos(jTree1.getModel(), suf + "\\" + arquivo.toString(), arquivo);
+                }
+                else{
+                    System.out.println(i + " \"" + suf + "\\" + arquivo.toString() + "\" é arquivo");
+                    arquivos.add(suf + "\\" + arquivo.toString());
+                }
+
+            }
+            
+        }catch(Exception e){ System.out.println(e); }   
+        }
+    
     public void mudaLista(){
 	try{
 	List<List<String>> lista_local = new ArrayList<>();
