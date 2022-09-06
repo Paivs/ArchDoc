@@ -351,7 +351,10 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
 		coluna++;
 		if(linha != 0){
 		    if(coluna == 2){
-			lista_local_limpa.add(w);
+                        System.out.println(i.toArray()[coluna]);
+                        if(i.toArray()[coluna].equals("S")){
+                            lista_local_limpa.add(w);
+                        }
 		    }
 		}
 	    }

@@ -1,6 +1,7 @@
 N;Tipo;Ativo
-1;PDF;S
-2;DOC;S
-3;XLSX;S
-4;TXT;S
-5;MPP;S
+1;PDF;
+2;DOC;
+3;XLSX;
+4;TXT;
+5;MPP;
+6;INO;

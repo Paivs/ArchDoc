@@ -396,11 +396,7 @@ public class tela_trabalho extends javax.swing.JFrame {
                                         null, options, options[0]);  
         
         if(i == 0){
-            
-            tela_principal telona = new tela_principal();
-            telona.setVisible(true);
-            dispose();
-            
+            System.exit(0);
         }
         
     }//GEN-LAST:event_jMenuItem2ActionPerformed

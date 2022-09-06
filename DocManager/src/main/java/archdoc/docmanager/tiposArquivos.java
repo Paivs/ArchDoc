@@ -87,6 +87,7 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
         separar5 = new javax.swing.JMenu();
         menuDesabilita = new javax.swing.JMenu();
 
+        setClosable(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximumSize(new java.awt.Dimension(600, 600));
         setMinimumSize(new java.awt.Dimension(600, 600));
@@ -307,6 +308,13 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
 	    for (int coluna = 0; coluna < this.tabelaArquivos.getColumnCount(); coluna++) {
 		String xxx = (String) this.tabelaArquivos.getValueAt(linha, coluna);
 		try {
+                    if(coluna == 2){
+                        if(tabela[linha + 1][coluna].toUpperCase().equals("S") || tabela[linha + 1][coluna].toUpperCase().equals("N"));
+                        else{
+                            //tabela[linha + 1][coluna] = "N";
+                            System.out.println(tabela[linha + 1][coluna]);
+                        }
+                    }
 		    tabela[linha + 1][coluna] = xxx.toUpperCase();
 		} catch (Exception e) {;
 		}
