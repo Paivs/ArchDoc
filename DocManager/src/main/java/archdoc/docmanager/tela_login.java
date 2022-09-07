@@ -61,6 +61,7 @@ public class tela_login extends javax.swing.JInternalFrame {
 
         setBackground(new java.awt.Color(28, 28, 39));
         setClosable(true);
+        setTitle("Menu do Usuário");
         setMaximumSize(new java.awt.Dimension(751, 444));
         setMinimumSize(new java.awt.Dimension(751, 444));
         setPreferredSize(new java.awt.Dimension(751, 444));

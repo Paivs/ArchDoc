@@ -118,7 +118,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="Plataforma de Gest&#xe3;o"/>
+    <Property name="title" type="java.lang.String" value="DocManager - Plataforma de Gest&#xe3;o"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="menu_telaprincipal"/>

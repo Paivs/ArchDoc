@@ -145,7 +145,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="Plataforma de Opera&#xe7;&#xe3;o"/>
+    <Property name="title" type="java.lang.String" value="DocManager - Plataforma de Opera&#xe7;&#xe3;o"/>
     <Property name="iconImages" type="java.util.List" editor="org.netbeans.modules.form.ComponentChooserEditor">
       <ComponentRef name="null"/>
     </Property>

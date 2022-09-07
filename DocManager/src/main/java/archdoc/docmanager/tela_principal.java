@@ -78,7 +78,7 @@ public class tela_principal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Plataforma de Gestão");
+        setTitle("DocManager - Plataforma de Gestão");
 
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -307,6 +307,7 @@ public class tela_principal extends javax.swing.JFrame {
         
         try {
             if(darkMode){
+		//javax.swing.UIManager.setLookAndFeel( new FlatDarculaLaf() );
 		javax.swing.UIManager.setLookAndFeel( new FlatDarculaLaf() );
 	    }
             else {

@@ -129,7 +129,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Plataforma de Operação");
+        setTitle("DocManager - Plataforma de Operação");
         setIconImages(null);
         setMinimumSize(new java.awt.Dimension(1245, 639));
 
@@ -330,15 +330,13 @@ public class tela_trabalho extends javax.swing.JFrame {
 
     private void menutrabalho_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menutrabalho_salvarActionPerformed
 	// TODO add your handling code here:
-	System.out.println(pane_telaprincipal.getHeight());
     }//GEN-LAST:event_menutrabalho_salvarActionPerformed
 
     private void menutrabalho_salvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menutrabalho_salvarMouseClicked
-	System.out.println(getWidth() + " , " + getHeight());
+
     }//GEN-LAST:event_menutrabalho_salvarMouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-	System.out.println(pane_telaprincipal.getHeight());
 
 	try {
 	    if (javax.swing.UIManager.getLookAndFeel().getName() == "FlatLaf Darcula") {

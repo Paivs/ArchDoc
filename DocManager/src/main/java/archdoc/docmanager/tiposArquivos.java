@@ -86,6 +86,8 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
         menuHabilita = new javax.swing.JMenu();
         separar5 = new javax.swing.JMenu();
         menuDesabilita = new javax.swing.JMenu();
+        separar6 = new javax.swing.JMenu();
+        menuDesabilita1 = new javax.swing.JMenu();
 
         setClosable(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -181,7 +183,7 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
         separar4.setFocusable(false);
         jMenuBar1.add(separar4);
 
-        menuHabilita.setText("Habilitar tudo");
+        menuHabilita.setText("Habilitar");
         menuHabilita.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 menuHabilitaMouseClicked(evt);
@@ -199,7 +201,7 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
         separar5.setFocusable(false);
         jMenuBar1.add(separar5);
 
-        menuDesabilita.setText("Desabilitar tudo");
+        menuDesabilita.setText("Desabilitar");
         menuDesabilita.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 menuDesabilitaMouseClicked(evt);
@@ -212,6 +214,24 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
         });
         jMenuBar1.add(menuDesabilita);
 
+        separar6.setText("|");
+        separar6.setEnabled(false);
+        separar6.setFocusable(false);
+        jMenuBar1.add(separar6);
+
+        menuDesabilita1.setText("Ignorar Tipos");
+        menuDesabilita1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuDesabilita1MouseClicked(evt);
+            }
+        });
+        menuDesabilita1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuDesabilita1ActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(menuDesabilita1);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -222,7 +242,7 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
         );
 
         pack();
@@ -305,21 +325,19 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
 	tabela[0] = topo_tabela;
 
 	for (int linha = 0; linha < this.tabelaArquivos.getRowCount(); linha++) {
+                
 	    for (int coluna = 0; coluna < this.tabelaArquivos.getColumnCount(); coluna++) {
-		String xxx = (String) this.tabelaArquivos.getValueAt(linha, coluna);
 		try {
-                    if(coluna == 2){
-                        if(tabela[linha + 1][coluna].toUpperCase().equals("S") || tabela[linha + 1][coluna].toUpperCase().equals("N"));
-                        else{
-                            //tabela[linha + 1][coluna] = "N";
-                            System.out.println(tabela[linha + 1][coluna]);
-                        }
+                    tabela[linha + 1][coluna] = new String((String) this.tabelaArquivos.getValueAt(linha, coluna)).toUpperCase();
+                    
+                    if(coluna == 2 && !(tabela[linha + 1][2]).toUpperCase().equals("S") || tabela[linha + 1][2].toUpperCase().equals("N")){
+                        tabela[linha + 1][coluna] = "N";
                     }
-		    tabela[linha + 1][coluna] = xxx.toUpperCase();
-		} catch (Exception e) {;
-		}
+		}catch(Exception e) { ; }
 	    }
+            
 	}
+        
 
 	try {
 	    // create FileWriter object with file as parameter
@@ -343,6 +361,14 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
 	dispose();
 	this.atualizou = true;
     }//GEN-LAST:event_menuSalvarMouseClicked
+
+    private void menuDesabilita1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuDesabilita1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuDesabilita1MouseClicked
+
+    private void menuDesabilita1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDesabilita1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuDesabilita1ActionPerformed
 
     private void atualizaTabela() throws FileNotFoundException, IOException {
 	List<List<String>> tabela = new ArrayList<>();
@@ -391,6 +417,7 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
     private javax.swing.JMenu menuCancelar;
     private javax.swing.JMenu menuDeletar;
     private javax.swing.JMenu menuDesabilita;
+    private javax.swing.JMenu menuDesabilita1;
     private javax.swing.JMenu menuHabilita;
     private javax.swing.JMenu menuSalvar;
     private javax.swing.JMenu separar1;
@@ -398,6 +425,7 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
     private javax.swing.JMenu separar3;
     private javax.swing.JMenu separar4;
     private javax.swing.JMenu separar5;
+    private javax.swing.JMenu separar6;
     private javax.swing.JTable tabelaArquivos;
     // End of variables declaration//GEN-END:variables
 }

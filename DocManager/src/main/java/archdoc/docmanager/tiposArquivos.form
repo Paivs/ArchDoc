@@ -69,7 +69,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuHabilita">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Habilitar tudo"/>
+            <Property name="text" type="java.lang.String" value="Habilitar"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuHabilitaMouseClicked"/>
@@ -85,11 +85,27 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuDesabilita">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Desabilitar tudo"/>
+            <Property name="text" type="java.lang.String" value="Desabilitar"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuDesabilitaMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuDesabilitaActionPerformed"/>
+          </Events>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="separar6">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="|"/>
+            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="focusable" type="boolean" value="false"/>
+          </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="menuDesabilita1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ignorar Tipos"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuDesabilita1MouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuDesabilita1ActionPerformed"/>
           </Events>
         </Menu>
       </SubComponents>
@@ -132,7 +148,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jScrollPane1" alignment="1" pref="541" max="32767" attributes="0"/>
+          <Component id="jScrollPane1" alignment="1" pref="542" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
