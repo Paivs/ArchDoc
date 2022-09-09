@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,9 +28,13 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
     JFileChooser chooser = new JFileChooser();
     private String[] lista;
     private String file = System.getProperty("user.dir") + "\\Parameters\\tiposArquivos.csv";
+    private String workPath = "";
     private String arquivoLocal = "";
     private ArrayList<String> arquivos = new ArrayList<String>();
     private static boolean atualizou = false;
+    
+    Connection conexao;
+    connect connect = new connect();
 
     public boolean isAtualizou() {
 	return atualizou;
@@ -50,6 +55,8 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
     public tela_trabalho1(boolean atualizou) {
         initComponents();
         setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\icons\\trab1.png"));
+        try{ conexao = connect.connectionMySql();
+        }catch(Exception e) { ; }
 	
 	this.setAtualizou(atualizou);
 	
@@ -302,7 +309,7 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String suf = this.arquivoLocal;
-        
+
         try{  
             Object root = jTree1.getModel().getRoot();
 
@@ -312,17 +319,43 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
                 Object arquivo = jTree1.getModel().getChild(root, i);   
 
                 if(jTree1.getModel().getChildCount(arquivo) > 0) {
-                    System.out.println(i + " \"" + suf + "\\" + arquivo.toString() + "\" é diretório");
                     listarArquivos(jTree1.getModel(), suf + "\\" + arquivo.toString(), arquivo);
                 }
                 else{
-                    System.out.println(i + " \"" + suf + "\\" + arquivo.toString() + "\" é arquivo");
                     arquivos.add(suf + "\\" + arquivo.toString());
                 }
 
             }
             
         }catch(Exception e){ System.out.println(e); } 
+        
+        for(int i = 0; i<arquivos.toArray().length; i++){
+            try{
+            File file = new File(arquivos.get(i));
+            
+            if(connect.getArquivos(conexao, file.getName().split("_")[0], file.getName().split("_")[1]).isEmpty()){
+                //Encontrou um arquivo igual com revisão igual
+                //deleta e historiza
+                System.out.println("");
+                //connect.apaga(file);
+                
+            }else if(connect.getRev(conexao, file.getName().split("_")[0], file.getName().split("_")[1]).isEmpty()){
+                //encontrou um arquivo mas com revisão diferente
+                //move arquivo, adiciona no banco de dados e historiza
+                
+                //connect.mover(file, workPath);
+                
+            }else if(connect.getNovoArquivo(conexao, file.getName().split("_")[0], file.getName().split("_")[1]).isEmpty()){
+                //encontrou um arquivo novo
+                //move arquivo, adiciona no banco de dados e historiza
+                
+                //connect.mover(file, workPath);
+            }
+                    
+            }catch(Exception e){
+                System.out.println(e);
+            }
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -345,11 +378,9 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
                 Object arquivo = model.getChild(root, i);   
 
                 if(model.getChildCount(arquivo) > 0) {
-                    System.out.println(i + " \"" + suf + "\\" + arquivo.toString() + "\" é diretório");
                     listarArquivos(jTree1.getModel(), suf + "\\" + arquivo.toString(), arquivo);
                 }
                 else{
-                    System.out.println(i + " \"" + suf + "\\" + arquivo.toString() + "\" é arquivo");
                     arquivos.add(suf + "\\" + arquivo.toString());
                 }
 
@@ -379,7 +410,6 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
 		coluna++;
 		if(linha != 0){
 		    if(coluna == 2){
-                        System.out.println(i.toArray()[coluna]);
                         if(i.toArray()[coluna].equals("S")){
                             lista_local_limpa.add(w);
                         }

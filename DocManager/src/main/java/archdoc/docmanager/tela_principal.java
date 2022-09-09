@@ -52,6 +52,7 @@ public class tela_principal extends javax.swing.JFrame {
         logo.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\fundo.png"));
         logo.setVisible(true);
 
+ 
     }
 
     /**
