@@ -27,8 +27,12 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
     Point local;
     JFileChooser chooser = new JFileChooser();
     private String[] lista;
+    
     private String file = System.getProperty("user.dir") + "\\Parameters\\tiposArquivos.csv";
-    private String workPath = "";
+    
+    private String workPath = System.getProperty("user.dir") + "\\workPath";
+    private String deli = "_";
+    
     private String arquivoLocal = "";
     private ArrayList<String> arquivos = new ArrayList<String>();
     private static boolean atualizou = false;
@@ -212,9 +216,9 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4))))
+                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)))
@@ -328,28 +332,44 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
             }
             
         }catch(Exception e){ System.out.println(e); } 
-        
+      
         for(int i = 0; i<arquivos.toArray().length; i++){
             try{
             File file = new File(arquivos.get(i));
             
-            if(connect.getArquivos(conexao, file.getName().split("_")[0], file.getName().split("_")[1]).isEmpty()){
-                //Encontrou um arquivo igual com revisão igual
-                //deleta e historiza
-                System.out.println("");
-                //connect.apaga(file);
+            String arquivoDeli = file.getName().split(this.deli)[0];
+            String revisaoDeli = file.getName().split(this.deli)[1];
+            
+            
+            if(!connect.getRev(conexao, arquivoDeli, revisaoDeli).isEmpty()){
+                System.out.println("arquivo é revisao nova" + ": " + file.getName());
                 
-            }else if(connect.getRev(conexao, file.getName().split("_")[0], file.getName().split("_")[1]).isEmpty()){
-                //encontrou um arquivo mas com revisão diferente
-                //move arquivo, adiciona no banco de dados e historiza
+                connect.mover(file, workPath);
                 
-                //connect.mover(file, workPath);
+                connect.insertArquivos(conexao, arquivoDeli, revisaoDeli, workPath);
                 
-            }else if(connect.getNovoArquivo(conexao, file.getName().split("_")[0], file.getName().split("_")[1]).isEmpty()){
-                //encontrou um arquivo novo
-                //move arquivo, adiciona no banco de dados e historiza
+                connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath, 2);
                 
-                //connect.mover(file, workPath);
+                
+
+            }else if(connect.getArquivos(conexao, arquivoDeli, revisaoDeli).isEmpty()){
+                System.out.println("arquivo é novo" + ": " + file.getName());
+                
+                connect.mover(file, workPath);
+                
+                connect.insertArquivos(conexao, arquivoDeli, revisaoDeli, workPath);
+                
+                connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath, 1);
+                
+                
+                
+            }else if(connect.getNovoArquivo(conexao, arquivoDeli, revisaoDeli).isEmpty()){
+                System.out.println("arquivo removido" + ": " + file.getName());
+                
+                connect.apaga(file);
+                
+                connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath, 3);
+
             }
                     
             }catch(Exception e){

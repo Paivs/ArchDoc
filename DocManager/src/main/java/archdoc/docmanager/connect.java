@@ -134,11 +134,12 @@ public class connect {
         ResultSet rs = null;
 	String resultado = "";
         try{
-            pst = con.prepareStatement("insert into arquivos(cod_arquivos, arquivo, revisao, workpath) values (null, \"" + arquivo + "\", \"" + revisao + "\", \"" + revisao + "\", \"" + workpath +"\"");
+            pst = con.prepareStatement("insert into arquivos(cod_arquivos, arquivo, revisao, workpath) values (null, \"" + arquivo + "\", \"" + revisao + "\", \"" + workpath +"\");");
+            System.out.println("insert into arquivos(cod_arquivos, arquivo, revisao, workpath) values (null, \"" + arquivo + "\", \"" + revisao + "\", \"" + workpath +"\");");
             rs = pst.executeQuery();
             
         }catch(Exception e) { 
-	    resultado = "Erro";
+	    System.out.println(e);
 	}
     }
     
@@ -149,11 +150,12 @@ public class connect {
         LocalDateTime now = LocalDateTime.now();  
         
         try{
-            pst = con.prepareStatement("insert into historizador(cod_historizador, revisao, arquivo, acao, data_historizador) values (null, \"" + revisao + "\",\"" + arquivo + "\"," + acao + ",\"" + dtf.format(now) + ");");
+            pst = con.prepareStatement("insert into historizador(cod_historizador, revisao, arquivo, acao, data_historizador) values (null, \"" + revisao + "\",\"" + arquivo + "\"," + acao + ",\"" + dtf.format(now) + "\");");
+            System.out.println("insert into historizador(cod_historizador, revisao, arquivo, acao, data_historizador) values (null, \"" + revisao + "\",\"" + arquivo + "\"," + acao + ",\"" + dtf.format(now) + "\");");
             rs = pst.executeQuery();
             
         }catch(Exception e) { 
-	    resultado = "Erro";
+	    System.out.println(e);
 	}
     }
     

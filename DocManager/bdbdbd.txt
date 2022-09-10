@@ -1,0 +1,89 @@
+create database archDoc;
+
+use archDoc;
+
+create table usuario(
+	cod_usuario int primary key not null auto_increment,
+	senha varchar(255),
+	nome varchar(255),
+	cod_grupo int,
+	constraint fk_cod_grupo foreign key (cod_grupo) references Grupo(cod_grupo)
+);
+
+insert into usuario(cod_usuario, senha, nome, cod_grupo) values
+	(null, "123", "Gustavo", 1),
+    (null, "123", "Lucas", 1),
+    (null, "123", "Arthur", 1);
+
+create table grupo(
+	cod_grupo int primary key not null auto_increment,
+    nome varchar(100),
+    cod_empresa int,
+	descricao text, 
+    -- Nome Empresa:
+    -- CNPJ:
+    -- Responsável pela comunicação: 
+    -- Contato:
+	-- 		email:
+    -- 		telefone:
+    
+	cod_usuario int,
+	constraint fk_cod_usuario foreign key (cod_usuario) references user(cod_usuario)
+);
+
+insert into grupo(cod_grupo, nome, cod_empresa, descricao, cod_usuario) values 
+	(null, "archDoc", 1,"Nome Empresa: archDoc
+	CNPJ: 92.101.517/0001-95
+	Responsável pela comunicação: Arthur N. Caproni
+	Contato:
+		email: arthuzinho@gamei.com.br
+		telefone: (+55) 11 980697346", 1),
+        (null, "archDoc", 1,"Nome Empresa: archDoc
+	CNPJ: 92.101.517/0001-95
+	Responsável pela comunicação: Arthur N. Caproni
+	Contato:
+		email: arthuzinho@gamei.com.br
+		telefone: (+55) 11 980697346", 2),
+        (null, "archDoc", 1,"Nome Empresa: archDoc
+	CNPJ: 92.101.517/0001-95
+	Responsável pela comunicação: Arthur N. Caproni
+	Contato:
+		email: arthuzinho@gamei.com.br
+		telefone: (+55) 11 980697346", 3);
+
+
+create table trabalho(
+	cod_trabalho int primary key not null auto_increment,
+	cod_arquivos int,
+	cod_grupo int,
+	constraint fk_cod_grupo foreign key (cod_grupo) references grupo(cod_grupo),
+    constraint fk_cod_arquivos foreign key (cod_arquivos) references arquivos(cod_arquivos)
+);
+
+
+create table arquivos(
+	cod_arquivos int primary key not null auto_increment,
+	arquivo varchar(255),
+	revisao varchar(50),
+    workpath varchar(1024)
+);
+
+insert into arquivos(cod_arquivos, arquivo, revisao, workpath) values (null, "para-deletar", "1", "");
+insert into arquivos(cod_arquivos, arquivo, revisao, workpath) values (null, "para-revisao-nova", "1", "");
+
+
+#dedicado ao docViewer 
+create table historizador(
+	cod_historiador int primary key not null auto_increment,
+    revisao varchar(126),
+	arquivo varchar(1024),
+    acao int, -- 0 nada, 1 novo, 2 revisao, 3 deletado
+	data_historizador date -- Modelo de data AAAA-MM-DD.
+);
+
+insert into historizador(cod_historiador, revisao, arquivo, acao, data_historizador) values ();
+
+select * from arquivos;
+select * from historizador;
+
+insert into historizador(cod_historizador, revisao, arquivo, acao, data_historizador) values (null, "1","arquivo3",1,"2022-09-09");
