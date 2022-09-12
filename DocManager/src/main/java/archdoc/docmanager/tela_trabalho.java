@@ -30,6 +30,7 @@ public class tela_trabalho extends javax.swing.JFrame {
     boolean darkMode = false;
     boolean atualizou = false;
     Info telinha;
+    Config popup_config;
 
     public boolean isAtualizou() {
 	return atualizou;
@@ -121,6 +122,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         menutrabalho_separador6 = new javax.swing.JMenu();
         menutrabalho_opcoes = new javax.swing.JMenu();
         menuItem_Tipos = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         menuitem_sobre = new javax.swing.JMenuItem();
         menuitem_ajuda = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -210,6 +212,15 @@ public class tela_trabalho extends javax.swing.JFrame {
             }
         });
         menutrabalho_opcoes.add(menuItem_Tipos);
+
+        jMenuItem3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem3.setText("Configurar revisões");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        menutrabalho_opcoes.add(jMenuItem3);
 
         menuitem_sobre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         menuitem_sobre.setText("Sobre");
@@ -357,7 +368,7 @@ public class tela_trabalho extends javax.swing.JFrame {
 
     private void menutrabalho_logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menutrabalho_logoMouseClicked
 	// TODO add your handling code here:
-	try{
+        try{
 	    if(!telinha.isVisible()){
 		telinha = new Info(pane_telaprincipal);
 		pane_telaprincipal.add(telinha);
@@ -393,11 +404,25 @@ public class tela_trabalho extends javax.swing.JFrame {
                                         JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,
                                         null, options, options[0]);  
         
-        if(i == 0){
-            System.exit(0);
-        }
+        if(i == 0) System.exit(0);
         
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        try{
+	    if(!popup_config.isVisible()){
+		popup_config = new Config(pane_telaprincipal);
+		pane_telaprincipal.add(telinha);
+		popup_config.setVisible(true);
+		popup_config.moveToFront();
+	    }
+	}catch(Exception e) { 
+	    popup_config = new Config(pane_telaprincipal);
+	    pane_telaprincipal.add(popup_config);
+	    popup_config.setVisible(true);
+	    popup_config.moveToFront(); 
+	}
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -429,6 +454,7 @@ public class tela_trabalho extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem menuItem_Tipos;
     private javax.swing.JMenuBar menu_telatrabalho;
     private javax.swing.JMenuItem menuitem_ajuda;

@@ -93,7 +93,7 @@ public class connect {
         ResultSet rs = null;
 	String resultado = "";
         try{
-            pst = con.prepareStatement("select arquivo, revisao from arquivos where arquivo = \"" + arquivo + "\" and revisao != \"" + revisao + "\";");
+            pst = con.prepareStatement("select arquivo, revisao from arquivos where arquivo = \"" + arquivo + "\" and revisao = \"" + revisao + "\";");
             rs = pst.executeQuery();
             
             while(rs.next()){
@@ -135,13 +135,15 @@ public class connect {
 	String resultado = "";
         try{
             pst = con.prepareStatement("insert into arquivos(cod_arquivos, arquivo, revisao, workpath) values (null, \"" + arquivo + "\", \"" + revisao + "\", \"" + workpath +"\");");
-            System.out.println("insert into arquivos(cod_arquivos, arquivo, revisao, workpath) values (null, \"" + arquivo + "\", \"" + revisao + "\", \"" + workpath +"\");");
-            rs = pst.executeQuery();
+            //System.out.println("insert into arquivos(cod_arquivos, arquivo, revisao, workpath) values (null, \"" + arquivo + "\", \"" + revisao + "\", \"" + workpath +"\");");
+            pst.execute();
             
         }catch(Exception e) { 
 	    System.out.println(e);
 	}
     }
+    
+    
     
     public void insertHistorizador(Connection con, String arquivo, String revisao, String workpath, int acao){
         ResultSet rs = null;
@@ -151,8 +153,8 @@ public class connect {
         
         try{
             pst = con.prepareStatement("insert into historizador(cod_historizador, revisao, arquivo, acao, data_historizador) values (null, \"" + revisao + "\",\"" + arquivo + "\"," + acao + ",\"" + dtf.format(now) + "\");");
-            System.out.println("insert into historizador(cod_historizador, revisao, arquivo, acao, data_historizador) values (null, \"" + revisao + "\",\"" + arquivo + "\"," + acao + ",\"" + dtf.format(now) + "\");");
-            rs = pst.executeQuery();
+            //System.out.println("insert into historizador(cod_historizador, revisao, arquivo, acao, data_historizador) values (null, \"" + revisao + "\",\"" + arquivo + "\"," + acao + ",\"" + dtf.format(now) + "\");");
+            pst.execute();
             
         }catch(Exception e) { 
 	    System.out.println(e);

@@ -216,12 +216,12 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))))
+                                .addComponent(jButton4))))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -340,42 +340,46 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
             String arquivoDeli = file.getName().split(this.deli)[0];
             String revisaoDeli = file.getName().split(this.deli)[1];
             
-            
-            if(!connect.getRev(conexao, arquivoDeli, revisaoDeli).isEmpty()){
-                System.out.println("arquivo é revisao nova" + ": " + file.getName());
-                
-                connect.mover(file, workPath);
-                
-                connect.insertArquivos(conexao, arquivoDeli, revisaoDeli, workPath);
-                
-                connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath, 2);
-                
-                
-
-            }else if(connect.getArquivos(conexao, arquivoDeli, revisaoDeli).isEmpty()){
+            if(connect.getNovoArquivo(conexao, arquivoDeli, revisaoDeli).isEmpty()){
                 System.out.println("arquivo é novo" + ": " + file.getName());
                 
-                connect.mover(file, workPath);
+                //connect.mover(file, workPath);
                 
                 connect.insertArquivos(conexao, arquivoDeli, revisaoDeli, workPath);
                 
-                connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath, 1);
+                //connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath, 1);
                 
-                
-                
-            }else if(connect.getNovoArquivo(conexao, arquivoDeli, revisaoDeli).isEmpty()){
+            }else if(!connect.getArquivos(conexao, arquivoDeli, revisaoDeli).isEmpty()){
                 System.out.println("arquivo removido" + ": " + file.getName());
                 
-                connect.apaga(file);
+                //connect.apaga(file);
                 
-                connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath, 3);
+                //connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath, 3);
+                
+            }else if(!connect.getRev(conexao, arquivoDeli, revisaoDeli).isEmpty()){
+                System.out.println("arquivo é revisao nova" + ": " + file.getName());
+                
+                //connect.mover(file, workPath);
+                
+                connect.insertArquivos(conexao, arquivoDeli, revisaoDeli, workPath);
+                
+                //connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath, 2);
 
+
+            }else{
+                System.out.println("ERRO");
             }
+                
                     
             }catch(Exception e){
                 System.out.println(e);
             }
         }
+        
+        System.out.println("----------------");
+        System.out.println("");
+        
+        arquivos.clear();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
