@@ -27,7 +27,9 @@ public class tela_login extends javax.swing.JInternalFrame {
         this.telaPrincipal = telaPrincipal;
         this.conexao = conexao;
         this.darkMode = darkMode;
-        criaBD = new connect();
+        
+        try{criaBD = new connect();
+        }catch(Exception e){;}
         
         int lDesk = telaPrincipal.getWidth();  
 	int aDesk = telaPrincipal.getHeight();  

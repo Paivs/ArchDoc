@@ -14,8 +14,14 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.io.File;
+import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 public class tela_trabalho extends javax.swing.JFrame {
 
@@ -25,12 +31,20 @@ public class tela_trabalho extends javax.swing.JFrame {
     private String htmlSobre = System.getProperty("user.dir") + "\\HTML\\Sobre\\index.html";
     private String htmlAjuda = System.getProperty("user.dir") + "\\HTML\\Ajuda\\index.html";
     private tiposArquivos popup_tiposArquivos;
+    
     tela_trabalho2 trabalhoAtual;
     tela_trabalho1 trabalhoNovo;
+    
+    Visualizador visualizador;
+    
     boolean darkMode = false;
     boolean atualizou = false;
+    
     Info telinha;
     Config popup_config;
+    
+    Connection conexao;
+    connect connect = new connect();
 
     public boolean isAtualizou() {
 	return atualizou;
@@ -100,6 +114,9 @@ public class tela_trabalho extends javax.swing.JFrame {
 	trabalhoAtual.setLocal(trabalhoAtual.getLocation());
 
 	setExtendedState(MAXIMIZED_BOTH);
+        
+        try{ conexao = connect.connectionMySql();
+        }catch(Exception e) { ; }
 
     }
 
@@ -119,7 +136,13 @@ public class tela_trabalho extends javax.swing.JFrame {
         menutrabalho_salvar = new javax.swing.JMenu();
         menutrabalho_separador5 = new javax.swing.JMenu();
         menutrabalho_exportar = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         menutrabalho_separador6 = new javax.swing.JMenu();
+        menutrabalho_visualizar = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        menutrabalho_separador3 = new javax.swing.JMenu();
         menutrabalho_opcoes = new javax.swing.JMenu();
         menuItem_Tipos = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -189,12 +212,64 @@ public class tela_trabalho extends javax.swing.JFrame {
 
         menutrabalho_exportar.setText("Exportar");
         menutrabalho_exportar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem4.setText("Para CSV");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        menutrabalho_exportar.add(jMenuItem4);
+
+        jMenuItem5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem5.setText("Para TXT");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        menutrabalho_exportar.add(jMenuItem5);
+
         menu_telatrabalho.add(menutrabalho_exportar);
 
         menutrabalho_separador6.setText("|");
         menutrabalho_separador6.setEnabled(false);
         menutrabalho_separador6.setFocusable(false);
         menu_telatrabalho.add(menutrabalho_separador6);
+
+        menutrabalho_visualizar.setText("Visualizar");
+        menutrabalho_visualizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menutrabalho_visualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menutrabalho_visualizarMouseClicked(evt);
+            }
+        });
+        menutrabalho_visualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menutrabalho_visualizarActionPerformed(evt);
+            }
+        });
+
+        jMenuItem6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem6.setText("Criar Views");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        menutrabalho_visualizar.add(jMenuItem6);
+
+        jMenuItem7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem7.setText("Visualizar Views");
+        menutrabalho_visualizar.add(jMenuItem7);
+
+        menu_telatrabalho.add(menutrabalho_visualizar);
+
+        menutrabalho_separador3.setText("|");
+        menutrabalho_separador3.setEnabled(false);
+        menutrabalho_separador3.setFocusable(false);
+        menu_telatrabalho.add(menutrabalho_separador3);
 
         menutrabalho_opcoes.setText("Opções");
         menutrabalho_opcoes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -424,6 +499,58 @@ public class tela_trabalho extends javax.swing.JFrame {
 	}
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        trabalhoNovo.chooser.setDialogTitle("Selecione a pasta para fazer o export");
+        trabalhoNovo.chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        
+        if (trabalhoNovo.chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
+            connect.exportar(conexao, new String(trabalhoNovo.chooser.getCurrentDirectory() + "\\" + trabalhoNovo.chooser.getSelectedFile().getName() + "\\Export.csv").replace("\\","/"));
+          }
+        else {
+           JOptionPane.showMessageDialog(null, "Você precisa selecionar uma pasta apra atualizar o diretório!");
+          }
+        
+        
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        trabalhoNovo.chooser.setDialogTitle("Selecione a pasta para fazer o export");
+        trabalhoNovo.chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        
+        if (trabalhoNovo.chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
+            connect.exportar(conexao, new String(trabalhoNovo.chooser.getCurrentDirectory() + "\\" + trabalhoNovo.chooser.getSelectedFile().getName() + "\\Export.txt").replace("\\","/"));
+          }
+        else {
+           JOptionPane.showMessageDialog(null, "Você precisa selecionar uma pasta apra atualizar o diretório!");
+          }
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void menutrabalho_visualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menutrabalho_visualizarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menutrabalho_visualizarMouseClicked
+
+    private void menutrabalho_visualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menutrabalho_visualizarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_menutrabalho_visualizarActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+        try{
+	    if(!visualizador.isVisible()){
+		visualizador = new Visualizador(pane_telaprincipal);
+		pane_telaprincipal.add(visualizador);
+		visualizador.setVisible(true);
+		visualizador.moveToFront();
+	    }
+	}catch(Exception e) { 
+	    visualizador = new Visualizador(pane_telaprincipal);
+            pane_telaprincipal.add(visualizador);
+            visualizador.setVisible(true);
+            visualizador.moveToFront();
+	}
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -455,6 +582,10 @@ public class tela_trabalho extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem menuItem_Tipos;
     private javax.swing.JMenuBar menu_telatrabalho;
     private javax.swing.JMenuItem menuitem_ajuda;
@@ -465,9 +596,11 @@ public class tela_trabalho extends javax.swing.JFrame {
     private javax.swing.JMenu menutrabalho_salvar;
     private javax.swing.JMenu menutrabalho_separador1;
     private javax.swing.JMenu menutrabalho_separador2;
+    private javax.swing.JMenu menutrabalho_separador3;
     private javax.swing.JMenu menutrabalho_separador5;
     private javax.swing.JMenu menutrabalho_separador6;
     private javax.swing.JMenu menutrabalho_usuario;
+    private javax.swing.JMenu menutrabalho_visualizar;
     private javax.swing.JDesktopPane pane_telaprincipal;
     // End of variables declaration//GEN-END:variables
 }

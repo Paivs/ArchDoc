@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import static archdoc.docmanager.Config.deli;
 
 public class tela_trabalho1 extends javax.swing.JInternalFrame {
     
@@ -31,7 +32,7 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
     private String file = System.getProperty("user.dir") + "\\Parameters\\tiposArquivos.csv";
     
     private String workPath = System.getProperty("user.dir") + "\\workPath";
-    private String deli = "_";
+    public String deliLocal = "_";
     
     private String arquivoLocal = "";
     private ArrayList<String> arquivos = new ArrayList<String>();
@@ -61,6 +62,8 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
         setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\icons\\trab1.png"));
         try{ conexao = connect.connectionMySql();
         }catch(Exception e) { ; }
+        
+        this.deliLocal = deli;
 	
 	this.setAtualizou(atualizou);
 	
@@ -96,10 +99,12 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jButton4 = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
 
+        setIconifiable(true);
         setVisible(true);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentMoved(java.awt.event.ComponentEvent evt) {
@@ -185,16 +190,20 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
             }
         });
 
+        jToggleButton1.setText("X");
+        jToggleButton1.setToolTipText("Desabilitar / Habilitar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))
-                .addGap(9, 9, 9)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                    .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jSeparator3)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -216,7 +225,7 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton4))))
                     .addGroup(layout.createSequentialGroup()
@@ -238,7 +247,6 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -257,8 +265,12 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
                         .addGap(6, 6, 6)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addGap(5, 5, 5)
+                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(5, 5, 5))
         );
 
         setBounds(0, 0, 807, 777);
@@ -332,44 +344,71 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
             }
             
         }catch(Exception e){ System.out.println(e); } 
+        
+        ArrayList<String> listinha = new ArrayList<String>();
+        listinha = pegaLista();
       
         for(int i = 0; i<arquivos.toArray().length; i++){
             try{
             File file = new File(arquivos.get(i));
             
-            String arquivoDeli = file.getName().split(this.deli)[0];
-            String revisaoDeli = file.getName().split(this.deli)[1];
+            System.out.println("DELIMITADOR: " + this.deliLocal);
             
-            if(connect.getNovoArquivo(conexao, arquivoDeli, revisaoDeli).isEmpty()){
-                System.out.println("arquivo é novo" + ": " + file.getName());
-                
-                //connect.mover(file, workPath);
-                
-                connect.insertArquivos(conexao, arquivoDeli, revisaoDeli, workPath);
-                
-                //connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath, 1);
-                
-            }else if(!connect.getArquivos(conexao, arquivoDeli, revisaoDeli).isEmpty()){
-                System.out.println("arquivo removido" + ": " + file.getName());
-                
-                //connect.apaga(file);
-                
-                //connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath, 3);
-                
-            }else if(!connect.getRev(conexao, arquivoDeli, revisaoDeli).isEmpty()){
-                System.out.println("arquivo é revisao nova" + ": " + file.getName());
-                
-                //connect.mover(file, workPath);
-                
-                connect.insertArquivos(conexao, arquivoDeli, revisaoDeli, workPath);
-                
-                //connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath, 2);
-
-
-            }else{
-                System.out.println("ERRO");
+            String arquivoDeli = "";
+            String revisaoDeli = "";
+            
+            try{
+                arquivoDeli = file.getName().split(this.deliLocal)[0];
+                revisaoDeli = file.getName().split(this.deliLocal)[1];
+            }catch(Exception e){System.out.println("Erro no delimitador: " + e);}
+            
+            boolean validou = false;
+            
+            if(jToggleButton1.isSelected()) validou = true;
+            else{
+                try{ validou = listinha.contains(file.getName().substring(file.getName().indexOf(".")+1).toUpperCase());
+                }catch(Exception e){System.out.println("Erro pega extensão: " + e);}
             }
-                
+            
+            
+            if(validou){
+                if(connect.isNewArq(conexao, arquivoDeli, revisaoDeli)){
+                    System.out.println("arquivo é novo: " + file.getName());
+
+                    connect.mover(file, workPath);
+
+                    connect.insertArquivos(conexao, arquivoDeli, revisaoDeli, workPath.replace("\\","/"));
+
+                    connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath.replace("\\","/"), 1, "Novo arquivo inserido");
+
+                }else if(connect.isNewRev(conexao, arquivoDeli, revisaoDeli)){
+                    System.out.println("arquivo é revisao nova: " + file.getName());
+
+                    connect.mover(file, workPath);
+
+                    connect.insertArquivos(conexao, arquivoDeli, revisaoDeli, workPath.replace("\\","/"));
+
+                    connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath.replace("\\","/"), 2, "Nova revisao inserida");
+
+
+                }else if(connect.getArquivos(conexao, arquivoDeli, revisaoDeli)){
+                    System.out.println("arquivo removido: " + file.getName());
+
+                    if(!connect.verifica(file.getName(), workPath)){
+                        connect.apaga(file);
+                        connect.insertHistorizador(conexao, "null", arquivoDeli, revisaoDeli, workPath.replace("\\","/"), 3, "Arquivo removido");
+                    }
+                    else{
+                        connect.mover(file, workPath);
+                        connect.insertHistorizador(conexao, arquivoDeli, "null", revisaoDeli, workPath.replace("\\","/"), 4, "Arquivo existente no BD foi inserido");
+                    }
+
+
+                }else{
+                    System.out.println("ERRO");
+                    connect.insertHistorizador(conexao, arquivoDeli, "null", revisaoDeli, workPath.replace("\\","/"), 0, "Erro ao analisar arquivo");
+                }
+            }
                     
             }catch(Exception e){
                 System.out.println(e);
@@ -382,6 +421,44 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
         arquivos.clear();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private ArrayList<String> pegaLista(){
+        List<List<String>> lista_local = new ArrayList<>();
+	ArrayList<String> lista_local_limpa = new ArrayList<>();
+        
+        try{
+	
+	try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+	    String line;
+	    while ((line = br.readLine()) != null) {
+		String[] values = line.split(";");
+		lista_local.add(Arrays.asList(values));
+	    }
+	}
+
+	
+	int linha = 0, coluna = 0;
+	
+	for(List<String> i : lista_local){
+	    for(String w : i){
+		coluna++;
+		if(linha != 0){
+		    if(coluna == 2){
+                        if(i.toArray()[coluna].equals("S")){
+                            lista_local_limpa.add(w);
+                        }
+		    }
+		}
+	    }
+            
+	    coluna = 0;
+	    linha++;
+	}
+        
+        }catch(Exception e){ ; }
+        
+        return lista_local_limpa;
+    }
+    
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         
@@ -415,9 +492,8 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
     
     public void mudaLista(){
 	try{
-	List<List<String>> lista_local = new ArrayList<>();
-	List<String> lista_local_limpa = new ArrayList<>();
-	
+            List<List<String>> lista_local = new ArrayList<>();
+            List<String> lista_local_limpa = new ArrayList<>();
 	try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 	    String line;
 	    while ((line = br.readLine()) != null) {
@@ -546,6 +622,7 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTree jTree1;
     private javax.swing.JTree jTree2;
     // End of variables declaration//GEN-END:variables

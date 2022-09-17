@@ -64,6 +64,7 @@ public class tela_login_criar extends javax.swing.JInternalFrame {
         jMenuBar1.add(jMenu2);
 
         setClosable(true);
+        setTitle("Requisição Cadastro");
 
         campo_usuario1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import static archdoc.docmanager.Config.deli;
 
 
 public class connect {
@@ -67,28 +68,25 @@ public class connect {
                     
     } 
     
-    public ArrayList<String[][]> getArquivos(Connection con, String arquivo, String revisao){
-        ArrayList<String[][]> arq = new ArrayList<String[][]>();
+    public ArrayList<String> getAllArquivos(Connection con){
+        ArrayList<String> arq = new ArrayList<String>();
         ResultSet rs = null;
 	String resultado = "";
         try{
-            pst = con.prepareStatement("select arquivo, revisao from arquivos where arquivo = \"" + arquivo + "\" and revisao = \"" + revisao + "\";");
+            pst = con.prepareStatement("select arquivo, revisao from arquivos;");
             rs = pst.executeQuery();
             
             while(rs.next()){
-                try{
-                arq.add(new String[][]{ {rs.getString(1)}, {rs.getString(2)} });
-                }catch(Exception e){ ; }
+                arq.add(rs.getString(1)+ deli + rs.getString(2));
             }
             }catch(Exception e) {
                 System.out.println(e);
 	}
-
         
         return arq;
     }
     
-    public ArrayList<String[][]> getRev(Connection con, String arquivo, String revisao){
+    public boolean getArquivos(Connection con, String arquivo, String revisao){
         ArrayList<String[][]> arq = new ArrayList<String[][]>();
         ResultSet rs = null;
 	String resultado = "";
@@ -97,20 +95,43 @@ public class connect {
             rs = pst.executeQuery();
             
             while(rs.next()){
-                try{
                 arq.add(new String[][]{ {rs.getString(1)}, {rs.getString(2)} });
-                }catch(Exception e){ ; }
+                System.out.println(rs.getString(1)+"_"+rs.getString(2));
             }
             }catch(Exception e) {
                 System.out.println(e);
 	}
 
         
-        return arq;
+        return !arq.isEmpty();
+    }
+    
+    public boolean isNewRev(Connection con, String arquivo, String revisao){
+        ArrayList<String[][]> arq = new ArrayList<String[][]>();
+        ResultSet rs = null;
+	String resultado = "";
+        try{
+            pst = con.prepareStatement("select arquivo, revisao from arquivos where arquivo = \"" + arquivo + "\" and revisao = \"" + revisao + "\";");
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                arq.add(new String[][]{ {rs.getString(1)}, {rs.getString(2)} });
+                System.out.println(rs.getString(1)+"_"+rs.getString(2));
+            }
+            }catch(Exception e) {
+                System.out.println(e);
+	}
+
+        //nesse momento já sabemos que o arquivo não é novo, mas ele ainda pode ser uma revisão nova
+        
+        //procura arquivos com o mesmo nome e revisao igual
+        //se ele encontra algo, significa que ele realmente não é único
+        //agora se ele não encontra nada, entre suas revisões ele é único
+        return arq.isEmpty();
     }
         
-    public ArrayList<String[][]> getNovoArquivo(Connection con, String arquivo, String revisao){
-        ArrayList<String[][]> arq = new ArrayList<String[][]>();
+    public boolean isNewArq(Connection con, String arquivo, String revisao){
+        ArrayList<String[]> arq = new ArrayList<String[]>();
         ResultSet rs = null;
 	String resultado = "";
         try{
@@ -118,24 +139,24 @@ public class connect {
             rs = pst.executeQuery();
             
             while(rs.next()){
-                try{
-                arq.add(new String[][]{ {rs.getString(1)}, {rs.getString(2)} });
-                }catch(Exception e){ ; }
+                arq.add(new String[]{rs.getString(1)});
+                System.out.println(rs.getString(1));
             }
             }catch(Exception e) {
                 System.out.println(e);
 	}
 
-        
-        return arq;
+        //o select procura arquivos com o mesmo nome. Se ele encontra algo significa que o arquivo já existe. 
+        //mas se ele não encontra nada (isEmpty == true) é porque é novo
+        return arq.isEmpty();
     }
+    
     
     public void insertArquivos(Connection con, String arquivo, String revisao, String workpath){
         ResultSet rs = null;
 	String resultado = "";
         try{
             pst = con.prepareStatement("insert into arquivos(cod_arquivos, arquivo, revisao, workpath) values (null, \"" + arquivo + "\", \"" + revisao + "\", \"" + workpath +"\");");
-            //System.out.println("insert into arquivos(cod_arquivos, arquivo, revisao, workpath) values (null, \"" + arquivo + "\", \"" + revisao + "\", \"" + workpath +"\");");
             pst.execute();
             
         }catch(Exception e) { 
@@ -144,16 +165,37 @@ public class connect {
     }
     
     
-    
-    public void insertHistorizador(Connection con, String arquivo, String revisao, String workpath, int acao){
+    public void insertHistorizador(Connection con, String arquivo, String cod_arquivos ,String revisao, String workpath, int acao, String acaoDesc){
         ResultSet rs = null;
 	String resultado = "";
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
         LocalDateTime now = LocalDateTime.now();  
         
         try{
-            pst = con.prepareStatement("insert into historizador(cod_historizador, revisao, arquivo, acao, data_historizador) values (null, \"" + revisao + "\",\"" + arquivo + "\"," + acao + ",\"" + dtf.format(now) + "\");");
-            //System.out.println("insert into historizador(cod_historizador, revisao, arquivo, acao, data_historizador) values (null, \"" + revisao + "\",\"" + arquivo + "\"," + acao + ",\"" + dtf.format(now) + "\");");
+            pst = con.prepareStatement("insert into historizador(cod_historizador, cod_arquivos, revisao, arquivo, acao, acaoDesc, data_historizador) values (null, \"" + cod_arquivos + "\", \"" + revisao + "\",\"" + arquivo + "\"," + acao + ",\"" + acaoDesc + "\",\"" + dtf.format(now) + "\");");
+            pst.execute();
+            
+        }catch(Exception e) { 
+	    System.out.println(e);
+	}
+    }
+    public void insertHistorizador(Connection con, String arquivo, String revisao, String workpath, int acao, String acaoDesc){
+        ResultSet rs = null;
+	String resultado = "";
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
+        LocalDateTime now = LocalDateTime.now();  
+        
+        try{
+            
+            pst = con.prepareStatement("select cod_arquivos from arquivos order by cod_arquivos desc limit 1;");
+            rs = pst.executeQuery();
+            
+            String num = "";
+            
+            while(rs.next()) num = rs.getString(1);
+            if(num.equals("")) num = "null";
+            
+            pst = con.prepareStatement("insert into historizador(cod_historizador, cod_arquivos, revisao, arquivo, acao, acaoDesc, data_historizador) values (null, \"" + num + "\", \"" + revisao + "\",\"" + arquivo + "\"," + acao + ",\"" + acaoDesc + "\",\"" + dtf.format(now) + "\");");
             pst.execute();
             
         }catch(Exception e) { 
@@ -162,6 +204,46 @@ public class connect {
     }
     
     
+    public void exportar(Connection con, String destino){
+        ResultSet rs = null;
+	String resultado = "";
+        try{
+            pst = con.prepareStatement("SELECT arquivo As \"Arquivo\", revisao As \"Revisão\", workPath As \"Pasta\" FROM arquivos INTO OUTFILE \"" + destino + "\" FIELDS TERMINATED BY ';' ENCLOSED BY '\"' LINES TERMINATED BY '\\n';");
+            pst.execute();
+            
+        }catch(Exception e) { 
+	    System.out.println(e);
+	}
+    }
+    
+    public void criarView(Connection con, String querry){
+        try{
+            pst = con.prepareStatement(querry);
+            pst.execute();
+        }catch(Exception e) { 
+	    System.out.println(e);
+	}
+    }
+    
+    public ArrayList<String> getView(Connection con){
+        ArrayList<String> arq = new ArrayList<String>();
+        ResultSet rs = null;
+	String resultado = "";
+        try{
+            pst = con.prepareStatement("show tables;");
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                if(!rs.getString(1).equals("arquivos") && !rs.getString(1).equals("grupo") && !rs.getString(1).equals("historizador") && !rs.getString(1).equals("usuario") ){
+                 arq.add(rs.getString(1));
+                }
+            }
+            }catch(Exception e) {
+                System.out.println(e);
+	}
+
+        return arq;
+    }
     
     public void apaga(File arquivo){
         try{
@@ -171,19 +253,14 @@ public class connect {
             
         }
     }
-    
-    public void mover(String arquivo, String pastaAtual, String pastaDestino){
-        Path result = null;
-        try{
-            Files.move(Paths.get(pastaAtual + "\\" + arquivo), Paths.get(pastaDestino + "\\" + arquivo));
-        }catch(Exception e){ ; }
-    }
-    
     public void mover(File arquivo, String pastaDestino){
         Path result = null;
         try{
             Files.move(Paths.get(arquivo.getAbsolutePath()), Paths.get(pastaDestino + "\\" + arquivo.getName()));
         }catch(Exception e){ ; }
+    }
+    public boolean verifica(String arquivo, String workPath){
+        return new File(workPath + "\\" + arquivo).exists();
     }
     
 }

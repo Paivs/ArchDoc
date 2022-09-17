@@ -35,6 +35,7 @@ public class Config extends javax.swing.JInternalFrame {
     private String[][] tabela;
     private String[][] tabela_sem_topo;
     private boolean atualizou;
+    public static String deli = "_";
 
     public boolean isAtualizou() {
 	return atualizou;
@@ -81,6 +82,8 @@ public class Config extends javax.swing.JInternalFrame {
         menuDeletar = new javax.swing.JMenu();
         separar3 = new javax.swing.JMenu();
         menuAdicionar = new javax.swing.JMenu();
+        separar4 = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
 
         setClosable(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -171,6 +174,24 @@ public class Config extends javax.swing.JInternalFrame {
             }
         });
         jMenuBar1.add(menuAdicionar);
+
+        separar4.setText("|");
+        separar4.setEnabled(false);
+        separar4.setFocusable(false);
+        jMenuBar1.add(separar4);
+
+        jMenu1.setText("Delimitador");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -274,6 +295,14 @@ public class Config extends javax.swing.JInternalFrame {
 	this.atualizou = true;
     }//GEN-LAST:event_menuSalvarMouseClicked
 
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        this.deli = JOptionPane.showInputDialog(null, "Insira o caráter delimitador:", JOptionPane.QUESTION_MESSAGE);
+    }//GEN-LAST:event_jMenu1MouseClicked
+
     private void atualizaTabela() throws FileNotFoundException, IOException {
 	List<List<String>> tabela = new ArrayList<>();
 	List<String> topo = new ArrayList<>();
@@ -315,6 +344,7 @@ public class Config extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu menuAdicionar;
@@ -324,6 +354,7 @@ public class Config extends javax.swing.JInternalFrame {
     private javax.swing.JMenu separar1;
     private javax.swing.JMenu separar2;
     private javax.swing.JMenu separar3;
+    private javax.swing.JMenu separar4;
     private javax.swing.JTable tabelaArquivos;
     // End of variables declaration//GEN-END:variables
 }
