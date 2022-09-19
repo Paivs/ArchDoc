@@ -104,8 +104,12 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
 
-        setIconifiable(true);
         setVisible(true);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                focoGanho(evt);
+            }
+        });
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentMoved(java.awt.event.ComponentEvent evt) {
                 mudouPosition(evt);
@@ -469,6 +473,11 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
         jTree1.grabFocus();
 
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void focoGanho(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_focoGanho
+        // TODO add your handling code here:
+        this.moveToBack();
+    }//GEN-LAST:event_focoGanho
 
     private void listarArquivos(javax.swing.tree.TreeModel model, String suf, Object root){
             try{

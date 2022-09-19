@@ -3,6 +3,9 @@ package archdoc.docmanager;
 import java.sql.Connection;
 import java.util.ArrayList;
 import static archdoc.docmanager.tela_principal.darkMode;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
@@ -88,9 +91,25 @@ public class Visualizador extends javax.swing.JInternalFrame {
         jMenu1 = new javax.swing.JMenu();
 
         setClosable(true);
-        setIconifiable(true);
-        setTitle("Views");
+        setTitle("Criar Views");
         setToolTipText("");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                fechamento(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "arquivo", "revisao" }));
 
@@ -136,6 +155,7 @@ public class Visualizador extends javax.swing.JInternalFrame {
             }
         });
         jTable2.setToolTipText("");
+        jTable2.setEnabled(false);
         jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -167,6 +187,7 @@ public class Visualizador extends javax.swing.JInternalFrame {
                 return types [columnIndex];
             }
         });
+        jTable1.setEnabled(false);
         jScrollPane1.setViewportView(jTable1);
 
         jTabbedPane1.addTab("Lista", jScrollPane1);
@@ -186,6 +207,7 @@ public class Visualizador extends javax.swing.JInternalFrame {
         jMenuBar1.add(jMenu5);
 
         jMenu2.setText("|");
+        jMenu2.setEnabled(false);
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Deletar");
@@ -193,6 +215,7 @@ public class Visualizador extends javax.swing.JInternalFrame {
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("|");
+        jMenu4.setEnabled(false);
         jMenuBar1.add(jMenu4);
 
         jMenu1.setText("Nova");
@@ -338,11 +361,25 @@ public class Visualizador extends javax.swing.JInternalFrame {
             querry = querry + ";";
         }
 
-        System.out.println("CREATE VIEW " + JOptionPane.showInputDialog(null, "Nome da View") + querry);
+        querry = "CREATE VIEW " + JOptionPane.showInputDialog(null, "Nome da View") + " as " + querry;
+        System.out.println(querry);
+        
+        connect.criarView(conexao, querry);
 
         tabela.clear();
         campo.clear();
+        
+        dispose();
     }//GEN-LAST:event_jMenu5MouseClicked
+
+    private void fechamento(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_fechamento
+        try {
+            // TODO add your handling code here:
+            conexao.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_fechamento
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

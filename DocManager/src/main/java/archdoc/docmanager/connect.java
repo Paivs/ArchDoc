@@ -245,6 +245,39 @@ public class connect {
         return arq;
     }
     
+    public ArrayList<String[]> getSelectView(Connection con, String view){
+        ArrayList<String[]> arq = new ArrayList<String[]>();
+        ResultSet rs = null;
+	String resultado = "";
+        try{
+            pst = con.prepareStatement("select * from " + view + ";");
+            rs = pst.executeQuery();
+            
+            ResultSetMetaData rsmd = rs.getMetaData();
+            
+            while(rs.next()){
+                String row = "";
+                for(int i = 1; i <= rsmd.getColumnCount(); i++){
+                    if(i == 1) row = rs.getString(i);
+                    else row = row +";" + rs.getString(i);
+                }
+                arq.add(row.split(";"));
+            }
+            
+            for(int i = 1; i <= rsmd.getColumnCount(); i++){
+                arq.add(new String[]{rsmd.getColumnName(i)});
+            }
+           
+            arq.add(new String[]{String.valueOf(rsmd.getColumnCount())});
+            
+            }catch(Exception e) {
+                System.out.println(e);
+            }
+
+
+        return arq; 
+    }
+            
     public void apaga(File arquivo){
         try{
             arquivo.delete();

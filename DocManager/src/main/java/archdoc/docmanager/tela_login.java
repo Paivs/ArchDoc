@@ -6,6 +6,9 @@ package archdoc.docmanager;
 
 import java.awt.Frame;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 
@@ -71,6 +74,23 @@ public class tela_login extends javax.swing.JInternalFrame {
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 formFocusGained(evt);
+            }
+        });
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                fechamento(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
             }
         });
 
@@ -196,6 +216,15 @@ public class tela_login extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         campo_usuario1.grabFocus();
     }//GEN-LAST:event_formFocusGained
+
+    private void fechamento(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_fechamento
+        try {
+            // TODO add your handling code here:
+            conexao.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_fechamento
 
     public boolean isFezLogin() {
         return fezLogin;

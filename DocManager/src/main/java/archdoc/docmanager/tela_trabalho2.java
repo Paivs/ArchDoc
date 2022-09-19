@@ -65,7 +65,11 @@ public class tela_trabalho2 extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
 
-        setIconifiable(true);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                focoGanho(evt);
+            }
+        });
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentMoved(java.awt.event.ComponentEvent evt) {
                 mudouLocal(evt);
@@ -192,6 +196,11 @@ public class tela_trabalho2 extends javax.swing.JInternalFrame {
             }
         }catch(Exception e){ ; }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void focoGanho(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_focoGanho
+        // TODO add your handling code here:
+        this.moveToBack();
+    }//GEN-LAST:event_focoGanho
 
     public void scanner(File location, JTree lista) throws InterruptedException {
         // creates a file with the location filename

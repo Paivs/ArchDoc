@@ -59,6 +59,7 @@ public class loading extends javax.swing.JFrame {
             public void run() {
                 w.start();
                 int r = 200;
+                float per = 0.02f;
                 jProgressBar1.setMaximum(r);
                 
                 for(int i = 0; i < r; i++){
@@ -78,8 +79,8 @@ public class loading extends javax.swing.JFrame {
                     else if (carregou){
                         jProgressBar1.setValue(r);
                         
-                        try {
-                        Thread.sleep(2000);
+                    try {
+                        Thread.sleep((long) (2000 * per));
                     } catch (InterruptedException ex) {
                         Logger.getLogger(loading.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -145,9 +146,9 @@ public class loading extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18))
+                .addGap(12, 12, 12))
         );
 
         pack();

@@ -36,6 +36,7 @@ public class tela_trabalho extends javax.swing.JFrame {
     tela_trabalho1 trabalhoNovo;
     
     Visualizador visualizador;
+    View view;
     
     boolean darkMode = false;
     boolean atualizou = false;
@@ -142,13 +143,15 @@ public class tela_trabalho extends javax.swing.JFrame {
         menutrabalho_visualizar = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         menutrabalho_separador3 = new javax.swing.JMenu();
         menutrabalho_opcoes = new javax.swing.JMenu();
         menuItem_Tipos = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         menuitem_sobre = new javax.swing.JMenuItem();
         menuitem_ajuda = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         menutrabalho_separador1 = new javax.swing.JMenu();
         menutrabalho_usuario = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -262,7 +265,30 @@ public class tela_trabalho extends javax.swing.JFrame {
 
         jMenuItem7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem7.setText("Visualizar Views");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         menutrabalho_visualizar.add(jMenuItem7);
+
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem1.setText("Mudar Tema");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menutrabalho_visualizar.add(jMenuItem1);
+
+        jMenuItem8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem8.setText("Reset Windows");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        menutrabalho_visualizar.add(jMenuItem8);
 
         menu_telatrabalho.add(menutrabalho_visualizar);
 
@@ -315,14 +341,9 @@ public class tela_trabalho extends javax.swing.JFrame {
         });
         menutrabalho_opcoes.add(menuitem_ajuda);
 
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem1.setText("Mudar Tema");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        menutrabalho_opcoes.add(jMenuItem1);
+        jMenuItem9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem9.setText("Mapear Unidade");
+        menutrabalho_opcoes.add(jMenuItem9);
 
         menu_telatrabalho.add(menutrabalho_opcoes);
 
@@ -551,6 +572,28 @@ public class tela_trabalho extends javax.swing.JFrame {
 	}
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        try{
+	    if(!view.isVisible()){
+		view = new View(pane_telaprincipal);
+		pane_telaprincipal.add(view);
+		view.setVisible(true);
+		view.moveToFront();
+	    }
+	}catch(Exception e) { 
+	    view = new View(pane_telaprincipal);
+            pane_telaprincipal.add(view);
+            view.setVisible(true);
+            view.moveToFront();
+	}
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        this.trabalhoAtual.moveToBack();
+        this.trabalhoNovo.moveToBack();
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -586,6 +629,8 @@ public class tela_trabalho extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem menuItem_Tipos;
     private javax.swing.JMenuBar menu_telatrabalho;
     private javax.swing.JMenuItem menuitem_ajuda;

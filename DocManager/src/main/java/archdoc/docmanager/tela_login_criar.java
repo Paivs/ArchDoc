@@ -2,6 +2,9 @@ package archdoc.docmanager;
 
 import java.awt.Frame;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 
@@ -65,6 +68,23 @@ public class tela_login_criar extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Requisição Cadastro");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                fechamento(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         campo_usuario1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,6 +228,15 @@ public class tela_login_criar extends javax.swing.JInternalFrame {
 	
 	campo_senha1.grabFocus();
     }//GEN-LAST:event_mostrarSenhaActionPerformed
+
+    private void fechamento(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_fechamento
+        try {
+            // TODO add your handling code here:
+            conexao.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_fechamento
 
     public boolean isFezLogin() {
         return fezLogin;
