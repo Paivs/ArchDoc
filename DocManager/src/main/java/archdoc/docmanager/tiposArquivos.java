@@ -86,8 +86,6 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
         menuHabilita = new javax.swing.JMenu();
         separar5 = new javax.swing.JMenu();
         menuDesabilita = new javax.swing.JMenu();
-        separar6 = new javax.swing.JMenu();
-        menuDesabilita1 = new javax.swing.JMenu();
 
         setClosable(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -213,24 +211,6 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
             }
         });
         jMenuBar1.add(menuDesabilita);
-
-        separar6.setText("|");
-        separar6.setEnabled(false);
-        separar6.setFocusable(false);
-        jMenuBar1.add(separar6);
-
-        menuDesabilita1.setText("Ignorar Tipos");
-        menuDesabilita1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuDesabilita1MouseClicked(evt);
-            }
-        });
-        menuDesabilita1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuDesabilita1ActionPerformed(evt);
-            }
-        });
-        jMenuBar1.add(menuDesabilita1);
 
         setJMenuBar(jMenuBar1);
 
@@ -362,14 +342,6 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
 	this.atualizou = true;
     }//GEN-LAST:event_menuSalvarMouseClicked
 
-    private void menuDesabilita1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuDesabilita1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuDesabilita1MouseClicked
-
-    private void menuDesabilita1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDesabilita1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuDesabilita1ActionPerformed
-
     private void atualizaTabela() throws FileNotFoundException, IOException {
 	List<List<String>> tabela = new ArrayList<>();
 	List<String> topo = new ArrayList<>();
@@ -417,7 +389,6 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
     private javax.swing.JMenu menuCancelar;
     private javax.swing.JMenu menuDeletar;
     private javax.swing.JMenu menuDesabilita;
-    private javax.swing.JMenu menuDesabilita1;
     private javax.swing.JMenu menuHabilita;
     private javax.swing.JMenu menuSalvar;
     private javax.swing.JMenu separar1;
@@ -425,7 +396,6 @@ public class tiposArquivos extends javax.swing.JInternalFrame {
     private javax.swing.JMenu separar3;
     private javax.swing.JMenu separar4;
     private javax.swing.JMenu separar5;
-    private javax.swing.JMenu separar6;
     private javax.swing.JTable tabelaArquivos;
     // End of variables declaration//GEN-END:variables
 }

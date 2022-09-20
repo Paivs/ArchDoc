@@ -92,22 +92,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuDesabilitaActionPerformed"/>
           </Events>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="separar6">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="|"/>
-            <Property name="enabled" type="boolean" value="false"/>
-            <Property name="focusable" type="boolean" value="false"/>
-          </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="menuDesabilita1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Ignorar Tipos"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuDesabilita1MouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuDesabilita1ActionPerformed"/>
-          </Events>
-        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>

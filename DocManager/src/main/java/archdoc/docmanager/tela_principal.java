@@ -6,8 +6,6 @@ package archdoc.docmanager;
 
 import java.awt.Desktop;
 import java.io.File;
-import java.net.URI;
-import com.formdev.flatlaf.IntelliJTheme.ThemeLaf;
 import java.sql.Connection;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -121,6 +119,7 @@ public class tela_principal extends javax.swing.JFrame {
             }
         });
 
+        menuitem_login.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         menuitem_login.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         menuitem_login.setText("Login");
         menuitem_login.addActionListener(new java.awt.event.ActionListener() {
@@ -130,6 +129,7 @@ public class tela_principal extends javax.swing.JFrame {
         });
         menuprincipal_usuario.add(menuitem_login);
 
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem2.setText("Cadastrar");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -149,6 +149,7 @@ public class tela_principal extends javax.swing.JFrame {
         menuprincipal_opcoes.setText("Opções");
         menuprincipal_opcoes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        menuitem_sobre.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         menuitem_sobre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         menuitem_sobre.setText("Sobre");
         menuitem_sobre.addActionListener(new java.awt.event.ActionListener() {
@@ -158,6 +159,7 @@ public class tela_principal extends javax.swing.JFrame {
         });
         menuprincipal_opcoes.add(menuitem_sobre);
 
+        menuitem_ajuda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         menuitem_ajuda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         menuitem_ajuda.setText("Ajuda");
         menuitem_ajuda.addActionListener(new java.awt.event.ActionListener() {
@@ -167,6 +169,7 @@ public class tela_principal extends javax.swing.JFrame {
         });
         menuprincipal_opcoes.add(menuitem_ajuda);
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F10, 0));
         jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem1.setText("Mudar Tema");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -318,8 +321,6 @@ public class tela_principal extends javax.swing.JFrame {
         } catch( Exception ex ) {
             System.err.println( "Failed to initialize LaF" );
         }
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

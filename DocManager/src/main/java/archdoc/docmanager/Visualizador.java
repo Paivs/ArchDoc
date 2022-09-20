@@ -2,7 +2,6 @@ package archdoc.docmanager;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import static archdoc.docmanager.tela_principal.darkMode;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,9 +29,12 @@ public class Visualizador extends javax.swing.JInternalFrame {
 
     Connection conexao;
     connect connect = new connect();
+    JDesktopPane telaPrincipal;
 
     public Visualizador(JDesktopPane telaPrincipal) {
         initComponents();
+        
+        this.telaPrincipal = telaPrincipal;
 
         try {
             conexao = connect.connectionMySql();
@@ -87,8 +89,6 @@ public class Visualizador extends javax.swing.JInternalFrame {
         jMenu5 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
 
         setClosable(true);
         setTitle("Criar Views");
@@ -212,15 +212,12 @@ public class Visualizador extends javax.swing.JInternalFrame {
 
         jMenu3.setText("Deletar");
         jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu3);
-
-        jMenu4.setText("|");
-        jMenu4.setEnabled(false);
-        jMenuBar1.add(jMenu4);
-
-        jMenu1.setText("Nova");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -302,7 +299,10 @@ public class Visualizador extends javax.swing.JInternalFrame {
 
         if (!campo.contains(jComboBox2.getSelectedItem().toString().substring(0, 1) + "." + (String) jComboBox1.getSelectedItem())) {
             if (jCheckBox2.isSelected()) {
-                campo.add(new String[]{jComboBox2.getSelectedItem().toString().substring(0, 1) + "." + (String) jComboBox1.getSelectedItem()});
+                String[] Stemp = new String[2];
+                Stemp[0] = (String) jComboBox2.getSelectedItem().toString().substring(0, 1) + "." + (String) jComboBox1.getSelectedItem();
+                Stemp[1] = (String) jComboBox1.getSelectedItem();
+                campo.add(Stemp);
             } else {
                 String[] Stemp = new String[2];
                 Stemp[0] = (String) jComboBox2.getSelectedItem().toString().substring(0, 1) + "." + (String) jComboBox1.getSelectedItem();
@@ -381,6 +381,13 @@ public class Visualizador extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_fechamento
 
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        // TODO add your handling code here:
+        ListaViews tmp = new ListaViews(telaPrincipal);
+        telaPrincipal.add(tmp);
+        tmp.setVisible(true);
+    }//GEN-LAST:event_jMenu3MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -390,10 +397,8 @@ public class Visualizador extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;

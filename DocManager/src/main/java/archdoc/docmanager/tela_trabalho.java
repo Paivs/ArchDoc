@@ -15,13 +15,11 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.io.File;
 import java.sql.Connection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
+import static archdoc.docmanager.Config.deli;
 
 public class tela_trabalho extends javax.swing.JFrame {
 
@@ -31,93 +29,97 @@ public class tela_trabalho extends javax.swing.JFrame {
     private String htmlSobre = System.getProperty("user.dir") + "\\HTML\\Sobre\\index.html";
     private String htmlAjuda = System.getProperty("user.dir") + "\\HTML\\Ajuda\\index.html";
     private tiposArquivos popup_tiposArquivos;
-    
+
     tela_trabalho2 trabalhoAtual;
     tela_trabalho1 trabalhoNovo;
     
+    private String workPath = System.getProperty("user.dir") + "\\workPath";
+
     Visualizador visualizador;
     View view;
-    
+
     boolean darkMode = false;
     boolean atualizou = false;
-    
+
     Info telinha;
     Config popup_config;
-    
+
     Connection conexao;
     connect connect = new connect();
 
     public boolean isAtualizou() {
-	return atualizou;
+        return atualizou;
     }
 
     public void setAtualizou(boolean atualizou) {
-	this.atualizou = atualizou;
+        this.atualizou = atualizou;
     }
 
     public boolean isDarkMode() {
-	return darkMode;
+        return darkMode;
     }
 
     public void setDarkMode(boolean darkMode) {
-	this.darkMode = darkMode;
+        this.darkMode = darkMode;
     }
 
     public static Rectangle getMaximumScreenBounds() {
-	int minx = 0, miny = 0, maxx = 0, maxy = 0;
-	GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	for (GraphicsDevice device : environment.getScreenDevices()) {
-	    Rectangle bounds = device.getDefaultConfiguration().getBounds();
-	    minx = Math.min(minx, bounds.x);
-	    miny = Math.min(miny, bounds.y);
-	    maxx = Math.max(maxx, bounds.x + bounds.width);
-	    maxy = Math.max(maxy, bounds.y + bounds.height);
-	}
-	return new Rectangle(minx, miny, maxx - minx, maxy - miny);
+        int minx = 0, miny = 0, maxx = 0, maxy = 0;
+        GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        for (GraphicsDevice device : environment.getScreenDevices()) {
+            Rectangle bounds = device.getDefaultConfiguration().getBounds();
+            minx = Math.min(minx, bounds.x);
+            miny = Math.min(miny, bounds.y);
+            maxx = Math.max(maxx, bounds.x + bounds.width);
+            maxy = Math.max(maxy, bounds.y + bounds.height);
+        }
+        return new Rectangle(minx, miny, maxx - minx, maxy - miny);
     }
 
     public tela_trabalho() {
-	initComponents();
-	setExtendedState(MAXIMIZED_BOTH);
+        initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
 
-	this.setContentPane(pane_telaprincipal);
-	Toolkit kit = Toolkit.getDefaultToolkit();
-	Dimension tamTela = kit.getScreenSize();
+        this.setContentPane(pane_telaprincipal);
+        Toolkit kit = Toolkit.getDefaultToolkit();
+        Dimension tamTela = kit.getScreenSize();
 
-	int larg = tamTela.width;
-	int alt = tamTela.height;
-	setSize(larg, alt);
+        int larg = tamTela.width;
+        int alt = tamTela.height;
+        setSize(larg, alt);
 
-	System.out.println(getMaximumScreenBounds().getWidth());
-	System.out.println(getMaximumScreenBounds().getHeight());
+        System.out.println(getMaximumScreenBounds().getWidth());
+        System.out.println(getMaximumScreenBounds().getHeight());
 
-	Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "\\imgs\\icons\\principal.png");
-	setIconImage(iconeTitulo);
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "\\imgs\\icons\\principal.png");
+        setIconImage(iconeTitulo);
 
-	trabalhoNovo = new tela_trabalho1(atualizou);
-	pane_telaprincipal.add(trabalhoNovo);
+        trabalhoNovo = new tela_trabalho1(atualizou);
+        pane_telaprincipal.add(trabalhoNovo);
 
-	trabalhoAtual = new tela_trabalho2();
-	pane_telaprincipal.add(trabalhoAtual);
+        trabalhoAtual = new tela_trabalho2();
+        pane_telaprincipal.add(trabalhoAtual);
 
-	trabalhoAtual.setVisible(true);
-	trabalhoNovo.setVisible(true);
+        trabalhoAtual.setVisible(true);
+        trabalhoNovo.setVisible(true);
 
-	pane_telaprincipal.setSize(this.getWidth(), this.getHeight());
+        pane_telaprincipal.setSize(this.getWidth(), this.getHeight());
 
-	trabalhoAtual.setSize(pane_telaprincipal.getWidth() / 2, pane_telaprincipal.getHeight());
-	trabalhoNovo.setSize(pane_telaprincipal.getWidth() / 2, pane_telaprincipal.getHeight());
+        trabalhoAtual.setSize(pane_telaprincipal.getWidth() / 2, pane_telaprincipal.getHeight());
+        trabalhoNovo.setSize(pane_telaprincipal.getWidth() / 2, pane_telaprincipal.getHeight());
 
-	trabalhoNovo.setLocation(0, 0);
-	trabalhoAtual.setLocation(trabalhoNovo.getWidth(), 0);
+        trabalhoNovo.setLocation(0, 0);
+        trabalhoAtual.setLocation(trabalhoNovo.getWidth(), 0);
 
-	trabalhoNovo.setLocal(trabalhoNovo.getLocation());
-	trabalhoAtual.setLocal(trabalhoAtual.getLocation());
+        trabalhoNovo.setLocal(trabalhoNovo.getLocation());
+        trabalhoAtual.setLocal(trabalhoAtual.getLocation());
 
-	setExtendedState(MAXIMIZED_BOTH);
-        
-        try{ conexao = connect.connectionMySql();
-        }catch(Exception e) { ; }
+        setExtendedState(MAXIMIZED_BOTH);
+
+        try {
+            conexao = connect.connectionMySql();
+        } catch (Exception e) {;
+        }
 
     }
 
@@ -133,8 +135,6 @@ public class tela_trabalho extends javax.swing.JFrame {
         pane_telaprincipal = new javax.swing.JDesktopPane();
         menu_telatrabalho = new javax.swing.JMenuBar();
         menutrabalho_logo = new javax.swing.JMenu();
-        menutrabalho_separador2 = new javax.swing.JMenu();
-        menutrabalho_salvar = new javax.swing.JMenu();
         menutrabalho_separador5 = new javax.swing.JMenu();
         menutrabalho_exportar = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -189,25 +189,6 @@ public class tela_trabalho extends javax.swing.JFrame {
         });
         menu_telatrabalho.add(menutrabalho_logo);
 
-        menutrabalho_separador2.setText("|");
-        menutrabalho_separador2.setEnabled(false);
-        menutrabalho_separador2.setFocusable(false);
-        menu_telatrabalho.add(menutrabalho_separador2);
-
-        menutrabalho_salvar.setText("Salvar");
-        menutrabalho_salvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        menutrabalho_salvar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menutrabalho_salvarMouseClicked(evt);
-            }
-        });
-        menutrabalho_salvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menutrabalho_salvarActionPerformed(evt);
-            }
-        });
-        menu_telatrabalho.add(menutrabalho_salvar);
-
         menutrabalho_separador5.setText("|");
         menutrabalho_separador5.setEnabled(false);
         menutrabalho_separador5.setFocusable(false);
@@ -216,6 +197,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         menutrabalho_exportar.setText("Exportar");
         menutrabalho_exportar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         jMenuItem4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem4.setText("Para CSV");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -225,6 +207,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         });
         menutrabalho_exportar.add(jMenuItem4);
 
+        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         jMenuItem5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem5.setText("Para TXT");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
@@ -254,8 +237,9 @@ public class tela_trabalho extends javax.swing.JFrame {
             }
         });
 
+        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem6.setText("Criar Views");
+        jMenuItem6.setText("Editar Views");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
@@ -263,6 +247,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         });
         menutrabalho_visualizar.add(jMenuItem6);
 
+        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem7.setText("Visualizar Views");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
@@ -272,6 +257,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         });
         menutrabalho_visualizar.add(jMenuItem7);
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F10, 0));
         jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem1.setText("Mudar Tema");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -281,6 +267,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         });
         menutrabalho_visualizar.add(jMenuItem1);
 
+        jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem8.setText("Reset Windows");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
@@ -300,6 +287,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         menutrabalho_opcoes.setText("Opções");
         menutrabalho_opcoes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        menuItem_Tipos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
         menuItem_Tipos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         menuItem_Tipos.setText("Configurar tipos");
         menuItem_Tipos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -314,6 +302,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         });
         menutrabalho_opcoes.add(menuItem_Tipos);
 
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         jMenuItem3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem3.setText("Configurar revisões");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -323,6 +312,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         });
         menutrabalho_opcoes.add(jMenuItem3);
 
+        menuitem_sobre.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         menuitem_sobre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         menuitem_sobre.setText("Sobre");
         menuitem_sobre.addActionListener(new java.awt.event.ActionListener() {
@@ -332,6 +322,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         });
         menutrabalho_opcoes.add(menuitem_sobre);
 
+        menuitem_ajuda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         menuitem_ajuda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         menuitem_ajuda.setText("Ajuda");
         menuitem_ajuda.addActionListener(new java.awt.event.ActionListener() {
@@ -341,8 +332,14 @@ public class tela_trabalho extends javax.swing.JFrame {
         });
         menutrabalho_opcoes.add(menuitem_ajuda);
 
+        jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         jMenuItem9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem9.setText("Mapear Unidade");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         menutrabalho_opcoes.add(jMenuItem9);
 
         menu_telatrabalho.add(menutrabalho_opcoes);
@@ -355,6 +352,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         menutrabalho_usuario.setText("Usuário");
         menutrabalho_usuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem2.setText("Sair");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -385,165 +383,146 @@ public class tela_trabalho extends javax.swing.JFrame {
 
 
     private void menuitem_sobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitem_sobreActionPerformed
-	// TODO add your handling code here:
-	try {
-	    Desktop desktop = Desktop.getDesktop();
-	    File htmlSobre_file = new File(htmlSobre);
-	    desktop.open(htmlSobre_file);
-	} catch (Exception erro) {
-	    System.out.println(erro);
-	}
+        // TODO add your handling code here:
+        try {
+            Desktop desktop = Desktop.getDesktop();
+            File htmlSobre_file = new File(htmlSobre);
+            desktop.open(htmlSobre_file);
+        } catch (Exception erro) {
+            System.out.println(erro);
+        }
     }//GEN-LAST:event_menuitem_sobreActionPerformed
 
     private void menuItem_TiposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuItem_TiposMouseClicked
-	// TODO add your handling code here
+        // TODO add your handling code here
     }//GEN-LAST:event_menuItem_TiposMouseClicked
 
     private void menuItem_TiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItem_TiposActionPerformed
-	// TODO add your handling code here:
-	int lDesk = pane_telaprincipal.getWidth();
-	int aDesk = pane_telaprincipal.getHeight();
-	int lIFrame = this.getWidth();
-	int aIFrame = this.getHeight();
+        // TODO add your handling code here:
+        int lDesk = pane_telaprincipal.getWidth();
+        int aDesk = pane_telaprincipal.getHeight();
+        int lIFrame = this.getWidth();
+        int aIFrame = this.getHeight();
 
-	try {
-	    if (!popup_tiposArquivos.isVisible()) {
-		popup_tiposArquivos = new tiposArquivos(pane_telaprincipal, atualizou);
-		pane_telaprincipal.add(popup_tiposArquivos);
-		popup_tiposArquivos.setVisible(true);
-		popup_tiposArquivos.moveToFront();
+        try {
+            if (!popup_tiposArquivos.isVisible()) {
+                popup_tiposArquivos = new tiposArquivos(pane_telaprincipal, atualizou);
+                pane_telaprincipal.add(popup_tiposArquivos);
+                popup_tiposArquivos.setVisible(true);
+                popup_tiposArquivos.moveToFront();
 
-	    } else {
-		popup_tiposArquivos.moveToFront();
-	    }
-	} catch (Exception e) {
-	    popup_tiposArquivos = new tiposArquivos(pane_telaprincipal, atualizou);
-	    pane_telaprincipal.add(popup_tiposArquivos);
-	    popup_tiposArquivos.setVisible(true);
-	    popup_tiposArquivos.moveToFront();
-	}
+            } else {
+                popup_tiposArquivos.moveToFront();
+            }
+        } catch (Exception e) {
+            popup_tiposArquivos = new tiposArquivos(pane_telaprincipal, atualizou);
+            pane_telaprincipal.add(popup_tiposArquivos);
+            popup_tiposArquivos.setVisible(true);
+            popup_tiposArquivos.moveToFront();
+        }
     }//GEN-LAST:event_menuItem_TiposActionPerformed
 
     private void menuitem_ajudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitem_ajudaActionPerformed
-	// TODO add your handling code here:
-	try {
-	    Desktop desktop = Desktop.getDesktop();
-	    File htmlAjuda_file = new File(htmlAjuda);
-	    desktop.open(htmlAjuda_file);
-	} catch (Exception erro) {
-	    System.out.println(erro);
-	}
+        // TODO add your handling code here:
+        try {
+            Desktop desktop = Desktop.getDesktop();
+            File htmlAjuda_file = new File(htmlAjuda);
+            desktop.open(htmlAjuda_file);
+        } catch (Exception erro) {
+            System.out.println(erro);
+        }
     }//GEN-LAST:event_menuitem_ajudaActionPerformed
-
-    private void menutrabalho_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menutrabalho_salvarActionPerformed
-	// TODO add your handling code here:
-    }//GEN-LAST:event_menutrabalho_salvarActionPerformed
-
-    private void menutrabalho_salvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menutrabalho_salvarMouseClicked
-
-    }//GEN-LAST:event_menutrabalho_salvarMouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 
-	try {
-	    if (javax.swing.UIManager.getLookAndFeel().getName() == "FlatLaf Darcula") {
-		FlatLightLaf lookAndFeel1 = new FlatLightLaf();
-		javax.swing.UIManager.setLookAndFeel(lookAndFeel1);
-	    } else {
-		FlatDarculaLaf lookAndFeel2 = new FlatDarculaLaf();
-		javax.swing.UIManager.setLookAndFeel(lookAndFeel2);
-	    }
+        try {
+            if (javax.swing.UIManager.getLookAndFeel().getName() == "FlatLaf Darcula") {
+                FlatLightLaf lookAndFeel1 = new FlatLightLaf();
+                javax.swing.UIManager.setLookAndFeel(lookAndFeel1);
+            } else {
+                FlatDarculaLaf lookAndFeel2 = new FlatDarculaLaf();
+                javax.swing.UIManager.setLookAndFeel(lookAndFeel2);
+            }
 
-	    for (java.awt.Frame f : java.awt.Frame.getFrames()) {
-		javax.swing.SwingUtilities.updateComponentTreeUI(f);
-	    }
-	} catch (UnsupportedLookAndFeelException e) {
-	    e.printStackTrace();
-	}
+            for (java.awt.Frame f : java.awt.Frame.getFrames()) {
+                javax.swing.SwingUtilities.updateComponentTreeUI(f);
+            }
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void menutrabalho_logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menutrabalho_logoMouseClicked
-	// TODO add your handling code here:
-        try{
-	    if(!telinha.isVisible()){
-		telinha = new Info(pane_telaprincipal);
-		pane_telaprincipal.add(telinha);
-		telinha.setVisible(true);
-		telinha.moveToFront();
-	    }
-	}catch(Exception e) { 
-	    telinha = new Info(pane_telaprincipal);
-	    pane_telaprincipal.add(telinha);
-	    telinha.setVisible(true);
-	    telinha.moveToFront(); 
-	}
+        // TODO add your handling code here:
+        try {
+            if (!telinha.isVisible()) {
+                telinha = new Info(pane_telaprincipal);
+                pane_telaprincipal.add(telinha);
+                telinha.setVisible(true);
+                telinha.moveToFront();
+            }
+        } catch (Exception e) {
+            telinha = new Info(pane_telaprincipal);
+            pane_telaprincipal.add(telinha);
+            telinha.setVisible(true);
+            telinha.moveToFront();
+        }
     }//GEN-LAST:event_menutrabalho_logoMouseClicked
 
     private void mudouTamanho(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_mudouTamanho
-	// TODO add your handling code here:
-	try {
-	    trabalhoAtual.setSize(pane_telaprincipal.getWidth() / 2, pane_telaprincipal.getHeight());
-	    trabalhoNovo.setSize(pane_telaprincipal.getWidth() / 2, pane_telaprincipal.getHeight());
+        // TODO add your handling code here:
+        try {
+            trabalhoAtual.setSize(pane_telaprincipal.getWidth() / 2, pane_telaprincipal.getHeight());
+            trabalhoNovo.setSize(pane_telaprincipal.getWidth() / 2, pane_telaprincipal.getHeight());
 
-	    trabalhoNovo.setLocation(0, 0);
-	    trabalhoAtual.setLocation(trabalhoNovo.getWidth(), 0);
+            trabalhoNovo.setLocation(0, 0);
+            trabalhoAtual.setLocation(trabalhoNovo.getWidth(), 0);
 
-	    trabalhoNovo.setLocal(trabalhoNovo.getLocation());
-	    trabalhoAtual.setLocal(trabalhoAtual.getLocation());
-	} catch (Exception e) {;
-	}
+            trabalhoNovo.setLocal(trabalhoNovo.getLocation());
+            trabalhoAtual.setLocal(trabalhoAtual.getLocation());
+        } catch (Exception e) {;
+        }
     }//GEN-LAST:event_mudouTamanho
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         String[] options = {"Sim", "Não", "Cancelar"};
         int i = JOptionPane.showOptionDialog(null, "Tem certeza que deseja sair?", "Menu do usuário",
-                                        JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,
-                                        null, options, options[0]);  
-        
-        if(i == 0) System.exit(0);
-        
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                null, options, options[0]);
+
+        if (i == 0) {
+            System.exit(0);
+        }
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        try{
-	    if(!popup_config.isVisible()){
-		popup_config = new Config(pane_telaprincipal);
-		pane_telaprincipal.add(telinha);
-		popup_config.setVisible(true);
-		popup_config.moveToFront();
-	    }
-	}catch(Exception e) { 
-	    popup_config = new Config(pane_telaprincipal);
-	    pane_telaprincipal.add(popup_config);
-	    popup_config.setVisible(true);
-	    popup_config.moveToFront(); 
-	}
+        try {
+            if (!popup_config.isVisible()) {
+                popup_config = new Config(pane_telaprincipal);
+                pane_telaprincipal.add(telinha);
+                popup_config.setVisible(true);
+                popup_config.moveToFront();
+            }
+        } catch (Exception e) {
+            popup_config = new Config(pane_telaprincipal);
+            pane_telaprincipal.add(popup_config);
+            popup_config.setVisible(true);
+            popup_config.moveToFront();
+        }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        trabalhoNovo.chooser.setDialogTitle("Selecione a pasta para fazer o export");
-        trabalhoNovo.chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        
-        if (trabalhoNovo.chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
-            connect.exportar(conexao, new String(trabalhoNovo.chooser.getCurrentDirectory() + "\\" + trabalhoNovo.chooser.getSelectedFile().getName() + "\\Export.csv").replace("\\","/"));
-          }
-        else {
-           JOptionPane.showMessageDialog(null, "Você precisa selecionar uma pasta apra atualizar o diretório!");
-          }
-        
-        
+        ListaViews lista = new ListaViews(trabalhoNovo, ".csv", pane_telaprincipal);
+        pane_telaprincipal.add(lista);
+        lista.setVisible(true);
+
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        trabalhoNovo.chooser.setDialogTitle("Selecione a pasta para fazer o export");
-        trabalhoNovo.chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        
-        if (trabalhoNovo.chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
-            connect.exportar(conexao, new String(trabalhoNovo.chooser.getCurrentDirectory() + "\\" + trabalhoNovo.chooser.getSelectedFile().getName() + "\\Export.txt").replace("\\","/"));
-          }
-        else {
-           JOptionPane.showMessageDialog(null, "Você precisa selecionar uma pasta apra atualizar o diretório!");
-          }
+        ListaViews lista = new ListaViews(trabalhoNovo, ".txt", pane_telaprincipal);
+        pane_telaprincipal.add(lista);
+        lista.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void menutrabalho_visualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menutrabalho_visualizarMouseClicked
@@ -552,40 +531,40 @@ public class tela_trabalho extends javax.swing.JFrame {
 
     private void menutrabalho_visualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menutrabalho_visualizarActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_menutrabalho_visualizarActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
-        try{
-	    if(!visualizador.isVisible()){
-		visualizador = new Visualizador(pane_telaprincipal);
-		pane_telaprincipal.add(visualizador);
-		visualizador.setVisible(true);
-		visualizador.moveToFront();
-	    }
-	}catch(Exception e) { 
-	    visualizador = new Visualizador(pane_telaprincipal);
+        try {
+            if (!visualizador.isVisible()) {
+                visualizador = new Visualizador(pane_telaprincipal);
+                pane_telaprincipal.add(visualizador);
+                visualizador.setVisible(true);
+                visualizador.moveToFront();
+            }
+        } catch (Exception e) {
+            visualizador = new Visualizador(pane_telaprincipal);
             pane_telaprincipal.add(visualizador);
             visualizador.setVisible(true);
             visualizador.moveToFront();
-	}
+        }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        try{
-	    if(!view.isVisible()){
-		view = new View(pane_telaprincipal);
-		pane_telaprincipal.add(view);
-		view.setVisible(true);
-		view.moveToFront();
-	    }
-	}catch(Exception e) { 
-	    view = new View(pane_telaprincipal);
+        try {
+            if (!view.isVisible()) {
+                view = new View(pane_telaprincipal);
+                pane_telaprincipal.add(view);
+                view.setVisible(true);
+                view.moveToFront();
+            }
+        } catch (Exception e) {
+            view = new View(pane_telaprincipal);
             pane_telaprincipal.add(view);
             view.setVisible(true);
             view.moveToFront();
-	}
+        }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -594,31 +573,71 @@ public class tela_trabalho extends javax.swing.JFrame {
         this.trabalhoNovo.moveToBack();
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-	/* Set the Nimbus look and feel */
-	//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-	/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-	 */
-	try {
-	    javax.swing.UIManager.setLookAndFeel(new FlatDarculaLaf());
-	} catch (Exception ex) {
-	    System.err.println("Failed to initialize LaF");
-	}
-	//</editor-fold>
-	//</editor-fold>
-	//</editor-fold>
-	//</editor-fold>
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
 
-	/* Create and display the form */
-	java.awt.EventQueue.invokeLater(new Runnable() {
-	    public void run() {
-		new tela_trabalho().setVisible(true);
-	    }
-	});
+        trabalhoNovo.chooser.setDialogTitle("Selecione a pasta para fazer o export");
+        trabalhoNovo.chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        ArrayList<File> arqs = new ArrayList<File>();
+                    
+        if (trabalhoNovo.chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            String dire = new String(trabalhoNovo.chooser.getCurrentDirectory() + "\\" + trabalhoNovo.chooser.getSelectedFile().getName());
+            mapearUnidade(dire, arqs);
+    } else {
+           JOptionPane.showMessageDialog(null, "Você precisa selecionar uma pasta apra atualizar o diretório!");
+        }
+        for(int i = 0; i < arqs.toArray().length; i++) connect.insertArquivos(conexao, arqs.get(i).getName().split(deli)[0], arqs.get(i).getName().split(deli)[1], workPath);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    public void mapearUnidade(String dire, ArrayList<File> arqs){
+        try{
+            File dir = new File(dire);
+            System.out.println(dire);
+            File[] files = dir.listFiles();
+
+            for (File file : files) {
+                if (file == null) {
+                    JOptionPane.showMessageDialog(null, "Diretório nulo!");
+                    continue;
+                }
+                if (file.isDirectory()) {
+                    // file is a directory that is a folder has been dound
+
+                    if (file.listFiles() == null) {
+                        // skips null files
+                        continue;
+                    }
+                    mapearUnidade(file.getAbsolutePath(), arqs);
+                }
+                arqs.add(file);
+            }
+        }catch(Exception e){ ; }
+    }
+    /**
+             * @param args the command line arguments
+             */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            javax.swing.UIManager.setLookAndFeel(new FlatDarculaLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize LaF");
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new tela_trabalho().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -638,9 +657,7 @@ public class tela_trabalho extends javax.swing.JFrame {
     private javax.swing.JMenu menutrabalho_exportar;
     private javax.swing.JMenu menutrabalho_logo;
     private javax.swing.JMenu menutrabalho_opcoes;
-    private javax.swing.JMenu menutrabalho_salvar;
     private javax.swing.JMenu menutrabalho_separador1;
-    private javax.swing.JMenu menutrabalho_separador2;
     private javax.swing.JMenu menutrabalho_separador3;
     private javax.swing.JMenu menutrabalho_separador5;
     private javax.swing.JMenu menutrabalho_separador6;

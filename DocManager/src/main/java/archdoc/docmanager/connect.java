@@ -204,11 +204,11 @@ public class connect {
     }
     
     
-    public void exportar(Connection con, String destino){
+    public void exportar(Connection con, String destino, String view){
         ResultSet rs = null;
 	String resultado = "";
         try{
-            pst = con.prepareStatement("SELECT arquivo As \"Arquivo\", revisao As \"Revisão\", workPath As \"Pasta\" FROM arquivos INTO OUTFILE \"" + destino + "\" FIELDS TERMINATED BY ';' ENCLOSED BY '\"' LINES TERMINATED BY '\\n';");
+            pst = con.prepareStatement("SELECT * FROM " + view + " INTO OUTFILE \"" + destino + "\" FIELDS TERMINATED BY ';' ENCLOSED BY '\"' LINES TERMINATED BY '\\n';");
             pst.execute();
             
         }catch(Exception e) { 
