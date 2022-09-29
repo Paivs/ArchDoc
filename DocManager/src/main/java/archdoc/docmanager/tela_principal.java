@@ -11,6 +11,7 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.net.URI;
 import javax.swing.ImageIcon;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -232,9 +233,8 @@ public class tela_principal extends javax.swing.JFrame {
     private void menuitem_ajudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitem_ajudaActionPerformed
         // TODO add your handling code here:
 	try{
-	    Desktop desktop = Desktop.getDesktop();
-	    File htmlAjuda_file = new File(htmlAjuda);
-	    desktop.open(htmlAjuda_file);
+	    URI link = new URI("https://archdoc.acessoseguro.tec.br/contato.html");
+            Desktop.getDesktop().browse(link);
 	}catch(Exception erro){
             System.out.println(erro);
         }

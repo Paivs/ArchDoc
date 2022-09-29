@@ -20,6 +20,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 import static archdoc.docmanager.Config.deli;
+import java.net.URI;
 
 public class tela_trabalho extends javax.swing.JFrame {
 
@@ -425,11 +426,10 @@ public class tela_trabalho extends javax.swing.JFrame {
 
     private void menuitem_ajudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitem_ajudaActionPerformed
         // TODO add your handling code here:
-        try {
-            Desktop desktop = Desktop.getDesktop();
-            File htmlAjuda_file = new File(htmlAjuda);
-            desktop.open(htmlAjuda_file);
-        } catch (Exception erro) {
+        try{
+	    URI link = new URI("https://archdoc.acessoseguro.tec.br/contato.html");
+            Desktop.getDesktop().browse(link);
+	}catch(Exception erro){
             System.out.println(erro);
         }
     }//GEN-LAST:event_menuitem_ajudaActionPerformed
