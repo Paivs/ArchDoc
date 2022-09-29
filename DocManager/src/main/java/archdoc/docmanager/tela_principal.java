@@ -32,8 +32,8 @@ public class tela_principal extends javax.swing.JFrame {
     
     static boolean darkMode = true;
     
-    private String htmlSobre = System.getProperty("user.dir") + "\\HTML\\Sobre\\index.html";
-    private String htmlAjuda = System.getProperty("user.dir") + "\\HTML\\Ajuda\\index.html";
+    private String htmlSobre = System.getProperty("user.dir") + "\\HTML\\main\\index.html";
+    private String htmlAjuda = System.getProperty("user.dir") + "\\HTML\\main\\contato.html";
     
     Info telinha;
     

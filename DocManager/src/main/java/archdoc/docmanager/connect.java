@@ -218,8 +218,11 @@ public class connect {
     
     public void criarView(Connection con, String querry){
         try{
-            pst = con.prepareStatement(querry);
-            pst.execute();
+            if(querry.equals("")) JOptionPane.showMessageDialog(null, "A BUSCA NÃO TEVE NENHUM RETORNO");
+            else{
+                pst = con.prepareStatement(querry);
+                pst.execute();
+            }
         }catch(Exception e) { 
 	    System.out.println(e);
 	}
@@ -238,10 +241,10 @@ public class connect {
                  arq.add(rs.getString(1));
                 }
             }
+            
             }catch(Exception e) {
                 System.out.println(e);
 	}
-
         return arq;
     }
     

@@ -26,8 +26,8 @@ public class tela_trabalho extends javax.swing.JFrame {
     /**
      * Creates new form tela_inicial
      */
-    private String htmlSobre = System.getProperty("user.dir") + "\\HTML\\Sobre\\index.html";
-    private String htmlAjuda = System.getProperty("user.dir") + "\\HTML\\Ajuda\\index.html";
+    private String htmlSobre = System.getProperty("user.dir") + "\\HTML\\main\\index.html";
+    private String htmlAjuda = System.getProperty("user.dir") + "\\HTML\\main\\contato.html";
     private tiposArquivos popup_tiposArquivos;
 
     tela_trabalho2 trabalhoAtual;
@@ -160,6 +160,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         setTitle("DocManager - Plataforma de Operação");
         setIconImages(null);
         setMinimumSize(new java.awt.Dimension(1245, 639));
+        setPreferredSize(new java.awt.Dimension(1245, 639));
 
         pane_telaprincipal.setPreferredSize(new java.awt.Dimension(1245, 639));
         pane_telaprincipal.addComponentListener(new java.awt.event.ComponentAdapter() {

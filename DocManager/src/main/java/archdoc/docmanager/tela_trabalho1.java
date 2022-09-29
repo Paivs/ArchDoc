@@ -140,6 +140,8 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
         jLabel2.setText("Arquivos");
         jLabel2.setMinimumSize(new java.awt.Dimension(0, 0));
 
+        jScrollPane3.setMinimumSize(new java.awt.Dimension(0, 0));
+
         treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         jTree2.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jTree2.setToolTipText("Vista de diretório temporário");
@@ -171,8 +173,9 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
         });
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButton3.setText("Mapear arquivos");
+        jButton3.setText("Mapear");
         jButton3.setToolTipText("Mapear os arquivos no banco de dados");
+        jButton3.setMinimumSize(new java.awt.Dimension(45, 28));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -182,6 +185,8 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
         isAuto.setText("Automático");
         isAuto.setToolTipText("Ir automaticamente para os arquivos");
 
+        jScrollPane4.setMinimumSize(new java.awt.Dimension(0, 0));
+
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jTextArea1.setToolTipText("Notas para o mapeamento de arquivos");
@@ -190,6 +195,7 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jButton4.setText("Remover");
         jButton4.setToolTipText("Remover o item selecionado");
+        jButton4.setMinimumSize(new java.awt.Dimension(40, 28));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -210,14 +216,14 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
                     .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(5, 5, 5)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator3)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(3, 3, 3)
@@ -248,14 +254,14 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                             .addComponent(isAuto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 8, Short.MAX_VALUE)
                         .addGap(6, 6, 6)
-                        .addComponent(jLabel5)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -265,8 +271,8 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
                                 .addComponent(jScrollPane1)
                                 .addGap(5, 5, 5)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton3)
-                                    .addComponent(jButton4)))
+                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane2)
                                 .addGap(5, 5, 5)
