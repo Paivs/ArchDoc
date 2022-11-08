@@ -9,6 +9,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import static archdoc.docmanager.Config.deli;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDate;
 
 
 public class connect {
@@ -204,16 +208,71 @@ public class connect {
     }
     
     
-    public void exportar(Connection con, String destino, String view){
+    public void exportar(Connection con, String view, String ext, String destino){
         ResultSet rs = null;
 	String resultado = "";
+        
+        ArrayList<String[]> tabela = new ArrayList<String[]>();
+        
         try{
-            pst = con.prepareStatement("SELECT * FROM " + view + " INTO OUTFILE \"" + destino + "\" FIELDS TERMINATED BY ';' ENCLOSED BY '\"' LINES TERMINATED BY '\\n';");
-            pst.execute();
+            pst = con.prepareStatement("SELECT * FROM " + view +";");
+            rs = pst.executeQuery();
+            
+            ArrayList<String> linha = new ArrayList<String>();
+            
+            for(int w = 1; w <= rs.getMetaData().getColumnCount(); w++){
+                linha.add(rs.getMetaData().getColumnName(w));
+            }
+            
+            String[] linha_toString = linha.toArray(new String[0]);
+            tabela.add(linha_toString);
+            linha.clear();
+            
+            while(rs.next()){
+                for(int i = 1; i <= rs.getMetaData().getColumnCount(); i++){
+                    linha.add(rs.getString(i));
+                }
+                
+                linha_toString = linha.toArray(new String[0]);
+                
+                tabela.add(linha_toString);
+                
+                linha.clear();
+            }
             
         }catch(Exception e) { 
 	    System.out.println(e);
 	}
+        
+        try{
+            
+            LocalDate now = java.time.LocalDate.now();
+                    
+            FileWriter file = new FileWriter(destino + "\\Export_" + now.toString().replace("-", "_") + "." + ext);
+            PrintWriter write = new PrintWriter(file);
+            
+            String valores = "";
+            int index = 0;
+            
+            for(String[] linha : tabela){
+                
+                valores = "";
+                index = 0;
+                
+                for(String colunas : linha){
+                    index++;
+                    if(index == 1) valores = colunas;
+                    else valores = valores + ";" + colunas;
+                }
+                
+                write.println(valores);
+            }
+            
+            write.close();
+            
+        } catch(IOException exe){
+            System.out.println(exe);
+        }
     }
     
     public void criarView(Connection con, String querry){

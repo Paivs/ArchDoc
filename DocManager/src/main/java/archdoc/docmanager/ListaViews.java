@@ -4,6 +4,7 @@
  */
 package archdoc.docmanager;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -20,66 +21,73 @@ import javax.swing.table.DefaultTableModel;
  * @author Gustavo Paiva
  */
 public class ListaViews extends javax.swing.JInternalFrame {
-    
+
     Connection conexao;
     connect connect = new connect();
-    tela_trabalho1 trabalhoNovo;;
+    tela_trabalho1 trabalhoNovo;
+    ;
     
     boolean toDelete = false;
-    
+
     String ext;
-    
+
     public ListaViews(tela_trabalho1 trabalhoNovo, String ext, JDesktopPane telaPrincipal) {
         initComponents();
-        try{
+        try {
             conexao = connect.connectionMySql();
-        }catch(Exception e){ ; }
-        
+        } catch (Exception e) {;
+        }
+
         int lDesk = telaPrincipal.getWidth();
         int aDesk = telaPrincipal.getHeight();
         int lIFrame = this.getWidth();
         int aIFrame = this.getHeight();
-        
+
         this.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-        
+
         setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\icons\\lista.png"));
-        
+
         this.ext = ext;
         this.trabalhoNovo = trabalhoNovo;
-        
+
         String[] lista = connect.getView(conexao).toArray(new String[0]);
 
-	DefaultListModel modo = new DefaultListModel();
-	for (int i = 0; i < lista.length; i++) modo.addElement(lista[i]);
-        
-	jList1.setModel(modo);
-        
+        DefaultListModel modo = new DefaultListModel();
+        for (int i = 0; i < lista.length; i++) {
+            modo.addElement(lista[i]);
+        }
+
+        jList1.setModel(modo);
+
         this.setTitle("Selecione a View para ser Exportada");
         toDelete = false;
     }
-    
-    public ListaViews(JDesktopPane telaPrincipal){
+
+    public ListaViews(JDesktopPane telaPrincipal) {
         initComponents();
-        try{
+        try {
             conexao = connect.connectionMySql();
-        }catch(Exception e){ ; }
-        
+        } catch (Exception e) {;
+        }
+
         int lDesk = telaPrincipal.getWidth();
         int aDesk = telaPrincipal.getHeight();
         int lIFrame = this.getWidth();
         int aIFrame = this.getHeight();
-        
+
         this.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
-        
+
         setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\icons\\lista.png"));
-        
+
         String[] lista = connect.getView(conexao).toArray(new String[0]);
 
-	DefaultListModel modo = new DefaultListModel();
-	for (int i = 0; i < lista.length; i++) modo.addElement(lista[i]);
-        
-	jList1.setModel(modo);
-        
+        DefaultListModel modo = new DefaultListModel();
+        for (int i = 0; i < lista.length; i++) {
+            modo.addElement(lista[i]);
+        }
+
+        jList1.setModel(modo);
+
         this.setTitle("Selecione a View para ser Deletada");
         toDelete = true;
     }
@@ -151,23 +159,32 @@ public class ListaViews extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-        if(!toDelete){
+        if (!toDelete) {
             trabalhoNovo.chooser.setDialogTitle("Selecione a pasta para fazer o export");
             trabalhoNovo.chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-            if (trabalhoNovo.chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
-                connect.exportar(conexao, new String(trabalhoNovo.chooser.getCurrentDirectory() + "\\" + trabalhoNovo.chooser.getSelectedFile().getName() + "\\Export" + this.ext).replace("\\","/"), jList1.getSelectedValue());
-              }
-            else {
-               JOptionPane.showMessageDialog(null, "Você precisa selecionar uma pasta apra atualizar o diretório!");
-              }
-        }else if(toDelete){
+            if (trabalhoNovo.chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+                String destino = trabalhoNovo.chooser.getSelectedFile().getPath();
+                connect.exportar(conexao, jList1.getSelectedValue(), ext, destino);
+
+                String pasta = trabalhoNovo.chooser.getSelectedFile().getAbsolutePath();
+                String arquivo = trabalhoNovo.chooser.getName();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Você precisa selecionar uma pasta apra atualizar o diretório!");
+            }
+        } else if (toDelete) {
             connect.criarView(conexao, "drop view " + jList1.getSelectedValue() + ";");
         }
-        
+
         JOptionPane.showMessageDialog(null, "Pronto!");
-        
+
+        try {
+            java.awt.Desktop.getDesktop().open(trabalhoNovo.chooser.getSelectedFile());
+        } catch (IOException ex) {
+            Logger.getLogger(ListaViews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -89,9 +89,6 @@ public class tela_trabalho extends javax.swing.JFrame {
         int alt = tamTela.height;
         setSize(larg, alt);
 
-        System.out.println(getMaximumScreenBounds().getWidth());
-        System.out.println(getMaximumScreenBounds().getHeight());
-
         Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "\\imgs\\icons\\principal.png");
         setIconImage(iconeTitulo);
 
@@ -133,6 +130,7 @@ public class tela_trabalho extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem10 = new javax.swing.JMenuItem();
         pane_telaprincipal = new javax.swing.JDesktopPane();
         menu_telatrabalho = new javax.swing.JMenuBar();
         menutrabalho_logo = new javax.swing.JMenu();
@@ -156,6 +154,12 @@ public class tela_trabalho extends javax.swing.JFrame {
         menutrabalho_separador1 = new javax.swing.JMenu();
         menutrabalho_usuario = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        menutrabalho_separador2 = new javax.swing.JMenu();
+        menutrabalho_exportar1 = new javax.swing.JMenu();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
+
+        jMenuItem10.setText("jMenuItem10");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DocManager - Plataforma de Operação");
@@ -366,6 +370,24 @@ public class tela_trabalho extends javax.swing.JFrame {
 
         menu_telatrabalho.add(menutrabalho_usuario);
 
+        menutrabalho_separador2.setText("|");
+        menutrabalho_separador2.setEnabled(false);
+        menutrabalho_separador2.setFocusable(false);
+        menu_telatrabalho.add(menutrabalho_separador2);
+
+        menutrabalho_exportar1.setText("Ferramentas");
+        menutrabalho_exportar1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jMenuItem11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem11.setText("Análise Produtividade");
+        menutrabalho_exportar1.add(jMenuItem11);
+
+        jMenuItem12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem12.setText("Relatório Historizador");
+        menutrabalho_exportar1.add(jMenuItem12);
+
+        menu_telatrabalho.add(menutrabalho_exportar1);
+
         setJMenuBar(menu_telatrabalho);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -514,14 +536,14 @@ public class tela_trabalho extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        ListaViews lista = new ListaViews(trabalhoNovo, ".csv", pane_telaprincipal);
+        ListaViews lista = new ListaViews(trabalhoNovo, "csv", pane_telaprincipal);
         pane_telaprincipal.add(lista);
         lista.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        ListaViews lista = new ListaViews(trabalhoNovo, ".txt", pane_telaprincipal);
+        ListaViews lista = new ListaViews(trabalhoNovo, "txt", pane_telaprincipal);
         pane_telaprincipal.add(lista);
         lista.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
@@ -643,6 +665,9 @@ public class tela_trabalho extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -656,9 +681,11 @@ public class tela_trabalho extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuitem_ajuda;
     private javax.swing.JMenuItem menuitem_sobre;
     private javax.swing.JMenu menutrabalho_exportar;
+    private javax.swing.JMenu menutrabalho_exportar1;
     private javax.swing.JMenu menutrabalho_logo;
     private javax.swing.JMenu menutrabalho_opcoes;
     private javax.swing.JMenu menutrabalho_separador1;
+    private javax.swing.JMenu menutrabalho_separador2;
     private javax.swing.JMenu menutrabalho_separador3;
     private javax.swing.JMenu menutrabalho_separador5;
     private javax.swing.JMenu menutrabalho_separador6;
