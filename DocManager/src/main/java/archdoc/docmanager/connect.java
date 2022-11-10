@@ -275,6 +275,74 @@ public class connect {
         }
     }
     
+    public void analisar(Connection con, String view, int cod){
+        ResultSet rs = null;
+	String resultado = "";
+        
+        ArrayList<String[]> tabela = new ArrayList<String[]>();
+        
+        try{
+            pst = con.prepareStatement("SELECT * FROM " + view +";");
+            rs = pst.executeQuery();
+            
+            ArrayList<String> linha = new ArrayList<String>();
+            
+            for(int w = 1; w <= rs.getMetaData().getColumnCount(); w++){
+                linha.add(rs.getMetaData().getColumnName(w));
+            }
+            
+            String[] linha_toString = linha.toArray(new String[0]);
+            tabela.add(linha_toString);
+            linha.clear();
+            
+            while(rs.next()){
+                for(int i = 1; i <= rs.getMetaData().getColumnCount(); i++){
+                    linha.add(rs.getString(i));
+                }
+                
+                linha_toString = linha.toArray(new String[0]);
+                
+                tabela.add(linha_toString);
+                
+                linha.clear();
+            }
+            
+        }catch(Exception e) { 
+	    System.out.println(e);
+	}
+        
+        try{
+            
+            LocalDate now = java.time.LocalDate.now();
+            String nome = "\\Analise" +"\\Export_toAnalisar_" + cod + "_" + now.toString().replace("-", "_") + ".csv";
+                    
+            FileWriter file = new FileWriter(System.getProperty("user.dir") + nome);
+            PrintWriter write = new PrintWriter(file);
+            
+            String valores = "";
+            int index = 0;
+            
+            for(String[] linha : tabela){
+                
+                valores = "";
+                index = 0;
+                
+                for(String colunas : linha){
+                    index++;
+                    if(index == 1) valores = colunas;
+                    else valores = valores + ";" + colunas;
+                }
+                
+                write.println(valores);
+            }
+            
+            write.close();
+            
+        } catch(IOException exe){
+            System.out.println(exe);
+        }
+    }
+    
     public void criarView(Connection con, String querry){
         try{
             if(querry.equals("")) JOptionPane.showMessageDialog(null, "A BUSCA NÃO TEVE NENHUM RETORNO");

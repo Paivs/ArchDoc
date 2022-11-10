@@ -28,6 +28,7 @@ public class ListaViews extends javax.swing.JInternalFrame {
     ;
     
     boolean toDelete = false;
+    int codAnalisar = 0;
 
     String ext;
 
@@ -90,6 +91,39 @@ public class ListaViews extends javax.swing.JInternalFrame {
 
         this.setTitle("Selecione a View para ser Deletada");
         toDelete = true;
+    }
+    
+    public ListaViews(tela_trabalho1 trabalhoNovo, JDesktopPane telaPrincipal, int codAnalisar) {
+        initComponents();
+        
+        this.codAnalisar = codAnalisar;
+                
+        try{ conexao = connect.connectionMySql();
+        }catch (Exception e) {;}
+
+        int lDesk = telaPrincipal.getWidth();
+        int aDesk = telaPrincipal.getHeight();
+        int lIFrame = this.getWidth();
+        int aIFrame = this.getHeight();
+
+        this.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+
+        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\icons\\lista.png"));
+
+        this.ext = ext;
+        this.trabalhoNovo = trabalhoNovo;
+
+        String[] lista = connect.getView(conexao).toArray(new String[0]);
+
+        DefaultListModel modo = new DefaultListModel();
+        for (int i = 0; i < lista.length; i++) {
+            modo.addElement(lista[i]);
+        }
+
+        jList1.setModel(modo);
+
+        this.setTitle("Selecione a View a ser analisada");
+        toDelete = false;
     }
 
     /**
