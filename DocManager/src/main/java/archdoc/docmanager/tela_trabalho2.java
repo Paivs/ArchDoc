@@ -223,7 +223,7 @@ public class tela_trabalho2 extends javax.swing.JInternalFrame {
     DefaultMutableTreeNode newdir = new DefaultMutableTreeNode();
 
     File[] files = dir.listFiles();
-
+try{
     for (File file : files) {
         if (file == null) {
             JOptionPane.showMessageDialog(null, "Diretório nulo!");
@@ -274,8 +274,9 @@ public class tela_trabalho2 extends javax.swing.JInternalFrame {
             model.reload();
 
         }
-
     }
+    
+    }catch(Exception e){;}
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

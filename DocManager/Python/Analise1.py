@@ -2,15 +2,16 @@ import matplotlib.pyplot as plt
 import datetime
 import numpy as np
 import pandas as pd
+import tkinter
 import os
 
 hoje = str(datetime.date.today())
 
-arquivo = "\\Export_toAnalisar_0_" + hoje.replace("-", "_") + ".csv"
+arquivo = os.getcwd() + "\\Export_toAnalisar_0_" + hoje.replace("-", "_") + ".csv"
 
 print()
 
-banco = pd.read_csv(os.getcwd() + "\\Python\\" + arquivo, sep=";")
+banco = pd.read_csv(arquivo, sep=";")
 
 qtdArquivos = len(banco[banco.head(0).columns[0]])
 
@@ -61,7 +62,9 @@ try:
 
     plt.tight_layout()
 
-    ax1.savefig(os.getcwd() + "\\Python\\" + "Analise_0_" + hoje.replace("-", "_") + ".png", dpi=350)
+    ax1.savefig(os.getcwd() + "\\Analise_0_" + hoje.replace("-", "_") + ".png", dpi=350)
 
 except: 
     pass
+
+tkinter.messagebox.showwarning(title="Análise de dados", message="Os dados foram processados!!!")

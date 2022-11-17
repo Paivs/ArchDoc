@@ -157,7 +157,6 @@ public class tela_trabalho extends javax.swing.JFrame {
         menutrabalho_separador2 = new javax.swing.JMenu();
         menutrabalho_exportar1 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
 
         jMenuItem10.setText("jMenuItem10");
 
@@ -379,12 +378,13 @@ public class tela_trabalho extends javax.swing.JFrame {
         menutrabalho_exportar1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jMenuItem11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem11.setText("Análise Produtividade");
+        jMenuItem11.setText("Análise e Relatório - Revisões");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
         menutrabalho_exportar1.add(jMenuItem11);
-
-        jMenuItem12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem12.setText("Relatório Historizador");
-        menutrabalho_exportar1.add(jMenuItem12);
 
         menu_telatrabalho.add(menutrabalho_exportar1);
 
@@ -612,6 +612,32 @@ public class tela_trabalho extends javax.swing.JFrame {
         for(int i = 0; i < arqs.toArray().length; i++) connect.insertArquivos(conexao, arqs.get(i).getName().split(deli)[0], arqs.get(i).getName().split(deli)[1], workPath);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        // TODO add your handling code here:
+        
+        String dir = System.getProperty("user.dir") + "\\Python\\";
+        
+      try{     
+           /*
+           ProcessBuilder pb = new ProcessBuilder("Analise1.exe");
+           pb.directory(new File(dir));
+           
+           System.out.println(pb.command().get(0));
+           Process p = pb.start();
+
+           if(p.exitValue()==0){     
+              JOptionPane.showMessageDialog(null, "Análise feita!!!");
+           }     */
+           
+               Desktop desktop = Desktop.getDesktop();
+
+            desktop.open(new File(dir + "Analise1.exe"));
+        }catch(Exception e){     
+               System.out.println(e);
+        }  
+
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
     public void mapearUnidade(String dire, ArrayList<File> arqs){
         try{
             File dir = new File(dire);
@@ -667,7 +693,6 @@ public class tela_trabalho extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
