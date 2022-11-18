@@ -618,20 +618,22 @@ public class tela_trabalho extends javax.swing.JFrame {
         String dir = System.getProperty("user.dir") + "\\Python\\";
         
       try{     
-           /*
-           ProcessBuilder pb = new ProcessBuilder("Analise1.exe");
-           pb.directory(new File(dir));
-           
-           System.out.println(pb.command().get(0));
-           Process p = pb.start();
-
-           if(p.exitValue()==0){     
-              JOptionPane.showMessageDialog(null, "Análise feita!!!");
-           }     */
-           
-               Desktop desktop = Desktop.getDesktop();
-
+            Desktop desktop = Desktop.getDesktop();
             desktop.open(new File(dir + "Analise1.exe"));
+            
+            while(true){
+                File tmpDir = new File(dir + "retorno.png");
+                boolean exists = tmpDir.exists();
+                
+                if(exists){
+                    AnaliseView av = new AnaliseView();
+                    this.add(av);
+                    av.setVisible(true);
+                    
+                    break;
+                }
+            }
+            
         }catch(Exception e){     
                System.out.println(e);
         }  

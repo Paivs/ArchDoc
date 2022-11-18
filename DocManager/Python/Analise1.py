@@ -7,7 +7,7 @@ import os
 
 hoje = str(datetime.date.today())
 
-arquivo = os.getcwd() + "\\Export_toAnalisar_0_" + hoje.replace("-", "_") + ".csv"
+arquivo = os.getcwd() + "\\Python\\" +"\\Export_toAnalisar_0_" + hoje.replace("-", "_") + ".csv"
 
 print()
 
@@ -62,7 +62,7 @@ try:
 
     plt.tight_layout()
 
-    ax1.savefig(os.getcwd() + "\\Analise_0_" + hoje.replace("-", "_") + ".png", dpi=350)
+    ax1.savefig(os.getcwd() + "\\Python\\" + "\\retorno.png", dpi=1200)
 
 except: 
     pass
