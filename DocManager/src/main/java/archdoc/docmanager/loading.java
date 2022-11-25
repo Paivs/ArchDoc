@@ -47,9 +47,16 @@ public class loading extends javax.swing.JFrame {
                 tela_trabalho trab = new tela_trabalho();
                 trab.setDarkMode(darkMode);
                 carregou = true;
+                System.out.println(carregou);
                 while(true){
-                if(terminou) trab.setVisible(true);
+                if(terminou) {
+                    trab.setVisible(true);
+                    break;
                 }
+                System.out.println(carregou);
+                }
+                
+                while(true) { ; }
             }
         });
         

@@ -22,53 +22,56 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import static archdoc.docmanager.Config.deli;
+import org.apache.commons.io.FilenameUtils;
 
 public class tela_trabalho1 extends javax.swing.JInternalFrame {
-    
+
     Point local;
     JFileChooser chooser = new JFileChooser();
     private String[] lista;
-    
+
     private String file = System.getProperty("user.dir") + "\\Parameters\\tiposArquivos.csv";
-    
+
     private String workPath = System.getProperty("user.dir") + "\\workPath";
     public String deliLocal = "_";
-    
+
     private String arquivoLocal = "";
     private ArrayList<String> arquivos = new ArrayList<String>();
     private static boolean atualizou = false;
-    
+
     Connection conexao;
     connect connect = new connect();
 
     public boolean isAtualizou() {
-	return atualizou;
+        return atualizou;
     }
 
     public void setAtualizou(boolean atualizou) {
-	this.atualizou = atualizou;
+        this.atualizou = atualizou;
     }
 
     public Point getLocal() {
         return local;
     }
 
-    public void setLocal(Point local) { 
+    public void setLocal(Point local) {
         this.local = local;
     }
-    
+
     public tela_trabalho1(boolean atualizou) {
         initComponents();
         setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\icons\\trab1.png"));
-        try{ conexao = connect.connectionMySql();
-        }catch(Exception e) { ; }
-        
+        try {
+            conexao = connect.connectionMySql();
+        } catch (Exception e) {;
+        }
+
         this.deliLocal = deli;
-	
-	this.setAtualizou(atualizou);
-	
-	mudaLista();
-    
+
+        this.setAtualizou(atualizou);
+
+        mudaLista();
+
     }
 
     /**
@@ -292,189 +295,197 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         chooser.setDialogTitle("Selecione uma nova pasta para listar os Arquivos");
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        
-        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
+
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
-                if(isAuto.isSelected()){
+                if (isAuto.isSelected()) {
                     DefaultTreeModel model = (DefaultTreeModel) jTree1.getModel();
                     DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
                     root.removeAllChildren();
                     model.reload();
-                    scanner(new File(chooser.getCurrentDirectory() + "\\" +chooser.getSelectedFile().getName()), jTree1);
-                     this.arquivoLocal = chooser.getCurrentDirectory() + "\\" +chooser.getSelectedFile().getName();
-                }else{
+                    scanner(new File(chooser.getCurrentDirectory() + "\\" + chooser.getSelectedFile().getName()), jTree1);
+                    this.arquivoLocal = chooser.getCurrentDirectory() + "\\" + chooser.getSelectedFile().getName();
+                } else {
                     DefaultTreeModel model = (DefaultTreeModel) jTree2.getModel();
                     DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
                     root.removeAllChildren();
                     model.reload();
-                    scanner(new File(chooser.getCurrentDirectory() + "\\" +chooser.getSelectedFile().getName()), jTree2);
-                    this.arquivoLocal = chooser.getCurrentDirectory() + "\\" +chooser.getSelectedFile().getName();
+                    scanner(new File(chooser.getCurrentDirectory() + "\\" + chooser.getSelectedFile().getName()), jTree2);
+                    this.arquivoLocal = chooser.getCurrentDirectory() + "\\" + chooser.getSelectedFile().getName();
                 }
-            } catch (InterruptedException ex) { Logger.getLogger(tela_trabalho1.class.getName()).log(Level.SEVERE, null, ex); }
-          }
-        else {
-           JOptionPane.showMessageDialog(null, "Você precisa selecionar uma pasta apra atualizar o diretório!");
-          }   
-        
+            } catch (InterruptedException ex) {
+                Logger.getLogger(tela_trabalho1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Você precisa selecionar uma pasta apra atualizar o diretório!");
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         DefaultTreeModel model = (DefaultTreeModel) jTree2.getModel();
-        jTree2.setModel(jTree1.getModel());        
-        jTree1.setModel(model);        
-        
+        jTree2.setModel(jTree1.getModel());
+        jTree1.setModel(model);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void atualizaLista(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_atualizaLista
-	mudaLista();
+        mudaLista();
     }//GEN-LAST:event_atualizaLista
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String suf = this.arquivoLocal;
 
-        try{  
+        try {
             Object root = jTree1.getModel().getRoot();
 
             int nodes = jTree1.getModel().getChildCount(root);
 
-            for(int i = 0; i < nodes; i++){
-                Object arquivo = jTree1.getModel().getChild(root, i);   
+            for (int i = 0; i < nodes; i++) {
+                Object arquivo = jTree1.getModel().getChild(root, i);
 
-                if(jTree1.getModel().getChildCount(arquivo) > 0) {
+                if (jTree1.getModel().getChildCount(arquivo) > 0) {
                     listarArquivos(jTree1.getModel(), suf + "\\" + arquivo.toString(), arquivo);
-                }
-                else{
+                } else {
                     arquivos.add(suf + "\\" + arquivo.toString());
                 }
 
             }
-            
-        }catch(Exception e){ System.out.println(e); } 
-        
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
         ArrayList<String> listinha = new ArrayList<String>();
         listinha = pegaLista();
-      
-        for(int i = 0; i<arquivos.toArray().length; i++){
-            try{
-            File file = new File(arquivos.get(i));
-            
-            System.out.println("DELIMITADOR: " + this.deliLocal);
-            
-            String arquivoDeli = "";
-            String revisaoDeli = "";
-            
-            try{
-                arquivoDeli = file.getName().split(this.deliLocal)[0];
-                revisaoDeli = file.getName().split(this.deliLocal)[1];
-            }catch(Exception e){System.out.println("Erro no delimitador: " + e);}
-            
-            boolean validou = false;
-            
-            if(jToggleButton1.isSelected()) validou = true;
-            else{
-                try{ validou = listinha.contains(file.getName().substring(file.getName().indexOf(".")+1).toUpperCase());
-                }catch(Exception e){System.out.println("Erro pega extensão: " + e);}
-            }
-            
-            
-            if(validou){
-                if(connect.isNewArq(conexao, arquivoDeli, revisaoDeli)){
-                    System.out.println("arquivo é novo: " + file.getName());
 
-                    connect.mover(file, workPath);
+        for (int i = 0; i < arquivos.toArray().length; i++) {
+            try {
+                File file = new File(arquivos.get(i));
 
-                    connect.insertArquivos(conexao, arquivoDeli, revisaoDeli, workPath.replace("\\","/"));
+                System.out.println("DELIMITADOR: " + this.deliLocal);
+                System.out.println("WORKPATH: " + this.workPath);
 
-                    connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath.replace("\\","/"), 1, "Novo arquivo inserido");
+                String arquivoDeli = "";
+                String revisaoDeli = "";
 
-                }else if(connect.isNewRev(conexao, arquivoDeli, revisaoDeli)){
-                    System.out.println("arquivo é revisao nova: " + file.getName());
+                System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa " + FilenameUtils.getBaseName(file.getName()));
 
-                    connect.mover(file, workPath);
-
-                    connect.insertArquivos(conexao, arquivoDeli, revisaoDeli, workPath.replace("\\","/"));
-
-                    connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath.replace("\\","/"), 2, "Nova revisao inserida");
-
-
-                }else if(connect.getArquivos(conexao, arquivoDeli, revisaoDeli)){
-                    System.out.println("arquivo removido: " + file.getName());
-
-                    if(!connect.verifica(file.getName(), workPath)){
-                        connect.apaga(file);
-                        connect.insertHistorizador(conexao, "null", arquivoDeli, revisaoDeli, workPath.replace("\\","/"), 3, "Arquivo removido");
-                    }
-                    else{
-                        connect.mover(file, workPath);
-                        connect.insertHistorizador(conexao, arquivoDeli, "null", revisaoDeli, workPath.replace("\\","/"), 4, "Arquivo existente no BD foi inserido");
-                    }
-
-
-                }else{
-                    System.out.println("ERRO");
-                    connect.insertHistorizador(conexao, arquivoDeli, "null", revisaoDeli, workPath.replace("\\","/"), 0, "Erro ao analisar arquivo");
+                try {
+                    arquivoDeli = FilenameUtils.getBaseName(file.getName()).split(this.deliLocal)[0];
+                    revisaoDeli = FilenameUtils.getBaseName(file.getName()).split(this.deliLocal)[1];
+                } catch (Exception e) {
+                    System.out.println("Erro no delimitador: " + e);
                 }
-            }
-                    
-            }catch(Exception e){
+
+                boolean validou = false;
+
+                if (jToggleButton1.isSelected()) {
+                    validou = true;
+                } else {
+                    try {
+                        validou = listinha.contains(file.getName().substring(file.getName().indexOf(".") + 1).toUpperCase());
+                    } catch (Exception e) {
+                        System.out.println("Erro pega extensão: " + e);
+                    }
+                }
+
+                if (validou) {
+                    if (connect.isNewArq(conexao, arquivoDeli, revisaoDeli)) {
+                        System.out.println("arquivo é novo: " + file.getName());
+
+                        connect.mover(file, workPath);
+
+                        connect.insertArquivos(conexao, arquivoDeli, revisaoDeli, workPath.replace("\\", "/"));
+
+                        connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath.replace("\\", "/"), 1, "Novo arquivo inserido");
+
+                    } else if (connect.isNewRev(conexao, arquivoDeli, revisaoDeli)) {
+                        System.out.println("arquivo é revisao nova: " + file.getName());
+
+                        connect.mover(file, workPath);
+
+                        connect.insertArquivos(conexao, arquivoDeli, revisaoDeli, workPath.replace("\\", "/"));
+
+                        connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath.replace("\\", "/"), 2, "Nova revisao inserida");
+
+                    } else if (connect.getArquivos(conexao, arquivoDeli, revisaoDeli)) {
+                        System.out.println("arquivo removido: " + file.getName());
+
+                        if (!connect.verifica(file.getName(), workPath)) {
+                            connect.apaga(file);
+                            connect.insertHistorizador(conexao, "null", arquivoDeli, revisaoDeli, workPath.replace("\\", "/"), 3, "Arquivo removido");
+                        } else {
+                            connect.mover(file, workPath);
+                            connect.insertHistorizador(conexao, arquivoDeli, "null", revisaoDeli, workPath.replace("\\", "/"), 4, "Arquivo existente no BD foi inserido");
+                        }
+
+                    } else {
+                        System.out.println("ERRO");
+                        connect.insertHistorizador(conexao, arquivoDeli, "null", revisaoDeli, workPath.replace("\\", "/"), 0, "Erro ao analisar arquivo");
+                    }
+                }
+
+            } catch (Exception e) {
                 System.out.println(e);
             }
         }
-        
+
         System.out.println("----------------");
         System.out.println("");
-        
+
         arquivos.clear();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private ArrayList<String> pegaLista(){
+    private ArrayList<String> pegaLista() {
         List<List<String>> lista_local = new ArrayList<>();
-	ArrayList<String> lista_local_limpa = new ArrayList<>();
-        
-        try{
-	
-	try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-	    String line;
-	    while ((line = br.readLine()) != null) {
-		String[] values = line.split(";");
-		lista_local.add(Arrays.asList(values));
-	    }
-	}
+        ArrayList<String> lista_local_limpa = new ArrayList<>();
 
-	
-	int linha = 0, coluna = 0;
-	
-	for(List<String> i : lista_local){
-	    for(String w : i){
-		coluna++;
-		if(linha != 0){
-		    if(coluna == 2){
-                        if(i.toArray()[coluna].equals("S")){
-                            lista_local_limpa.add(w);
+        try {
+
+            try ( BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] values = line.split(";");
+                    lista_local.add(Arrays.asList(values));
+                }
+            }
+
+            int linha = 0, coluna = 0;
+
+            for (List<String> i : lista_local) {
+                for (String w : i) {
+                    coluna++;
+                    if (linha != 0) {
+                        if (coluna == 2) {
+                            if (i.toArray()[coluna].equals("S")) {
+                                lista_local_limpa.add(w);
+                            }
                         }
-		    }
-		}
-	    }
-            
-	    coluna = 0;
-	    linha++;
-	}
-        
-        }catch(Exception e){ ; }
-        
+                    }
+                }
+
+                coluna = 0;
+                linha++;
+            }
+
+        } catch (Exception e) {;
+        }
+
         return lista_local_limpa;
     }
-    
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        try{
-        DefaultTreeModel model = (DefaultTreeModel) jTree1.getModel();
-        DefaultMutableTreeNode toDelete = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent(); 
-        model.removeNodeFromParent(toDelete);
-        
-        jTree1.grabFocus();
-        }catch(Exception e){ ; }
+        try {
+            DefaultTreeModel model = (DefaultTreeModel) jTree1.getModel();
+            DefaultMutableTreeNode toDelete = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent();
+            model.removeNodeFromParent(toDelete);
+
+            jTree1.grabFocus();
+        } catch (Exception e) {;
+        }
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -483,70 +494,70 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
         this.moveToBack();
     }//GEN-LAST:event_focoGanho
 
-    private void listarArquivos(javax.swing.tree.TreeModel model, String suf, Object root){
-            try{
+    private void listarArquivos(javax.swing.tree.TreeModel model, String suf, Object root) {
+        try {
 
             int nodes = model.getChildCount(root);
 
-            for(int i = 0; i < nodes; i++){
-                Object arquivo = model.getChild(root, i);   
+            for (int i = 0; i < nodes; i++) {
+                Object arquivo = model.getChild(root, i);
 
-                if(model.getChildCount(arquivo) > 0) {
+                if (model.getChildCount(arquivo) > 0) {
                     listarArquivos(jTree1.getModel(), suf + "\\" + arquivo.toString(), arquivo);
-                }
-                else{
+                } else {
                     arquivos.add(suf + "\\" + arquivo.toString());
                 }
 
             }
-            
-        }catch(Exception e){ System.out.println(e); }   
+
+        } catch (Exception e) {
+            System.out.println(e);
         }
-    
-    public void mudaLista(){
-	try{
+    }
+
+    public void mudaLista() {
+        try {
             List<List<String>> lista_local = new ArrayList<>();
             List<String> lista_local_limpa = new ArrayList<>();
-	try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-	    String line;
-	    while ((line = br.readLine()) != null) {
-		String[] values = line.split(";");
-		lista_local.add(Arrays.asList(values));
-	    }
-	}
+            try ( BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] values = line.split(";");
+                    lista_local.add(Arrays.asList(values));
+                }
+            }
 
-	
-	int linha = 0, coluna = 0;
-	
-	for(List<String> i : lista_local){
-	    for(String w : i){
-		coluna++;
-		if(linha != 0){
-		    if(coluna == 2){
-                        if(i.toArray()[coluna].equals("S")){
-                            lista_local_limpa.add(w);
+            int linha = 0, coluna = 0;
+
+            for (List<String> i : lista_local) {
+                for (String w : i) {
+                    coluna++;
+                    if (linha != 0) {
+                        if (coluna == 2) {
+                            if (i.toArray()[coluna].equals("S")) {
+                                lista_local_limpa.add(w);
+                            }
                         }
-		    }
-		}
-	    }
-	    coluna = 0;
-	    linha++;
-	}
-	
-	this.lista = lista_local_limpa.toArray(new String[0]);
+                    }
+                }
+                coluna = 0;
+                linha++;
+            }
 
-	DefaultListModel modo = new DefaultListModel();
-	for (int i = 0; i < lista.length; i++)
-	{
-	    modo.addElement(lista[i]);
-	}
-	jList1.setModel(modo);
-	
-	jList1.setModel(modo);
-	this.atualizou = false;
-    }catch(Exception w){ ; }
+            this.lista = lista_local_limpa.toArray(new String[0]);
+
+            DefaultListModel modo = new DefaultListModel();
+            for (int i = 0; i < lista.length; i++) {
+                modo.addElement(lista[i]);
+            }
+            jList1.setModel(modo);
+
+            jList1.setModel(modo);
+            this.atualizou = false;
+        } catch (Exception w) {;
+        }
     }
-    
+
     public void scanner(File location, JTree lista) throws InterruptedException {
         // creates a file with the location filename
 
@@ -557,65 +568,66 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
         // function caled
         displayDirectoryContents(location, root);
     }
+
     public void displayDirectoryContents(File dir, DefaultMutableTreeNode root2) throws InterruptedException {
 
-    DefaultMutableTreeNode newdir = new DefaultMutableTreeNode();
+        DefaultMutableTreeNode newdir = new DefaultMutableTreeNode();
 
-    File[] files = dir.listFiles();
+        File[] files = dir.listFiles();
 
-    for (File file : files) {
-        if (file == null) {
-            JOptionPane.showMessageDialog(null, "Diretório nulo!");
-            continue;
-        }
-        if (file.isDirectory()) {
-            // file is a directory that is a folder has been dound
-
-            if (file.listFiles() == null) {
-                // skips null files
+        for (File file : files) {
+            if (file == null) {
+                JOptionPane.showMessageDialog(null, "Diretório nulo!");
                 continue;
             }
+            if (file.isDirectory()) {
+                // file is a directory that is a folder has been dound
 
-            // gets the current model of the jtree
-            DefaultTreeModel model = (DefaultTreeModel) jTree2.getModel();
+                if (file.listFiles() == null) {
+                    // skips null files
+                    continue;
+                }
 
-            // gets the root
-            DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+                // gets the current model of the jtree
+                DefaultTreeModel model = (DefaultTreeModel) jTree2.getModel();
 
-            // generates a node newdir using filename
-            newdir = new DefaultMutableTreeNode(file.getName());
+                // gets the root
+                DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 
-            // adds a node to the root of the jtree
-            root2.add(newdir);
+                // generates a node newdir using filename
+                newdir = new DefaultMutableTreeNode(file.getName());
 
-            // refresh the model to show the changes
-            model.reload();
+                // adds a node to the root of the jtree
+                root2.add(newdir);
 
-            // recursively calls the function again to explore the contents
-            // folder
-            displayDirectoryContents(file, newdir);
-        } else {
-            // Else part File is not a directory
+                // refresh the model to show the changes
+                model.reload();
 
-            // gets the current model of the tree
-            DefaultTreeModel model = (DefaultTreeModel) jTree2.getModel();
+                // recursively calls the function again to explore the contents
+                // folder
+                displayDirectoryContents(file, newdir);
+            } else {
+                // Else part File is not a directory
 
-            // selected node is the position where the new node will be
-            // inserted
-            DefaultMutableTreeNode selectednode = root2;
+                // gets the current model of the tree
+                DefaultTreeModel model = (DefaultTreeModel) jTree2.getModel();
 
-            DefaultMutableTreeNode newfile = new DefaultMutableTreeNode(file.getName());
+                // selected node is the position where the new node will be
+                // inserted
+                DefaultMutableTreeNode selectednode = root2;
 
-            // inserts a node newfile under selected node which is the root
-            model.insertNodeInto(newfile, selectednode, selectednode.getChildCount());
+                DefaultMutableTreeNode newfile = new DefaultMutableTreeNode(file.getName());
 
-            // refresh the model to show the changes
-            model.reload();
+                // inserts a node newfile under selected node which is the root
+                model.insertNodeInto(newfile, selectednode, selectednode.getChildCount());
+
+                // refresh the model to show the changes
+                model.reload();
+
+            }
 
         }
-
     }
-}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton isAuto;

@@ -160,7 +160,7 @@ public class connect {
         ResultSet rs = null;
 	String resultado = "";
         try{
-            pst = con.prepareStatement("insert into arquivos(cod_arquivos, arquivo, revisao, workpath) values (null, \"" + arquivo + "\", \"" + revisao + "\", \"" + workpath +"\");");
+            pst = con.prepareStatement("insert into arquivos(arquivo, revisao, workpath) values (\"" + arquivo + "\", \"" + revisao + "\", \"" + workpath +"\");");
             pst.execute();
             
         }catch(Exception e) { 
@@ -190,7 +190,7 @@ public class connect {
         LocalDateTime now = LocalDateTime.now();  
         
         try{
-            
+            System.out.println("erro --------------------------");
             pst = con.prepareStatement("select cod_arquivos from arquivos order by cod_arquivos desc limit 1;");
             rs = pst.executeQuery();
             
@@ -199,7 +199,7 @@ public class connect {
             while(rs.next()) num = rs.getString(1);
             if(num.equals("")) num = "null";
             
-            pst = con.prepareStatement("insert into historizador(cod_historizador, cod_arquivos, revisao, arquivo, acao, acaoDesc, data_historizador) values (null, \"" + num + "\", \"" + revisao + "\",\"" + arquivo + "\"," + acao + ",\"" + acaoDesc + "\",\"" + dtf.format(now) + "\");");
+            pst = con.prepareStatement("insert into historizador(cod_arquivos, revisao, arquivo, acao, acaoDesc, data_historizador) values (\"" + num + "\", \"" + revisao + "\",\"" + arquivo + "\"," + acao + ",\"" + acaoDesc + "\",\"" + dtf.format(now) + "\");");
             pst.execute();
             
         }catch(Exception e) { 
