@@ -27,7 +27,7 @@ public class tela_trabalho2 extends javax.swing.JInternalFrame {
      */
     
     Point local;
-    String workPath = System.getProperty("user.dir") + "\\workPath";
+    String workPath = System.getProperty("user.dir") + "/workPath";
     
     Connection conexao;
     connect connect = new connect();
@@ -42,7 +42,7 @@ public class tela_trabalho2 extends javax.swing.JInternalFrame {
     
     public tela_trabalho2() {
         initComponents();
-        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\icons\\trab2.png"));
+        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "/imgs/icons/trab2.png"));
         try{ conexao = connect.connectionMySql();
         }catch(Exception e) { ; }
         

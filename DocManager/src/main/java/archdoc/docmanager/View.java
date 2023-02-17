@@ -192,27 +192,57 @@ public class View extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_fechamento
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ArrayList<String[]> cru = connect.getSelectView(conexao, jList1.getSelectedValue());
-        String[][] tabela_;
-        String[] topo_;
-        
-        List<List<String>> tabela = new ArrayList<>();
-	List<String> topo = new ArrayList<>();
-        
-        
-        for(int i = 1; i <= Integer.parseInt(cru.get(cru.toArray().length - 1)[0]); i++)topo.add(cru.get(cru.toArray().length - 1 - i)[0]);
-        for(int i = 1; i <= Integer.parseInt(cru.get(cru.toArray().length - 1)[0]) + 1; i++)cru.remove(cru.toArray().length - 1 - i);
-        
-        
-	tabela_ = cru.toArray(new String[0][0]);
-        
-        Collections.reverse(topo);
-	topo_ = topo.toArray(new String[0]);
+        try{
+            ArrayList<String[]> cru = connect.getSelectView(conexao, jList1.getSelectedValue());
+            String[][] tabela_;
+            String[] topo_;
+
+            List<String> topo = new ArrayList<>();
+            List<String[]> tmpTopo = new ArrayList();
+            
+            int column = Integer.parseInt(cru.get(cru.toArray().length - 1)[0]);
+            
+            
+            cru.remove(cru.toArray().length - 1); //remove numero de colunas
+            
+            int delete = cru.toArray().length - column;
+            
+            tmpTopo = cru.subList(delete, cru.toArray().length);
+            
+            
+            for (int i = 0; i < tmpTopo.toArray().length; i++) {
+                topo.add(tmpTopo.get(i)[0]);
+            }
+            
+            for (int i = 0; i < topo.toArray().length; i++) {
+                System.out.println(topo.get(i));
+            }
+            
+            cru.remove(cru.toArray().length - column);
+            
+            try{
+                int tamanho = cru.toArray().length -1;
+                int limite = (tamanho - column + 1);
+                
+                for (int i = tamanho; i > limite; i--) {
+                    System.out.println("REMOVENDO: " + cru.get(i)[0]);
+                    System.out.println("INDEX: " + i);
+                    System.out.println("| - |");
+                    cru.remove(i);
+                }
+                
+            }catch(Exception e){System.out.println(e);}
 
 
-	DefaultTableModel modo = new DefaultTableModel(tabela_, topo_);
-        
-	jTable1.setModel(modo);
+            tabela_ = cru.toArray(new String[0][0]);
+    
+            topo_ = topo.toArray(new String[0]);
+
+
+            DefaultTableModel modo = new DefaultTableModel(tabela_, topo_);
+            
+            jTable1.setModel(modo);
+        }catch(Exception e){ System.out.println("ERROU " + e);}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void mudaLista(){

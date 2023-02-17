@@ -38,7 +38,7 @@ public class loading extends javax.swing.JFrame {
 
 	this.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
         
-        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "\\imgs\\icons\\principal.png");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "/imgs/icons/principal.png");
         setIconImage(iconeTitulo); 
         
         Thread w = new Thread(new Runnable() {
@@ -48,8 +48,19 @@ public class loading extends javax.swing.JFrame {
                 trab.setDarkMode(darkMode);
                 carregou = true;
                 while(true){
-                if(terminou) trab.setVisible(true);
+                if(terminou){
+                    trab.setVisible(true);
+                  
+                    System.out.println("aguarda");
+                    
+                    break;
                 }
+                    System.out.println("aguarda");
+                }
+                
+                System.out.println("acabou!!!");
+                
+                
             }
         });
         
@@ -121,7 +132,7 @@ public class loading extends javax.swing.JFrame {
         jLabel2.setText("Historizador e Organizador por archDoc");
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\imgs\\principal.png"));
+        jLabel3.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/imgs/principal.png"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

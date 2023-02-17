@@ -29,7 +29,7 @@ public class Config extends javax.swing.JInternalFrame {
     /**
      * Creates new form tiposArquivos
      */
-    private String file = System.getProperty("user.dir") + "\\Parameters\\tiposRev.csv";
+    private String file = System.getProperty("user.dir") + "/Parameters/tiposRev.csv";
     JDesktopPane tela;
     private String[] topo_tabela;
     private String[][] tabela;
@@ -47,7 +47,7 @@ public class Config extends javax.swing.JInternalFrame {
 
     public Config(JDesktopPane tela) {
 	initComponents();
-	setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\icons\\tipos.png"));
+	setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "/imgs/icons/tipos.png"));
 
 	int lDesk = tela.getWidth();
 	int aDesk = tela.getHeight();

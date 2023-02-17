@@ -48,7 +48,7 @@ public class Visualizador extends javax.swing.JInternalFrame {
 
         this.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
 
-        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\icons\\view.png"));
+        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "/imgs/icons/view.png"));
         
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
@@ -112,6 +112,11 @@ public class Visualizador extends javax.swing.JInternalFrame {
         });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "arquivo", "revisao" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel1.setText("Campo:");
@@ -119,7 +124,7 @@ public class Visualizador extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel2.setText("Tabela:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arquivos", "Historizador" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "arquivos", "historizador" }));
         jComboBox2.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox2ItemStateChanged(evt);
@@ -278,7 +283,7 @@ public class Visualizador extends javax.swing.JInternalFrame {
     private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
         DefaultComboBoxModel opa = new DefaultComboBoxModel();
 
-        if (jComboBox2.getSelectedItem().equals("Historizador")) {
+        if (jComboBox2.getSelectedItem().equals("historizador")) {
             opa.addElement("arquivo");
             opa.addElement("revisao");
             opa.addElement("acao");
@@ -387,6 +392,10 @@ public class Visualizador extends javax.swing.JInternalFrame {
         telaPrincipal.add(tmp);
         tmp.setVisible(true);
     }//GEN-LAST:event_jMenu3MouseClicked
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -27,14 +27,14 @@ public class tela_trabalho extends javax.swing.JFrame {
     /**
      * Creates new form tela_inicial
      */
-    private String htmlSobre = System.getProperty("user.dir") + "\\HTML\\main\\index.html";
-    private String htmlAjuda = System.getProperty("user.dir") + "\\HTML\\main\\contato.html";
+    private String htmlSobre = System.getProperty("user.dir") + "/HTML/main/index.html";
+    private String htmlAjuda = System.getProperty("user.dir") + "/HTML/main/contato.html";
     private tiposArquivos popup_tiposArquivos;
 
     tela_trabalho2 trabalhoAtual;
     tela_trabalho1 trabalhoNovo;
     
-    private String workPath = System.getProperty("user.dir") + "\\workPath";
+    private String workPath = System.getProperty("user.dir") + "/workPath";
 
     Visualizador visualizador;
     View view;
@@ -89,7 +89,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         int alt = tamTela.height;
         setSize(larg, alt);
 
-        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "\\imgs\\icons\\principal.png");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "/imgs/icons/principal.png");
         setIconImage(iconeTitulo);
 
         trabalhoNovo = new tela_trabalho1(atualizou);
@@ -604,7 +604,7 @@ public class tela_trabalho extends javax.swing.JFrame {
         ArrayList<File> arqs = new ArrayList<File>();
                     
         if (trabalhoNovo.chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            String dire = new String(trabalhoNovo.chooser.getCurrentDirectory() + "\\" + trabalhoNovo.chooser.getSelectedFile().getName());
+            String dire = new String(trabalhoNovo.chooser.getCurrentDirectory() + "/" + trabalhoNovo.chooser.getSelectedFile().getName());
             mapearUnidade(dire, arqs);
     } else {
            JOptionPane.showMessageDialog(null, "Você precisa selecionar uma pasta apra atualizar o diretório!");
@@ -615,11 +615,14 @@ public class tela_trabalho extends javax.swing.JFrame {
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
         // TODO add your handling code here:
         
-        String dir = System.getProperty("user.dir") + "\\Python\\";
-        
+        String dir = System.getProperty("user.dir") + "/Python/";
+       
+
       try{     
             Desktop desktop = Desktop.getDesktop();
-            desktop.open(new File(dir + "Analise1.exe"));
+            desktop.open(new File(dir + "Analise1.py"));
+
+            Process p = Runtime.getRuntime().exec("python " + dir + "Analise1.py");
             
             while(true){
                 File tmpDir = new File(dir + "retorno.png");
@@ -627,13 +630,15 @@ public class tela_trabalho extends javax.swing.JFrame {
                 
                 if(exists){
                     AnaliseView av = new AnaliseView();
+                    av.arrumaImagem();
                     this.add(av);
                     av.setVisible(true);
                     
                     break;
                 }
             }
-            
+          
+
         }catch(Exception e){     
                System.out.println(e);
         }  

@@ -29,9 +29,9 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
     JFileChooser chooser = new JFileChooser();
     private String[] lista;
     
-    private String file = System.getProperty("user.dir") + "\\Parameters\\tiposArquivos.csv";
+    private String file = System.getProperty("user.dir") + "/Parameters/tiposArquivos.csv";
     
-    private String workPath = System.getProperty("user.dir") + "\\workPath";
+    private String workPath = System.getProperty("user.dir") + "/workPath";
     public String deliLocal = "_";
     
     private String arquivoLocal = "";
@@ -59,7 +59,7 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
     
     public tela_trabalho1(boolean atualizou) {
         initComponents();
-        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\icons\\trab1.png"));
+        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "/imgs/icons/trab1.png"));
         try{ conexao = connect.connectionMySql();
         }catch(Exception e) { ; }
         
@@ -300,15 +300,15 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
                     DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
                     root.removeAllChildren();
                     model.reload();
-                    scanner(new File(chooser.getCurrentDirectory() + "\\" +chooser.getSelectedFile().getName()), jTree1);
-                     this.arquivoLocal = chooser.getCurrentDirectory() + "\\" +chooser.getSelectedFile().getName();
+                    scanner(new File(chooser.getCurrentDirectory() + "/" +chooser.getSelectedFile().getName()), jTree1);
+                     this.arquivoLocal = chooser.getCurrentDirectory() + "/" +chooser.getSelectedFile().getName();
                 }else{
                     DefaultTreeModel model = (DefaultTreeModel) jTree2.getModel();
                     DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
                     root.removeAllChildren();
                     model.reload();
-                    scanner(new File(chooser.getCurrentDirectory() + "\\" +chooser.getSelectedFile().getName()), jTree2);
-                    this.arquivoLocal = chooser.getCurrentDirectory() + "\\" +chooser.getSelectedFile().getName();
+                    scanner(new File(chooser.getCurrentDirectory() + "/" +chooser.getSelectedFile().getName()), jTree2);
+                    this.arquivoLocal = chooser.getCurrentDirectory() + "/" +chooser.getSelectedFile().getName();
                 }
             } catch (InterruptedException ex) { Logger.getLogger(tela_trabalho1.class.getName()).log(Level.SEVERE, null, ex); }
           }
@@ -330,6 +330,14 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
 	mudaLista();
     }//GEN-LAST:event_atualizaLista
 
+    private String getNameWithoutExtension(String fileName){
+        if (fileName.indexOf(".") > 0) {
+            return fileName.substring(0, fileName.lastIndexOf("."));
+         } else {
+            return fileName;
+         }
+    }
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String suf = this.arquivoLocal;
 
@@ -342,10 +350,10 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
                 Object arquivo = jTree1.getModel().getChild(root, i);   
 
                 if(jTree1.getModel().getChildCount(arquivo) > 0) {
-                    listarArquivos(jTree1.getModel(), suf + "\\" + arquivo.toString(), arquivo);
+                    listarArquivos(jTree1.getModel(), suf + "/" + arquivo.toString(), arquivo);
                 }
                 else{
-                    arquivos.add(suf + "\\" + arquivo.toString());
+                    arquivos.add(suf + "/" + arquivo.toString());
                 }
 
             }
@@ -365,8 +373,9 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
             String revisaoDeli = "";
             
             try{
-                arquivoDeli = file.getName().split(this.deliLocal)[0];
-                revisaoDeli = file.getName().split(this.deliLocal)[1];
+                arquivoDeli = getNameWithoutExtension(file.getName()).split(this.deliLocal)[0];
+                revisaoDeli = getNameWithoutExtension(file.getName()).split(this.deliLocal)[1];
+             
             }catch(Exception e){System.out.println("Erro no delimitador: " + e);}
             
             boolean validou = false;
@@ -384,18 +393,18 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
 
                     connect.mover(file, workPath);
 
-                    connect.insertArquivos(conexao, arquivoDeli, revisaoDeli, workPath.replace("\\","/"));
+                    connect.insertArquivos(conexao, arquivoDeli, revisaoDeli, workPath.replace("/","/"));
 
-                    connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath.replace("\\","/"), 1, "Novo arquivo inserido");
+                    connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath.replace("/","/"), 1, "Novo arquivo inserido");
 
                 }else if(connect.isNewRev(conexao, arquivoDeli, revisaoDeli)){
-                    System.out.println("arquivo é revisao nova: " + file.getName());
+                    System.out.println("arquivo é revisao nova: " + "NOME: " + arquivoDeli + " | Rev: " + revisaoDeli);
 
                     connect.mover(file, workPath);
 
-                    connect.insertArquivos(conexao, arquivoDeli, revisaoDeli, workPath.replace("\\","/"));
+                    connect.insertArquivos(conexao, arquivoDeli, revisaoDeli, workPath.replace("/","/"));
 
-                    connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath.replace("\\","/"), 2, "Nova revisao inserida");
+                    connect.insertHistorizador(conexao, arquivoDeli, revisaoDeli, workPath.replace("/","/"), 2, "Nova revisao inserida");
 
 
                 }else if(connect.getArquivos(conexao, arquivoDeli, revisaoDeli)){
@@ -403,17 +412,17 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
 
                     if(!connect.verifica(file.getName(), workPath)){
                         connect.apaga(file);
-                        connect.insertHistorizador(conexao, "null", arquivoDeli, revisaoDeli, workPath.replace("\\","/"), 3, "Arquivo removido");
+                        connect.insertHistorizador(conexao, "null", arquivoDeli, revisaoDeli, workPath.replace("/","/"), 3, "Arquivo removido");
                     }
                     else{
                         connect.mover(file, workPath);
-                        connect.insertHistorizador(conexao, arquivoDeli, "null", revisaoDeli, workPath.replace("\\","/"), 4, "Arquivo existente no BD foi inserido");
+                        connect.insertHistorizador(conexao, arquivoDeli, "null", revisaoDeli, workPath.replace("/","/"), 4, "Arquivo existente no BD foi inserido");
                     }
 
 
                 }else{
                     System.out.println("ERRO");
-                    connect.insertHistorizador(conexao, arquivoDeli, "null", revisaoDeli, workPath.replace("\\","/"), 0, "Erro ao analisar arquivo");
+                    connect.insertHistorizador(conexao, arquivoDeli, "null", revisaoDeli, workPath.replace("/","/"), 0, "Erro ao analisar arquivo");
                 }
             }
                     
@@ -492,10 +501,10 @@ public class tela_trabalho1 extends javax.swing.JInternalFrame {
                 Object arquivo = model.getChild(root, i);   
 
                 if(model.getChildCount(arquivo) > 0) {
-                    listarArquivos(jTree1.getModel(), suf + "\\" + arquivo.toString(), arquivo);
+                    listarArquivos(jTree1.getModel(), suf + "/" + arquivo.toString(), arquivo);
                 }
                 else{
-                    arquivos.add(suf + "\\" + arquivo.toString());
+                    arquivos.add(suf + "/" + arquivo.toString());
                 }
 
             }

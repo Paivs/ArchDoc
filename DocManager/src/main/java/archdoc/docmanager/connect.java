@@ -20,7 +20,7 @@ public class connect {
     private static String localBD = "localhost";
     private static String LINK = "jdbc:mysql://" + localBD + ":3306/archDoc";
     private static final String usuario = "root";
-    private static final String senha = "";
+    private static final String senha = "Paiva@123";
     
     PreparedStatement pst;
     
@@ -157,6 +157,7 @@ public class connect {
     
     
     public void insertArquivos(Connection con, String arquivo, String revisao, String workpath){
+        System.out.println("INSERT ARQUIVOS");
         ResultSet rs = null;
 	String resultado = "";
         try{
@@ -166,24 +167,28 @@ public class connect {
         }catch(Exception e) { 
 	    System.out.println(e);
 	}
+        System.out.println("INSERT ARQUIVOS DONE");
     }
     
     
     public void insertHistorizador(Connection con, String arquivo, String cod_arquivos ,String revisao, String workpath, int acao, String acaoDesc){
+        System.out.println("INSERT HISTORIZADOR");
         ResultSet rs = null;
 	String resultado = "";
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
         LocalDateTime now = LocalDateTime.now();  
         
         try{
-            pst = con.prepareStatement("insert into historizador(cod_historizador, cod_arquivos, revisao, arquivo, acao, acaoDesc, data_historizador) values (null, \"" + cod_arquivos + "\", \"" + revisao + "\",\"" + arquivo + "\"," + acao + ",\"" + acaoDesc + "\",\"" + dtf.format(now) + "\");");
+            pst = con.prepareStatement("insert into historizador(cod_historizador, revisao, arquivo, acao, data_historizador) values (null, " + " \"" + revisao + "\",\"" + arquivo + "\"," + acao + ",\"" + dtf.format(now) + "\");");
             pst.execute();
             
         }catch(Exception e) { 
 	    System.out.println(e);
 	}
+        System.out.println("INSERT HISTORIZADOR DONE");
     }
     public void insertHistorizador(Connection con, String arquivo, String revisao, String workpath, int acao, String acaoDesc){
+        System.out.println("INSERT HISTORIZADOR");
         ResultSet rs = null;
 	String resultado = "";
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
@@ -199,12 +204,13 @@ public class connect {
             while(rs.next()) num = rs.getString(1);
             if(num.equals("")) num = "null";
             
-            pst = con.prepareStatement("insert into historizador(cod_historizador, cod_arquivos, revisao, arquivo, acao, acaoDesc, data_historizador) values (null, \"" + num + "\", \"" + revisao + "\",\"" + arquivo + "\"," + acao + ",\"" + acaoDesc + "\",\"" + dtf.format(now) + "\");");
+            pst = con.prepareStatement("insert into historizador(cod_historizador, revisao, arquivo, acao, data_historizador) values (null, "+  "\"" + revisao + "\",\"" + arquivo + "\"," + acao + ",\"" + dtf.format(now) + "\");");
             pst.execute();
             
         }catch(Exception e) { 
 	    System.out.println(e);
 	}
+        System.out.println("INSERT HISTORIZADOR DONE");
     }
     
     
@@ -248,7 +254,7 @@ public class connect {
             
             LocalDate now = java.time.LocalDate.now();
                     
-            FileWriter file = new FileWriter(destino + "\\Export_" + now.toString().replace("-", "_") + "." + ext);
+            FileWriter file = new FileWriter(destino + "/Export_" + now.toString().replace("-", "_") + "." + ext);
             PrintWriter write = new PrintWriter(file);
             
             String valores = "";
@@ -314,7 +320,7 @@ public class connect {
         try{
             
             LocalDate now = java.time.LocalDate.now();
-            String nome = "\\Analise" +"\\Export_toAnalisar_" + cod + "_" + now.toString().replace("-", "_") + ".csv";
+            String nome = "/Analise" +"/Export_toAnalisar_" + cod + "_" + now.toString().replace("-", "_") + ".csv";
                     
             FileWriter file = new FileWriter(System.getProperty("user.dir") + nome);
             PrintWriter write = new PrintWriter(file);
@@ -403,6 +409,18 @@ public class connect {
             }catch(Exception e) {
                 System.out.println(e);
             }
+        
+        
+        System.out.println("------------------------------------======");
+        
+        for (int i = 0; i < arq.toArray().length; i++) {
+            for (int j = 0; j < arq.get(i).length; j++) {
+                System.out.print(arq.get(i)[j] + " ");
+            }
+            System.out.println("");
+        }
+        
+        System.out.println("------------------------------------======");
 
 
         return arq; 
@@ -419,11 +437,11 @@ public class connect {
     public void mover(File arquivo, String pastaDestino){
         Path result = null;
         try{
-            Files.move(Paths.get(arquivo.getAbsolutePath()), Paths.get(pastaDestino + "\\" + arquivo.getName()));
+            Files.move(Paths.get(arquivo.getAbsolutePath()), Paths.get(pastaDestino + "/" + arquivo.getName()));
         }catch(Exception e){ ; }
     }
     public boolean verifica(String arquivo, String workPath){
-        return new File(workPath + "\\" + arquivo).exists();
+        return new File(workPath + "/" + arquivo).exists();
     }
     
 }

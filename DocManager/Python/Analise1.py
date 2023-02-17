@@ -2,12 +2,11 @@ import matplotlib.pyplot as plt
 import datetime
 import numpy as np
 import pandas as pd
-import tkinter
 import os
 
 hoje = str(datetime.date.today())
 
-arquivo = os.getcwd() + "\\Python\\" +"\\Export_toAnalisar_0_" + hoje.replace("-", "_") + ".csv"
+arquivo = os.getcwd() + "/Export_toAnalisar_0_" + hoje.replace("-", "_") + ".csv"
 
 print()
 
@@ -62,9 +61,7 @@ try:
 
     plt.tight_layout()
 
-    ax1.savefig(os.getcwd() + "\\Python\\" + "\\retorno.png", dpi=1200)
+    ax1.savefig(os.getcwd() + "/retorno.png", dpi=1200)
 
 except: 
     pass
-
-tkinter.messagebox.showwarning(title="Análise de dados", message="Os dados foram processados!!!")

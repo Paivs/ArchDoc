@@ -33,8 +33,8 @@ public class tela_principal extends javax.swing.JFrame {
     
     static boolean darkMode = true;
     
-    private String htmlSobre = System.getProperty("user.dir") + "\\HTML\\main\\index.html";
-    private String htmlAjuda = System.getProperty("user.dir") + "\\HTML\\main\\contato.html";
+    private String htmlSobre = System.getProperty("user.dir") + "/HTML/main/index.html";
+    private String htmlAjuda = System.getProperty("user.dir") + "/HTML/main/contato.html";
     
     Info telinha;
     
@@ -45,11 +45,13 @@ public class tela_principal extends javax.swing.JFrame {
         try{ conexao = connect.connectionMySql();
         }catch(Exception e) { ; }
         
-        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "\\imgs\\icons\\principal.png");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "/imgs/icons/principal.png");
         setIconImage(iconeTitulo);
         
-        logo.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\fundo.png"));
+        logo.setIcon(new ImageIcon(System.getProperty("user.dir") + "/imgs/fundo.png"));
         logo.setVisible(true);
+        
+        System.out.println(System.getProperty("user.dir") + "/imgs/fundo.png");
 
  
     }
@@ -247,13 +249,13 @@ public class tela_principal extends javax.swing.JFrame {
             FlatLightLaf lookAndFeel1 = new FlatLightLaf();
             javax.swing.UIManager.setLookAndFeel(lookAndFeel1);
             darkMode = false;
-	    logo.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\fundo_alter.png"));
+	    logo.setIcon(new ImageIcon(System.getProperty("user.dir") + "/imgs/fundo_alter.png"));
 	    logo.setVisible(true);
         } else{
             FlatDarculaLaf lookAndFeel2 = new FlatDarculaLaf();
             javax.swing.UIManager.setLookAndFeel(lookAndFeel2);
             darkMode = true;
-	    logo.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\fundo.png"));
+	    logo.setIcon(new ImageIcon(System.getProperty("user.dir") + "/imgs/fundo.png"));
 	    logo.setVisible(true);
         }
         

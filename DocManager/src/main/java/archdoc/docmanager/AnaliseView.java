@@ -4,6 +4,7 @@
  */
 package archdoc.docmanager;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,24 +23,31 @@ public class AnaliseView extends javax.swing.JInternalFrame {
      */
     public AnaliseView() throws IOException {
         initComponents();
-      
-        jLabel2.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\Python\\retorno.png"));
+           
+    }
+    
+    public void arrumaImagem(){
+        jLabel2.setIcon(new ImageIcon(System.getProperty("user.dir") + "/Python/retorno.png"));
+        
+        //while(this.getHeight() == 0 || this.getWidth() == 0)
         
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File(System.getProperty("user.dir") + "\\Python\\retorno.png"));
+            img = ImageIO.read(new File(System.getProperty("user.dir") + "/Python/retorno.png"));
         } catch (IOException e) {
-            System.out.println("aaaa");
-            e.printStackTrace();
-            System.out.println("bbb");
+            System.out.println("ERRO e: " + e);
         }
         
         Image dimg = null;
         
         try{
-            dimg = img.getScaledInstance(695, 695, Image.SCALE_SMOOTH);
+            System.out.println("ALTURA: " + this.getHeight());
+            System.out.println("LARGURA: " + this.getWidth());
+            System.out.println("PROTOCOLO: Image.SCALE_AREA_AVERAGING");
+            
+            dimg = img.getScaledInstance(this.getHeight() - 15, this.getWidth() - 15, Image.SCALE_AREA_AVERAGING);
         }catch(Exception e){
-            System.out.println(e);
+            System.out.println("Erro ao redimensionar a imagem " + e);
         }
         
         try{
@@ -48,8 +56,18 @@ public class AnaliseView extends javax.swing.JInternalFrame {
             jLabel2.setIcon(imageIcon);
             jLabel2.repaint();
             
-        }catch(Exception e){;}
+        }catch(Exception e){
+            System.out.println("ERRO");
+        }
+        
+        /*
+        BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) throws IOException {
+        BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D graphics2D = resizedImage.createGraphics();
+        graphics2D.drawImage(originalImage, 0, 0, targetWidth, targetHeight, null);
+        graphics2D.dispose();*/
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -88,16 +106,16 @@ public class AnaliseView extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(15, 15, 15)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -105,7 +123,7 @@ public class AnaliseView extends javax.swing.JInternalFrame {
 
     private void fechar(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_fechar
         // TODO add your handling code here:
-                    new File(System.getProperty("user.dir") + "\\Python\\retorno.png").delete();
+                    new File(System.getProperty("user.dir") + "/Python/retorno.png").delete();
     }//GEN-LAST:event_fechar
 
 

@@ -46,7 +46,7 @@ public class ListaViews extends javax.swing.JInternalFrame {
 
         this.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
 
-        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\icons\\lista.png"));
+        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "/imgs/icons/lista.png"));
 
         this.ext = ext;
         this.trabalhoNovo = trabalhoNovo;
@@ -78,7 +78,7 @@ public class ListaViews extends javax.swing.JInternalFrame {
 
         this.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
 
-        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\icons\\lista.png"));
+        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "/imgs/icons/lista.png"));
 
         String[] lista = connect.getView(conexao).toArray(new String[0]);
 
@@ -108,7 +108,7 @@ public class ListaViews extends javax.swing.JInternalFrame {
 
         this.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
 
-        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "\\imgs\\icons\\lista.png"));
+        setFrameIcon(new ImageIcon(System.getProperty("user.dir") + "/imgs/icons/lista.png"));
 
         this.ext = ext;
         this.trabalhoNovo = trabalhoNovo;

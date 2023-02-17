@@ -51,7 +51,7 @@ public class Info extends javax.swing.JInternalFrame {
         notas1.setFocusable(false);
         jScrollPane2.setViewportView(notas1);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\imgs\\principal.png"));
+        jLabel2.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "/imgs/principal.png"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
